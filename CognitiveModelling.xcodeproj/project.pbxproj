@@ -16,11 +16,11 @@
 
 /* Begin PBXFileReference section */
 		4DBC087925DE676000A2F55A /* CognitiveModelling.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CognitiveModelling.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		4DBC087C25DE676000A2F55A /* CognitiveModellingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CognitiveModellingApp.swift; path = /Users/s2985489/Documents/CognitiveModelling/CognitiveModelling/CognitiveModellingApp.swift; sourceTree = "<absolute>"; };
-		4DBC087E25DE676000A2F55A /* PlayingFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlayingFieldView.swift; path = /Users/s2985489/Documents/CognitiveModelling/CognitiveModelling/PlayingFieldView.swift; sourceTree = "<absolute>"; };
-		4DBC088025DE676400A2F55A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = /Users/s2985489/Documents/CognitiveModelling/CognitiveModelling/Assets.xcassets; sourceTree = "<absolute>"; };
-		4DBC088325DE676400A2F55A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = "Preview Assets.xcassets"; path = "/Users/s2985489/Documents/CognitiveModelling/CognitiveModelling/Preview Content/Preview Assets.xcassets"; sourceTree = "<absolute>"; };
-		4DBC088525DE676400A2F55A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = /Users/s2985489/Documents/CognitiveModelling/CognitiveModelling/Info.plist; sourceTree = "<absolute>"; };
+		4DBC087C25DE676000A2F55A /* CognitiveModellingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CognitiveModellingApp.swift; path = CognitiveModelling/CognitiveModellingApp.swift; sourceTree = SOURCE_ROOT; };
+		4DBC087E25DE676000A2F55A /* PlayingFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlayingFieldView.swift; path = CognitiveModelling/PlayingFieldView.swift; sourceTree = SOURCE_ROOT; };
+		4DBC088025DE676400A2F55A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = CognitiveModelling/Assets.xcassets; sourceTree = SOURCE_ROOT; };
+		4DBC088325DE676400A2F55A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = "Preview Assets.xcassets"; path = "CognitiveModelling/Preview Content/Preview Assets.xcassets"; sourceTree = SOURCE_ROOT; };
+		4DBC088525DE676400A2F55A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = CognitiveModelling/Info.plist; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,8 +48,7 @@
 				4DBC087925DE676000A2F55A /* CognitiveModelling.app */,
 			);
 			name = Products;
-			path = /Users/s2985489/Documents/CognitiveModelling;
-			sourceTree = "<absolute>";
+			sourceTree = SOURCE_ROOT;
 		};
 		4DBC087B25DE676000A2F55A /* CognitiveModelling */ = {
 			isa = PBXGroup;
@@ -60,9 +59,8 @@
 				4DBC088525DE676400A2F55A /* Info.plist */,
 				4DBC088225DE676400A2F55A /* Preview Content */,
 			);
-			name = CognitiveModelling;
-			path = /Users/s2985489/Documents/CognitiveModelling/CognitiveModelling;
-			sourceTree = "<absolute>";
+			path = CognitiveModelling;
+			sourceTree = SOURCE_ROOT;
 		};
 		4DBC088225DE676400A2F55A /* Preview Content */ = {
 			isa = PBXGroup;
@@ -70,8 +68,8 @@
 				4DBC088325DE676400A2F55A /* Preview Assets.xcassets */,
 			);
 			name = "Preview Content";
-			path = "/Users/s2985489/Documents/CognitiveModelling/CognitiveModelling/Preview Content";
-			sourceTree = "<absolute>";
+			path = "CognitiveModelling/Preview Content";
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
