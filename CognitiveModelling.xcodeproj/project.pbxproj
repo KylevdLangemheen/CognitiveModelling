@@ -7,56 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4DBC083425DE5C0700A2F55A /* CognitiveModellingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBC083325DE5C0700A2F55A /* CognitiveModellingApp.swift */; };
-		4DBC083625DE5C0700A2F55A /* PlayingFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBC083525DE5C0700A2F55A /* PlayingFieldView.swift */; };
-		4DBC083825DE5C1000A2F55A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4DBC083725DE5C1000A2F55A /* Assets.xcassets */; };
-		4DBC083B25DE5C1000A2F55A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4DBC083A25DE5C1000A2F55A /* Preview Assets.xcassets */; };
+		4DBC087D25DE676000A2F55A /* CognitiveModellingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBC087C25DE676000A2F55A /* CognitiveModellingApp.swift */; };
+		4DBC087F25DE676000A2F55A /* PlayingFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBC087E25DE676000A2F55A /* PlayingFieldView.swift */; };
+		4DBC088125DE676400A2F55A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4DBC088025DE676400A2F55A /* Assets.xcassets */; };
+		4DBC088425DE676400A2F55A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4DBC088325DE676400A2F55A /* Preview Assets.xcassets */; };
+		4DBC088F25DE699500A2F55A /* CognitiveModelling.app in Resources */ = {isa = PBXBuildFile; fileRef = 4DBC087925DE676000A2F55A /* CognitiveModelling.app */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		4DBC084225DE5C1100A2F55A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4DBC082825DE5C0700A2F55A /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4DBC082F25DE5C0700A2F55A;
-			remoteInfo = CognitiveModelling;
-		};
-		4DBC084D25DE5C1100A2F55A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4DBC082825DE5C0700A2F55A /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4DBC082F25DE5C0700A2F55A;
-			remoteInfo = CognitiveModelling;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
-		4DBC083025DE5C0700A2F55A /* CognitiveModelling.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CognitiveModelling.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		4DBC083325DE5C0700A2F55A /* CognitiveModellingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CognitiveModellingApp.swift; sourceTree = "<group>"; };
-		4DBC083525DE5C0700A2F55A /* PlayingFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingFieldView.swift; sourceTree = "<group>"; };
-		4DBC083725DE5C1000A2F55A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		4DBC083A25DE5C1000A2F55A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		4DBC083C25DE5C1000A2F55A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4DBC084125DE5C1100A2F55A /* CognitiveModellingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CognitiveModellingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		4DBC084C25DE5C1100A2F55A /* CognitiveModellingUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CognitiveModellingUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4DBC087925DE676000A2F55A /* CognitiveModelling.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CognitiveModelling.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4DBC087C25DE676000A2F55A /* CognitiveModellingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CognitiveModellingApp.swift; path = /Users/s2985489/Documents/CognitiveModelling/CognitiveModelling/CognitiveModellingApp.swift; sourceTree = "<absolute>"; };
+		4DBC087E25DE676000A2F55A /* PlayingFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlayingFieldView.swift; path = /Users/s2985489/Documents/CognitiveModelling/CognitiveModelling/PlayingFieldView.swift; sourceTree = "<absolute>"; };
+		4DBC088025DE676400A2F55A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = /Users/s2985489/Documents/CognitiveModelling/CognitiveModelling/Assets.xcassets; sourceTree = "<absolute>"; };
+		4DBC088325DE676400A2F55A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = "Preview Assets.xcassets"; path = "/Users/s2985489/Documents/CognitiveModelling/CognitiveModelling/Preview Content/Preview Assets.xcassets"; sourceTree = "<absolute>"; };
+		4DBC088525DE676400A2F55A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = /Users/s2985489/Documents/CognitiveModelling/CognitiveModelling/Info.plist; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		4DBC082D25DE5C0700A2F55A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4DBC083E25DE5C1100A2F55A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4DBC084925DE5C1100A2F55A /* Frameworks */ = {
+		4DBC087625DE676000A2F55A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -66,54 +34,55 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4DBC082725DE5C0700A2F55A = {
+		4DBC087025DE676000A2F55A = {
 			isa = PBXGroup;
 			children = (
-				4DBC083225DE5C0700A2F55A /* CognitiveModelling */,
-				4DBC083125DE5C0700A2F55A /* Products */,
+				4DBC087B25DE676000A2F55A /* CognitiveModelling */,
+				4DBC087A25DE676000A2F55A /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		4DBC083125DE5C0700A2F55A /* Products */ = {
+		4DBC087A25DE676000A2F55A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4DBC083025DE5C0700A2F55A /* CognitiveModelling.app */,
-				4DBC084125DE5C1100A2F55A /* CognitiveModellingTests.xctest */,
-				4DBC084C25DE5C1100A2F55A /* CognitiveModellingUITests.xctest */,
+				4DBC087925DE676000A2F55A /* CognitiveModelling.app */,
 			);
 			name = Products;
-			sourceTree = "<group>";
+			path = /Users/s2985489/Documents/CognitiveModelling;
+			sourceTree = "<absolute>";
 		};
-		4DBC083225DE5C0700A2F55A /* CognitiveModelling */ = {
+		4DBC087B25DE676000A2F55A /* CognitiveModelling */ = {
 			isa = PBXGroup;
 			children = (
-				4DBC083325DE5C0700A2F55A /* CognitiveModellingApp.swift */,
-				4DBC083525DE5C0700A2F55A /* PlayingFieldView.swift */,
-				4DBC083725DE5C1000A2F55A /* Assets.xcassets */,
-				4DBC083C25DE5C1000A2F55A /* Info.plist */,
-				4DBC083925DE5C1000A2F55A /* Preview Content */,
+				4DBC087C25DE676000A2F55A /* CognitiveModellingApp.swift */,
+				4DBC087E25DE676000A2F55A /* PlayingFieldView.swift */,
+				4DBC088025DE676400A2F55A /* Assets.xcassets */,
+				4DBC088525DE676400A2F55A /* Info.plist */,
+				4DBC088225DE676400A2F55A /* Preview Content */,
 			);
-			path = CognitiveModelling;
-			sourceTree = "<group>";
+			name = CognitiveModelling;
+			path = /Users/s2985489/Documents/CognitiveModelling/CognitiveModelling;
+			sourceTree = "<absolute>";
 		};
-		4DBC083925DE5C1000A2F55A /* Preview Content */ = {
+		4DBC088225DE676400A2F55A /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
-				4DBC083A25DE5C1000A2F55A /* Preview Assets.xcassets */,
+				4DBC088325DE676400A2F55A /* Preview Assets.xcassets */,
 			);
-			path = "Preview Content";
-			sourceTree = "<group>";
+			name = "Preview Content";
+			path = "/Users/s2985489/Documents/CognitiveModelling/CognitiveModelling/Preview Content";
+			sourceTree = "<absolute>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		4DBC082F25DE5C0700A2F55A /* CognitiveModelling */ = {
+		4DBC087825DE676000A2F55A /* CognitiveModelling */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4DBC085525DE5C1100A2F55A /* Build configuration list for PBXNativeTarget "CognitiveModelling" */;
+			buildConfigurationList = 4DBC088825DE676400A2F55A /* Build configuration list for PBXNativeTarget "CognitiveModelling" */;
 			buildPhases = (
-				4DBC082C25DE5C0700A2F55A /* Sources */,
-				4DBC082D25DE5C0700A2F55A /* Frameworks */,
-				4DBC082E25DE5C0700A2F55A /* Resources */,
+				4DBC087525DE676000A2F55A /* Sources */,
+				4DBC087625DE676000A2F55A /* Frameworks */,
+				4DBC087725DE676000A2F55A /* Resources */,
 			);
 			buildRules = (
 			);
@@ -121,68 +90,24 @@
 			);
 			name = CognitiveModelling;
 			productName = CognitiveModelling;
-			productReference = 4DBC083025DE5C0700A2F55A /* CognitiveModelling.app */;
+			productReference = 4DBC087925DE676000A2F55A /* CognitiveModelling.app */;
 			productType = "com.apple.product-type.application";
-		};
-		4DBC084025DE5C1100A2F55A /* CognitiveModellingTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4DBC085825DE5C1100A2F55A /* Build configuration list for PBXNativeTarget "CognitiveModellingTests" */;
-			buildPhases = (
-				4DBC083D25DE5C1100A2F55A /* Sources */,
-				4DBC083E25DE5C1100A2F55A /* Frameworks */,
-				4DBC083F25DE5C1100A2F55A /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				4DBC084325DE5C1100A2F55A /* PBXTargetDependency */,
-			);
-			name = CognitiveModellingTests;
-			productName = CognitiveModellingTests;
-			productReference = 4DBC084125DE5C1100A2F55A /* CognitiveModellingTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		4DBC084B25DE5C1100A2F55A /* CognitiveModellingUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4DBC085B25DE5C1100A2F55A /* Build configuration list for PBXNativeTarget "CognitiveModellingUITests" */;
-			buildPhases = (
-				4DBC084825DE5C1100A2F55A /* Sources */,
-				4DBC084925DE5C1100A2F55A /* Frameworks */,
-				4DBC084A25DE5C1100A2F55A /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				4DBC084E25DE5C1100A2F55A /* PBXTargetDependency */,
-			);
-			name = CognitiveModellingUITests;
-			productName = CognitiveModellingUITests;
-			productReference = 4DBC084C25DE5C1100A2F55A /* CognitiveModellingUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		4DBC082825DE5C0700A2F55A /* Project object */ = {
+		4DBC087125DE676000A2F55A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1240;
 				LastUpgradeCheck = 1240;
 				TargetAttributes = {
-					4DBC082F25DE5C0700A2F55A = {
+					4DBC087825DE676000A2F55A = {
 						CreatedOnToolsVersion = 12.4;
-					};
-					4DBC084025DE5C1100A2F55A = {
-						CreatedOnToolsVersion = 12.4;
-						TestTargetID = 4DBC082F25DE5C0700A2F55A;
-					};
-					4DBC084B25DE5C1100A2F55A = {
-						CreatedOnToolsVersion = 12.4;
-						TestTargetID = 4DBC082F25DE5C0700A2F55A;
 					};
 				};
 			};
-			buildConfigurationList = 4DBC082B25DE5C0700A2F55A /* Build configuration list for PBXProject "CognitiveModelling" */;
+			buildConfigurationList = 4DBC087425DE676000A2F55A /* Build configuration list for PBXProject "CognitiveModelling" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -190,85 +115,43 @@
 				en,
 				Base,
 			);
-			mainGroup = 4DBC082725DE5C0700A2F55A;
-			productRefGroup = 4DBC083125DE5C0700A2F55A /* Products */;
+			mainGroup = 4DBC087025DE676000A2F55A;
+			productRefGroup = 4DBC087A25DE676000A2F55A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				4DBC082F25DE5C0700A2F55A /* CognitiveModelling */,
-				4DBC084025DE5C1100A2F55A /* CognitiveModellingTests */,
-				4DBC084B25DE5C1100A2F55A /* CognitiveModellingUITests */,
+				4DBC087825DE676000A2F55A /* CognitiveModelling */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		4DBC082E25DE5C0700A2F55A /* Resources */ = {
+		4DBC087725DE676000A2F55A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4DBC083B25DE5C1000A2F55A /* Preview Assets.xcassets in Resources */,
-				4DBC083825DE5C1000A2F55A /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4DBC083F25DE5C1100A2F55A /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4DBC084A25DE5C1100A2F55A /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				4DBC088425DE676400A2F55A /* Preview Assets.xcassets in Resources */,
+				4DBC088125DE676400A2F55A /* Assets.xcassets in Resources */,
+				4DBC088F25DE699500A2F55A /* CognitiveModelling.app in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		4DBC082C25DE5C0700A2F55A /* Sources */ = {
+		4DBC087525DE676000A2F55A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4DBC083625DE5C0700A2F55A /* PlayingFieldView.swift in Sources */,
-				4DBC083425DE5C0700A2F55A /* CognitiveModellingApp.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4DBC083D25DE5C1100A2F55A /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4DBC084825DE5C1100A2F55A /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				4DBC087F25DE676000A2F55A /* PlayingFieldView.swift in Sources */,
+				4DBC087D25DE676000A2F55A /* CognitiveModellingApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		4DBC084325DE5C1100A2F55A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4DBC082F25DE5C0700A2F55A /* CognitiveModelling */;
-			targetProxy = 4DBC084225DE5C1100A2F55A /* PBXContainerItemProxy */;
-		};
-		4DBC084E25DE5C1100A2F55A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4DBC082F25DE5C0700A2F55A /* CognitiveModelling */;
-			targetProxy = 4DBC084D25DE5C1100A2F55A /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin XCBuildConfiguration section */
-		4DBC085325DE5C1100A2F55A /* Debug */ = {
+		4DBC088625DE676400A2F55A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -329,7 +212,7 @@
 			};
 			name = Debug;
 		};
-		4DBC085425DE5C1100A2F55A /* Release */ = {
+		4DBC088725DE676400A2F55A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -384,7 +267,7 @@
 			};
 			name = Release;
 		};
-		4DBC085625DE5C1100A2F55A /* Debug */ = {
+		4DBC088925DE676400A2F55A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -405,7 +288,7 @@
 			};
 			name = Debug;
 		};
-		4DBC085725DE5C1100A2F55A /* Release */ = {
+		4DBC088A25DE676400A2F55A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -423,129 +306,31 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		4DBC085925DE5C1100A2F55A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = CognitiveModellingTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = kylevdlangemheen.rug.CognitiveModellingTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CognitiveModelling.app/CognitiveModelling";
-			};
-			name = Debug;
-		};
-		4DBC085A25DE5C1100A2F55A /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = CognitiveModellingTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = kylevdlangemheen.rug.CognitiveModellingTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CognitiveModelling.app/CognitiveModelling";
-			};
-			name = Release;
-		};
-		4DBC085C25DE5C1100A2F55A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = CognitiveModellingUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = kylevdlangemheen.rug.CognitiveModellingUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = CognitiveModelling;
-			};
-			name = Debug;
-		};
-		4DBC085D25DE5C1100A2F55A /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = CognitiveModellingUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = kylevdlangemheen.rug.CognitiveModellingUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = CognitiveModelling;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		4DBC082B25DE5C0700A2F55A /* Build configuration list for PBXProject "CognitiveModelling" */ = {
+		4DBC087425DE676000A2F55A /* Build configuration list for PBXProject "CognitiveModelling" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				4DBC085325DE5C1100A2F55A /* Debug */,
-				4DBC085425DE5C1100A2F55A /* Release */,
+				4DBC088625DE676400A2F55A /* Debug */,
+				4DBC088725DE676400A2F55A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4DBC085525DE5C1100A2F55A /* Build configuration list for PBXNativeTarget "CognitiveModelling" */ = {
+		4DBC088825DE676400A2F55A /* Build configuration list for PBXNativeTarget "CognitiveModelling" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				4DBC085625DE5C1100A2F55A /* Debug */,
-				4DBC085725DE5C1100A2F55A /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		4DBC085825DE5C1100A2F55A /* Build configuration list for PBXNativeTarget "CognitiveModellingTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4DBC085925DE5C1100A2F55A /* Debug */,
-				4DBC085A25DE5C1100A2F55A /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		4DBC085B25DE5C1100A2F55A /* Build configuration list for PBXNativeTarget "CognitiveModellingUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4DBC085C25DE5C1100A2F55A /* Debug */,
-				4DBC085D25DE5C1100A2F55A /* Release */,
+				4DBC088925DE676400A2F55A /* Debug */,
+				4DBC088A25DE676400A2F55A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 4DBC082825DE5C0700A2F55A /* Project object */;
+	rootObject = 4DBC087125DE676000A2F55A /* Project object */;
 }

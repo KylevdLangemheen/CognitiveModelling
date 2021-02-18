@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct SaboteurGameApp: App {
+struct CognitiveModellingApp: App {
     var body: some Scene {
         WindowGroup {
             PlayingFieldView()
