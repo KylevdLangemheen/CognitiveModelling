@@ -8,10 +8,10 @@
 import SwiftUI
 
 @main
-struct CognitiveModellingApp: App {
+struct SaboteurGameApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            playingFieldView()
         }
     }
 }

@@ -8,11 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		4DBC083425DE5C0700A2F55A /* CognitiveModellingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBC083325DE5C0700A2F55A /* CognitiveModellingApp.swift */; };
-		4DBC083625DE5C0700A2F55A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBC083525DE5C0700A2F55A /* ContentView.swift */; };
+		4DBC083625DE5C0700A2F55A /* PlayingFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBC083525DE5C0700A2F55A /* PlayingFieldView.swift */; };
 		4DBC083825DE5C1000A2F55A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4DBC083725DE5C1000A2F55A /* Assets.xcassets */; };
 		4DBC083B25DE5C1000A2F55A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4DBC083A25DE5C1000A2F55A /* Preview Assets.xcassets */; };
-		4DBC084625DE5C1100A2F55A /* CognitiveModellingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBC084525DE5C1100A2F55A /* CognitiveModellingTests.swift */; };
-		4DBC085125DE5C1100A2F55A /* CognitiveModellingUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBC085025DE5C1100A2F55A /* CognitiveModellingUITests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,16 +33,12 @@
 /* Begin PBXFileReference section */
 		4DBC083025DE5C0700A2F55A /* CognitiveModelling.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CognitiveModelling.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DBC083325DE5C0700A2F55A /* CognitiveModellingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CognitiveModellingApp.swift; sourceTree = "<group>"; };
-		4DBC083525DE5C0700A2F55A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		4DBC083525DE5C0700A2F55A /* PlayingFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingFieldView.swift; sourceTree = "<group>"; };
 		4DBC083725DE5C1000A2F55A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4DBC083A25DE5C1000A2F55A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		4DBC083C25DE5C1000A2F55A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4DBC084125DE5C1100A2F55A /* CognitiveModellingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CognitiveModellingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		4DBC084525DE5C1100A2F55A /* CognitiveModellingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CognitiveModellingTests.swift; sourceTree = "<group>"; };
-		4DBC084725DE5C1100A2F55A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4DBC084C25DE5C1100A2F55A /* CognitiveModellingUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CognitiveModellingUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		4DBC085025DE5C1100A2F55A /* CognitiveModellingUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CognitiveModellingUITests.swift; sourceTree = "<group>"; };
-		4DBC085225DE5C1100A2F55A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,8 +70,6 @@
 			isa = PBXGroup;
 			children = (
 				4DBC083225DE5C0700A2F55A /* CognitiveModelling */,
-				4DBC084425DE5C1100A2F55A /* CognitiveModellingTests */,
-				4DBC084F25DE5C1100A2F55A /* CognitiveModellingUITests */,
 				4DBC083125DE5C0700A2F55A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -96,7 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				4DBC083325DE5C0700A2F55A /* CognitiveModellingApp.swift */,
-				4DBC083525DE5C0700A2F55A /* ContentView.swift */,
+				4DBC083525DE5C0700A2F55A /* PlayingFieldView.swift */,
 				4DBC083725DE5C1000A2F55A /* Assets.xcassets */,
 				4DBC083C25DE5C1000A2F55A /* Info.plist */,
 				4DBC083925DE5C1000A2F55A /* Preview Content */,
@@ -110,24 +102,6 @@
 				4DBC083A25DE5C1000A2F55A /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		4DBC084425DE5C1100A2F55A /* CognitiveModellingTests */ = {
-			isa = PBXGroup;
-			children = (
-				4DBC084525DE5C1100A2F55A /* CognitiveModellingTests.swift */,
-				4DBC084725DE5C1100A2F55A /* Info.plist */,
-			);
-			path = CognitiveModellingTests;
-			sourceTree = "<group>";
-		};
-		4DBC084F25DE5C1100A2F55A /* CognitiveModellingUITests */ = {
-			isa = PBXGroup;
-			children = (
-				4DBC085025DE5C1100A2F55A /* CognitiveModellingUITests.swift */,
-				4DBC085225DE5C1100A2F55A /* Info.plist */,
-			);
-			path = CognitiveModellingUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,7 +233,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4DBC083625DE5C0700A2F55A /* ContentView.swift in Sources */,
+				4DBC083625DE5C0700A2F55A /* PlayingFieldView.swift in Sources */,
 				4DBC083425DE5C0700A2F55A /* CognitiveModellingApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -268,7 +242,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4DBC084625DE5C1100A2F55A /* CognitiveModellingTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,7 +249,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4DBC085125DE5C1100A2F55A /* CognitiveModellingUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
