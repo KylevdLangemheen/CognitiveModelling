@@ -7,11 +7,28 @@
 
 import Foundation
 
-//class PlayingField: ObservableObject {
-//    @Published private var model: gameCore<String> =
-//        PlayingField.createPlayingField()
-//    
-//    static func createPlayingField() -> gameCore<String> {
-//        
+struct playingField<Field> {
+    var cards: Array<Card>
+    
+    
+    func index(of card: Card) -> Int {
+        for index in 0..<self.cards.count {
+            if self.cards[index].id == card.id {
+                return index
+            }
+        }
+        return -1 // TODO: bogus!
+    }
+    
+//    init(numberOfCards: Int){
+//        for index in 0..<numberOfCards {
+//            cards.append(Card(content:"",id:index,category:""))
+//        }
 //    }
-//}
+    
+    struct Card: Identifiable {
+        var category: String
+        var content: String
+        var id: Int
+    }
+}

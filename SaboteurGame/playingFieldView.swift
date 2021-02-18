@@ -8,30 +8,35 @@
 import SwiftUI
 
 struct playingFieldView: View {
-    let data = Array(1...45).map { "item \($0)" }
-    
-    let layout = [
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-        GridItem(.flexible())
-    ]
+    let data = Array(repeating: Array(repeating: 0, count: 5), count: 9)
     
     var body: some View {
-        ScrollView {
-            LazyVGrid(columns: layout, spacing: 20) {
-                ForEach(data, id: \.self) { item in
-                    VStack {
-                        Rectangle()
-                            .fill(Color.red)
-                            .frame(height: 40)
+        ScrollView{
+            VStack {
+                ForEach(self.data, id: \.self) { column in
+                    HStack {
+                        ForEach(column, id: \.self) { card in
+                            fieldCardView()
+                        }
                     }
                 }
             }.padding(20)
         }
     }
 }
+
+struct fieldCardView: View {
+
+    var body: some View{
+        ZStack {
+            RoundedRectangle(cornerRadius: 10.0).fill(Color.gray)
+            RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: 100)
+            Text("⛏").font(.largeTitle)
+        }
+    }
+}
+
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

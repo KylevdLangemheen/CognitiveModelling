@@ -10,12 +10,6 @@ import Foundation
 struct gameCore<CardContent> {
     var cards: Array<Card>
     
-    mutating func choose(card: Card) {
-        let chosenIndex: Int = self.index(of: card)
-        self.cards[chosenIndex].isFaceUp = !self.cards[chosenIndex].isFaceUp
-        
-        print("Card chosen: \(card)")
-    }
     
     func index(of card: Card) -> Int {
         for index in 0..<self.cards.count {
@@ -26,10 +20,15 @@ struct gameCore<CardContent> {
         return -1 // TODO: bogus!
     }
     
+//    init(numberOfCards: Int){
+//        for index in 0..<numberOfCards {
+//            cards.append(Card(content:"",id:index,category:""))
+//        }
+//    }
     
     struct Card: Identifiable {
-        var isFaceUp: Bool = false
-        var content: CardContent
+        var category: String
+        var content: String
         var id: Int
     }
 }
