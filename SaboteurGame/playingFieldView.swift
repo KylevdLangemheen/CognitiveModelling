@@ -1,13 +1,13 @@
 //
 //  ContentView.swift
-//  CognitiveModelling
+//  SaboteurGame
 //
-//  Created by H.B.R. van de Langemheen on 18/02/2021.
+//  Created by Nico Buiten on 17/02/2021.
 //
 
 import SwiftUI
 
-struct PlayingFieldView: View {
+struct playingFieldView: View {
     let data = Array(1...45).map { "item \($0)" }
     
     let layout = [
@@ -35,6 +35,6 @@ struct PlayingFieldView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        PlayingFieldView()
+        playingFieldView()
     }
 }
