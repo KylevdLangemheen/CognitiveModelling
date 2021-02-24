@@ -9,21 +9,20 @@ import SwiftUI
 
 struct playingFieldView: View {
     let viewModel: PlayingFieldViewModel
-    let columns = [
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-    ]
+
     var body: some View {
-        ScrollView{
-            LazyVGrid(columns: columns) {
-                ForEach(viewModel.grid, id: \.self) { cell in
-                    CellView(cell: cell)
+        
+        VStack {
+            ForEach(viewModel.grid, id: \.self) { row in
+                HStack {
+                    ForEach(row, id: \.self) { cell in
+                        CellView(cell: cell)
+                        
+                    }
                 }
-            }.padding(20)
-        }
+            }
+        }.padding(100)
+        
     }
 
 }
@@ -33,8 +32,14 @@ struct CellView: View {
     
     var body: some View{
         ZStack {
+            if cell.hasCard {
+                RoundedRectangle(cornerRadius: 10.0).fill(Color.gray).frame(height: 60)
+                RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: 60)
+                Text("⛏").font(.largeTitle)
+            } else {
 //            RoundedRectangle(cornerRadius: 10.0).fill(Color.gray)
-            RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: 40)
+                RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: 60)
+            }
 //            Text("⛏").font(.largeTitle)
         }
     }

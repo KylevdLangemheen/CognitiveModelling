@@ -11,7 +11,7 @@ class PlayingFieldViewModel {
     private var PlayingFieldModel: playingField = playingField()
     
     
-    var grid: Array<playingField.Cell>{
+    var grid: Array<Array<playingField.Cell>>{
         PlayingFieldModel.grid
     }
     
