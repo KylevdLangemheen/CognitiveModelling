@@ -8,30 +8,34 @@
 import SwiftUI
 
 struct playingFieldView: View {
-    let data = Array(repeating: Array(repeating: 0, count: 5), count: 9)
-    
+    let viewModel: PlayingFieldViewModel
+    let columns = [
+        GridItem(.flexible()),
+        GridItem(.flexible()),
+        GridItem(.flexible()),
+        GridItem(.flexible()),
+        GridItem(.flexible()),
+    ]
     var body: some View {
         ScrollView{
-            VStack {
-                ForEach(self.data, id: \.self) { column in
-                    HStack {
-                        ForEach(column, id: \.self) { card in
-                            fieldCardView()
-                        }
-                    }
+            LazyVGrid(columns: columns) {
+                ForEach(viewModel.grid, id: \.self) { cell in
+                    CellView(cell: cell)
                 }
             }.padding(20)
         }
     }
+
 }
 
-struct fieldCardView: View {
-
+struct CellView: View {
+    var cell: playingField.Cell
+    
     var body: some View{
         ZStack {
-            RoundedRectangle(cornerRadius: 10.0).fill(Color.gray)
-            RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: 100)
-            Text("⛏").font(.largeTitle)
+//            RoundedRectangle(cornerRadius: 10.0).fill(Color.gray)
+            RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: 40)
+//            Text("⛏").font(.largeTitle)
         }
     }
 }
@@ -40,6 +44,6 @@ struct fieldCardView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        playingFieldView()
+        playingFieldView(viewModel: PlayingFieldViewModel())
     }
 }

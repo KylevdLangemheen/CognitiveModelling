@@ -12,7 +12,7 @@
 		0325B38825DD8FD6006BBBDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0325B38725DD8FD6006BBBDE /* Assets.xcassets */; };
 		0325B38B25DD8FD6006BBBDE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0325B38A25DD8FD6006BBBDE /* Preview Assets.xcassets */; };
 		0325B39525DD90F4006BBBDE /* PlayingField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0325B39425DD90F4006BBBDE /* PlayingField.swift */; };
-		0325B39925DD9274006BBBDE /*  gameCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0325B39825DD9274006BBBDE /*  gameCore.swift */; };
+		03B1468125E64E1600371620 /* PlayingFieldViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B1468025E64E1600371620 /* PlayingFieldViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,7 +23,7 @@
 		0325B38A25DD8FD6006BBBDE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		0325B38C25DD8FD6006BBBDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0325B39425DD90F4006BBBDE /* PlayingField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingField.swift; sourceTree = "<group>"; };
-		0325B39825DD9274006BBBDE /*  gameCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " gameCore.swift"; sourceTree = "<group>"; };
+		03B1468025E64E1600371620 /* PlayingFieldViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingFieldViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,7 +59,7 @@
 				0325B38325DD8FD3006BBBDE /* SaboteurGameApp.swift */,
 				0325B38525DD8FD3006BBBDE /* playingFieldView.swift */,
 				0325B39425DD90F4006BBBDE /* PlayingField.swift */,
-				0325B39825DD9274006BBBDE /*  gameCore.swift */,
+				03B1468025E64E1600371620 /* PlayingFieldViewModel.swift */,
 				0325B38725DD8FD6006BBBDE /* Assets.xcassets */,
 				0325B38C25DD8FD6006BBBDE /* Info.plist */,
 				0325B38925DD8FD6006BBBDE /* Preview Content */,
@@ -145,9 +145,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				0325B38625DD8FD3006BBBDE /* playingFieldView.swift in Sources */,
-				0325B39925DD9274006BBBDE /*  gameCore.swift in Sources */,
 				0325B39525DD90F4006BBBDE /* PlayingField.swift in Sources */,
 				0325B38425DD8FD3006BBBDE /* SaboteurGameApp.swift in Sources */,
+				03B1468125E64E1600371620 /* PlayingFieldViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
