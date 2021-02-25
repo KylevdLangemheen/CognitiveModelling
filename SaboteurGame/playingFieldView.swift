@@ -45,6 +45,18 @@ struct CellView: View {
     }
 }
 
+struct DeckView: View {
+    var deck: Deck
+    
+    var body: some View{
+        ZStack {
+            RoundedRectangle(cornerRadius: 10.0).fill(Color.gray).frame(height: 60)
+            RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: 60)
+            Text("⛏").font(.largeTitle)
+        }
+    }
+}
+
 
 
 struct ContentView_Previews: PreviewProvider {
