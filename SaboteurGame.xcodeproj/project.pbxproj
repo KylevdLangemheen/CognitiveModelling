@@ -12,7 +12,6 @@
 		0325B38825DD8FD6006BBBDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0325B38725DD8FD6006BBBDE /* Assets.xcassets */; };
 		0325B38B25DD8FD6006BBBDE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0325B38A25DD8FD6006BBBDE /* Preview Assets.xcassets */; };
 		0325B39525DD90F4006BBBDE /* PlayingField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0325B39425DD90F4006BBBDE /* PlayingField.swift */; };
-		039F08CB25E6A64900FDEA2A /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039F08CA25E6A64900FDEA2A /* Deck.swift */; };
 		03B1468125E64E1600371620 /* PlayingFieldViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B1468025E64E1600371620 /* PlayingFieldViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -24,7 +23,6 @@
 		0325B38A25DD8FD6006BBBDE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		0325B38C25DD8FD6006BBBDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0325B39425DD90F4006BBBDE /* PlayingField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingField.swift; sourceTree = "<group>"; };
-		039F08CA25E6A64900FDEA2A /* Deck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
 		03B1468025E64E1600371620 /* PlayingFieldViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingFieldViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -61,7 +59,6 @@
 				0325B38325DD8FD3006BBBDE /* SaboteurGameApp.swift */,
 				0325B38525DD8FD3006BBBDE /* playingFieldView.swift */,
 				0325B39425DD90F4006BBBDE /* PlayingField.swift */,
-				039F08CA25E6A64900FDEA2A /* Deck.swift */,
 				03B1468025E64E1600371620 /* PlayingFieldViewModel.swift */,
 				0325B38725DD8FD6006BBBDE /* Assets.xcassets */,
 				0325B38C25DD8FD6006BBBDE /* Info.plist */,
@@ -149,7 +146,6 @@
 			files = (
 				0325B38625DD8FD3006BBBDE /* playingFieldView.swift in Sources */,
 				0325B39525DD90F4006BBBDE /* PlayingField.swift in Sources */,
-				039F08CB25E6A64900FDEA2A /* Deck.swift in Sources */,
 				0325B38425DD8FD3006BBBDE /* SaboteurGameApp.swift in Sources */,
 				03B1468125E64E1600371620 /* PlayingFieldViewModel.swift in Sources */,
 			);
