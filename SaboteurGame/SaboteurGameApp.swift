@@ -11,7 +11,7 @@ import SwiftUI
 struct SaboteurGameApp: App {
     var body: some Scene {
         WindowGroup {
-            playingFieldView(viewModel: PlayingFieldViewModel())
+            GameView(viewModel: PlayingFieldViewModel())
         }
     }
 }

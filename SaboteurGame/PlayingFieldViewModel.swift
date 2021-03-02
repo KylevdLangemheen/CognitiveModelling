@@ -8,51 +8,42 @@
 import SwiftUI
 
 class PlayingFieldViewModel: ObservableObject {
-    @Published private var PlayingFieldModel: Game = Game()
-    
+    @Published private var GameModel: Game = Game()
+
     // MARK: Acces to the model
-    var grid: Array<Array<Game.Cell>>{
-        PlayingFieldModel.grid
+    var grid: Array<Array<Cell>>{
+        GameModel.field.grid
     }
     
-    var playDeck: Array<Game.Card> {
-        PlayingFieldModel.playDeck
+    var handSize: Int {
+        GameModel.players.handSize
     }
     
-    var staticDeck: Array<Game.Card> {
-        PlayingFieldModel.staticDeck
+    var playDeck: Deck {
+        GameModel.deck
     }
     
-    var currrentPlayer: Game.Player {
-        PlayingFieldModel.currentPlayer
+    var currrentPlayer: Player {
+        GameModel.gameStatus.currentPlayer
     }
     
     // MARK: Intent(s)
-//    func playCard(card: playingField.Card){
-//        PlayingFieldModel.choose(card: card)
-//    }
     
-    func changeStatus(status: String){
-        PlayingFieldModel.changeStatus(status: status)
+    func changeStatus(player: Player, status: String){
+        player.changeStatus(status: status)
     }
     
-    func placeCard(cell: Game.Cell) {
-        PlayingFieldModel.placeCard(cell: cell)
+    func placeCard(card: Card,cell: Cell) {
+        objectWillChange.send()
+        GameModel.field.placeCard(cell: cell, card: card)
+        GameModel.gameStatus.currentPlayer.removeCardFromHand(card: card)
+        GameModel.gameStatus.currentPlayer.newCard(card: GameModel.deck.drawCard())
     }
     
-    
-//    func addCard(card: playingField.Card, loc: Array<Int>) {
-//        PlayingFieldModel.addCard(card: card, loc: loc)
-//    }
-    func currentPlayer() -> Game.Player {
-        PlayingFieldModel.currentPlayer
+    func setCard(card: Card, player: Player) {
+        GameModel.gameStatus.currentPlayer.setCard(card: card)
+        
     }
     
-    func getCard(cell: Game.Cell) -> Game.Card{
-        PlayingFieldModel.getCard(cell: cell)
-    }
-    
-    func flip(card: Game.Card) {
-        PlayingFieldModel.flip(card: card)
-    }
+
 }

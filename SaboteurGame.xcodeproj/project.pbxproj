@@ -8,22 +8,28 @@
 
 /* Begin PBXBuildFile section */
 		0325B38425DD8FD3006BBBDE /* SaboteurGameApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0325B38325DD8FD3006BBBDE /* SaboteurGameApp.swift */; };
-		0325B38625DD8FD3006BBBDE /* playingFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0325B38525DD8FD3006BBBDE /* playingFieldView.swift */; };
+		0325B38625DD8FD3006BBBDE /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0325B38525DD8FD3006BBBDE /* GameView.swift */; };
 		0325B38825DD8FD6006BBBDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0325B38725DD8FD6006BBBDE /* Assets.xcassets */; };
 		0325B38B25DD8FD6006BBBDE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0325B38A25DD8FD6006BBBDE /* Preview Assets.xcassets */; };
-		0325B39525DD90F4006BBBDE /* PlayingField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0325B39425DD90F4006BBBDE /* PlayingField.swift */; };
+		0325B39525DD90F4006BBBDE /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0325B39425DD90F4006BBBDE /* Game.swift */; };
+		03A592A025EE746B009B2A0F /* Players.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A5929F25EE746B009B2A0F /* Players.swift */; };
 		03B1468125E64E1600371620 /* PlayingFieldViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B1468025E64E1600371620 /* PlayingFieldViewModel.swift */; };
+		03C3ECBA25ED374500A71642 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C3ECB925ED374500A71642 /* Deck.swift */; };
+		03C3ECBD25EE471B00A71642 /* Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C3ECBC25EE471B00A71642 /* Field.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0325B38025DD8FD3006BBBDE /* SaboteurGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SaboteurGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0325B38325DD8FD3006BBBDE /* SaboteurGameApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaboteurGameApp.swift; sourceTree = "<group>"; };
-		0325B38525DD8FD3006BBBDE /* playingFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = playingFieldView.swift; sourceTree = "<group>"; };
+		0325B38525DD8FD3006BBBDE /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		0325B38725DD8FD6006BBBDE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0325B38A25DD8FD6006BBBDE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		0325B38C25DD8FD6006BBBDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0325B39425DD90F4006BBBDE /* PlayingField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingField.swift; sourceTree = "<group>"; };
+		0325B39425DD90F4006BBBDE /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		03A5929F25EE746B009B2A0F /* Players.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Players.swift; sourceTree = "<group>"; };
 		03B1468025E64E1600371620 /* PlayingFieldViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingFieldViewModel.swift; sourceTree = "<group>"; };
+		03C3ECB925ED374500A71642 /* Deck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
+		03C3ECBC25EE471B00A71642 /* Field.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Field.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,8 +63,11 @@
 			isa = PBXGroup;
 			children = (
 				0325B38325DD8FD3006BBBDE /* SaboteurGameApp.swift */,
-				0325B38525DD8FD3006BBBDE /* playingFieldView.swift */,
-				0325B39425DD90F4006BBBDE /* PlayingField.swift */,
+				0325B38525DD8FD3006BBBDE /* GameView.swift */,
+				0325B39425DD90F4006BBBDE /* Game.swift */,
+				03A5929F25EE746B009B2A0F /* Players.swift */,
+				03C3ECB925ED374500A71642 /* Deck.swift */,
+				03C3ECBC25EE471B00A71642 /* Field.swift */,
 				03B1468025E64E1600371620 /* PlayingFieldViewModel.swift */,
 				0325B38725DD8FD6006BBBDE /* Assets.xcassets */,
 				0325B38C25DD8FD6006BBBDE /* Info.plist */,
@@ -144,9 +153,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0325B38625DD8FD3006BBBDE /* playingFieldView.swift in Sources */,
-				0325B39525DD90F4006BBBDE /* PlayingField.swift in Sources */,
+				03A592A025EE746B009B2A0F /* Players.swift in Sources */,
+				03C3ECBA25ED374500A71642 /* Deck.swift in Sources */,
+				0325B38625DD8FD3006BBBDE /* GameView.swift in Sources */,
+				0325B39525DD90F4006BBBDE /* Game.swift in Sources */,
 				0325B38425DD8FD3006BBBDE /* SaboteurGameApp.swift in Sources */,
+				03C3ECBD25EE471B00A71642 /* Field.swift in Sources */,
 				03B1468125E64E1600371620 /* PlayingFieldViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
