@@ -54,7 +54,6 @@ class Deck {
     }
 
     func drawCard() -> Card {
-        print(cards)
         if self.cards.count != 0 {
             return self.cards.popLast()!
         } else {

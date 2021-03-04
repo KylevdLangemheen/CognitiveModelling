@@ -9,23 +9,20 @@ import SwiftUI
 
 struct GameView: View {
     @ObservedObject var viewModel: PlayingFieldViewModel
+    
+    
     var body: some View {
+        
+
+
+
         VStack {
+
+        
             opponentInfo().padding(.trailing, 50)
                 .padding(.leading, 50)
-            ForEach(viewModel.grid, id: \.self) { row in
-                HStack {
-                    ForEach(row) { cell in
-                        CellView(cell: cell).onTapGesture {
-                            if viewModel.currrentPlayer.status == "placingCard" {
-                                viewModel.placeCard(card: viewModel.currrentPlayer.playCard ,cell: cell)
-                            }
-                        }
-                    }
-                }
-            }.padding(.trailing, 100)
-            .padding(.leading, 100)
-            
+
+            field(grid: viewModel.grid, viewModel: viewModel)
             HStack{
                 ForEach(viewModel.currrentPlayer.hand, id: \.self) { card in
                     if card.cardType == "path" {
@@ -46,6 +43,28 @@ struct GameView: View {
 
 }
 
+struct field: View {
+    var grid: Array<Array<Cell>>
+    var viewModel: PlayingFieldViewModel
+    @State private var invalidMove = false
+    
+    var body: some View {
+        ForEach(grid, id: \.self) { row in
+            HStack {
+                ForEach(row) { cell in
+                    CellView(cell: cell).onTapGesture {
+                        if !viewModel.placeCard(card: viewModel.currrentPlayer.playCard ,cell: cell) {
+                            self.invalidMove = true
+                        }
+                    }
+                }
+            }.alert(isPresented: $invalidMove) {
+                Alert(title: Text("Invalid Action"), message: Text("You cannot place this card here"), dismissButton: .default(Text("Got it!")))
+            }
+        }.padding(.trailing, 100)
+        .padding(.leading, 100)
+    }
+}
 struct playerHand: View {
     var card: Card
     var deck: Array<Card>

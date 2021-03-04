@@ -33,11 +33,9 @@ class PlayingFieldViewModel: ObservableObject {
         player.changeStatus(status: status)
     }
     
-    func placeCard(card: Card,cell: Cell) {
+    func placeCard(card: Card,cell: Cell) -> Bool {
         objectWillChange.send()
-        GameModel.field.placeCard(cell: cell, card: card)
-        GameModel.gameStatus.currentPlayer.removeCardFromHand(card: card)
-        GameModel.gameStatus.currentPlayer.newCard(card: GameModel.deck.drawCard())
+        return GameModel.field.placeCard(cell: cell, card: card)
     }
     
     func setCard(card: Card, player: Player) {
