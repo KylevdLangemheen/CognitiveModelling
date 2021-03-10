@@ -28,7 +28,7 @@ class Deck {
                 newCard.connections[start] = 1
                 newCard.connections[end] = 1
                 let newDirections = [directions[start],directions[end]]
-                newCard.cardConent = newDirections.joined(separator: "")
+                newCard.cardContent = newDirections.joined(separator: "")
                 cards.append(newCard)
                 id += 1
             }
@@ -40,14 +40,14 @@ class Deck {
             newCard.connections[closed] = 0
             var newDirections = directions
             newDirections.remove(at: closed)
-            newCard.cardConent = newDirections.joined(separator: "")
+            newCard.cardContent = newDirections.joined(separator: "")
             cards.append(newCard)
             id += 1
         }
         
         // X-Shape
         for _ in 0..<crossCardCount {
-            cards.append(Card(cardType: "path", cardConent: directions.joined(separator: ""), connections: [1,1,1,1],id: id))
+            cards.append(Card(cardType: "path", cardContent: directions.joined(separator: ""), connections: [1,1,1,1],id: id))
             id += 1
         }
         cards.shuffle()
@@ -67,7 +67,7 @@ class Deck {
 struct Card: Hashable {
     var isFaceUp: Bool = false
     var cardType: String = "" // goal, action or path
-    var cardConent: String = " "
+    var cardContent: String = " "
     var connections: Array<Int> = [0,0,0,0] // If 1 then there a open connection at [Top,Right,Bottom,Left] if  2, then there is closed connection from that side thus, [2,0,2,0] can be connected at the top and bottom but both have a dead end.
     var id: Int
 }

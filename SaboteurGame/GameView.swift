@@ -73,7 +73,7 @@ struct playerHand: View {
             ZStack {
                 RoundedRectangle(cornerRadius: 10.0).fill(Color.gray).frame(height: 60)
                 RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: 60)
-                Text(card.cardConent).font(.title)
+                Text(card.cardContent).font(.title)
             }
         }
     }
@@ -85,9 +85,12 @@ struct playerInfo: View {
         HStack {
             VStack {
                 ZStack {
-                    RoundedRectangle(cornerRadius: 10.0).fill(Color.gray).frame(height: 100)
+                    RoundedRectangle(cornerRadius: 10.0).fill(Color.white).frame(height: 100)
                     RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: 100)
-                    Text("Role").font(.title)
+                    Image("Gold_Digger")
+                        .resizable()
+                        .blendMode(.multiply)
+                        .aspectRatio(contentMode: .fit)
                 }
                 HStack {
                     RoundedRectangle(cornerRadius: 25.0).stroke(lineWidth: 3).frame(height: 20)
@@ -139,12 +142,23 @@ struct CellView: View {
     var body: some View{
         ZStack {
             if cell.hasCard {
-                RoundedRectangle(cornerRadius: 10.0).fill(Color.gray).frame(height: 60)
+                RoundedRectangle(cornerRadius: 10.0).fill(Color.white).frame(height: 60)
                 RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: 60)
                 if !cell.card.isFaceUp {
-                    Text(verbatim: cell.card.cardConent).font(.largeTitle)
+                    Text(verbatim: cell.card.cardContent).font(.largeTitle)
                 } else {
-                    Text("⛏").font(.largeTitle)
+                    Image("GC_FD")
+                        .resizable()
+                        .blendMode(.multiply)
+                        .rotationEffect(.degrees(-90))
+                        .aspectRatio(contentMode: .fit)
+                }
+                if cell.card.cardType == "start" {
+                    Image("PC41")
+                        .resizable()
+                        .blendMode(.multiply)
+                        .rotationEffect(.degrees(-90))
+                        .aspectRatio(contentMode: .fit)
                 }
             } else {
                 RoundedRectangle(cornerRadius: 10.0).fill(Color.white)

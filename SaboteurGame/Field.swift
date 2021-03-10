@@ -35,9 +35,10 @@ class Field {
         }
         
         var goalCards: Array<Card> = []
-        goalCards.append(Card(isFaceUp: true, cardType: "coal", cardConent: "⚫️", connections: [1,1,0,0], id: 0))
-        goalCards.append(Card(isFaceUp: true, cardType: "coal", cardConent: "💎",connections: [1,1,1,1],id: 0))
-        goalCards.append(Card(isFaceUp: true, cardType: "gold", cardConent: "⚫️", connections: [0,1,1,0],id: 0))
+        
+        goalCards.append(Card(isFaceUp: true, cardType: "goal", cardContent: "⚫️", connections: [1,1,0,0], id: 0))
+        goalCards.append(Card(isFaceUp: true, cardType: "goal", cardContent: "💎",connections: [1,1,1,1],id: 0))
+        goalCards.append(Card(isFaceUp: true, cardType: "gold", cardContent: "⚫️", connections: [0,1,1,0],id: 0))
         goalCards.shuffle()
         
         grid[rows-9][columns/2+2].hasCard = true
@@ -54,7 +55,7 @@ class Field {
 
 
         grid[rows-1][columns/2].hasCard = true
-        grid[rows-1][columns/2].card = Card(isFaceUp: false, cardType: "start", cardConent: "Start", connections: [1,1,1,1], id: 0)
+        grid[rows-1][columns/2].card = Card(isFaceUp: false, cardType: "start", cardContent: "", connections: [1,1,1,1], id: 0)
         grid[rows-1][columns/2].cellType = 0
     
     }
@@ -251,7 +252,7 @@ class Field {
 //    grid[row][column].card = card
 //    currentPlayer.status = "waiting"
 //    currentPlayer.hand[0] = deck.cards.popLast()!
-//    print("Placed card \(card.cardConent)")
+//    print("Placed card \(card.cardContent)")
 //}
 
 struct Cell: Hashable, Identifiable {
