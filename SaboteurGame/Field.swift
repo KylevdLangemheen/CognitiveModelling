@@ -13,18 +13,20 @@ class Field {
     var grid: Array<Array<Cell>> = [[]]
     var paths: Array<Array<Int>> = [[]]
     var startCell: Cell
-    var goalCells: Array<Cell>
+    var goalCells: Array<Cell> = []
     var directions: Array<String> = ["top", "right", "bottom", "left"
     ]
     init(columns: Int, rows: Int) {
         self.columns = columns
         self.rows = rows
+ 
+        
+        grid = Array(repeating: Array(repeating: Cell(), count: columns), count: rows)
+        
         self.startCell = grid[rows-1][columns/2]
         self.goalCells.append(grid[rows-9][columns/2+2])
         self.goalCells.append(grid[rows-9][columns/2-2])
         self.goalCells.append(grid[rows-1][columns/2])
-        
-        grid = Array(repeating: Array(repeating: Cell(), count: columns), count: rows)
         
         for rowIdx in 0..<rows {
             for columnIdx in 0..<columns {
