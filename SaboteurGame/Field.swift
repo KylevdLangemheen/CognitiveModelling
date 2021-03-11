@@ -14,8 +14,7 @@ class Field {
     var paths: Array<Array<Int>> = [[]]
     var startCell: Cell
     var goalCells: Array<Cell> = []
-    var directions: Array<String> = ["top", "right", "bottom", "left"
-    ]
+    var directions: Array<String> = ["top", "right", "bottom", "left"]
     init(columns: Int, rows: Int) {
         self.columns = columns
         self.rows = rows
@@ -30,13 +29,13 @@ class Field {
         }
         
         var goalCards: Array<Card> = []
-        goalCards.append(Card(isFaceUp: false, cardType: cardType.goal, cardConent: "⚫️", sides: Sides(top: .connection, right: .connection, bottom: .none, left: .none), id: 0))
-        goalCards.append(Card(isFaceUp: false, cardType: cardType.goal, cardConent: "💎", sides: Sides(
+        goalCards.append(Card(isFaceUp: false, cardType: cardType.goal, cardContent: "⚫️", sides: Sides(top: .connection, right: .connection, bottom: .none, left: .none), id: 0))
+        goalCards.append(Card(isFaceUp: false, cardType: cardType.goal, cardContent: "💎", sides: Sides(
                               top: pathType.connection,
                               right: pathType.connection,
                               bottom: pathType.connection,
                               left: pathType.connection),id: 0))
-        goalCards.append(Card(isFaceUp: false, cardType: cardType.goal, cardConent: "⚫️", sides: Sides(top: .none, right: .none, bottom: .connection, left: .connection),id: 0))
+        goalCards.append(Card(isFaceUp: false, cardType: cardType.goal, cardContent: "⚫️", sides: Sides(top: .none, right: .none, bottom: .connection, left: .connection),id: 0))
         goalCards.shuffle()
         
         grid[rows-9][columns/2+2].hasCard = true
@@ -52,7 +51,7 @@ class Field {
         grid[rows-9][columns/2].cellType = cardType.goal
 
         grid[rows-1][columns/2].hasCard = true
-        grid[rows-1][columns/2].card = Card(isFaceUp: true, cardType: .goal, cardConent: "Start", sides: Sides(
+        grid[rows-1][columns/2].card = Card(isFaceUp: true, cardType: .goal, cardContent: "Start", sides: Sides(
                                                 top: pathType.connection,
                                                 right: pathType.connection,
                                                 bottom: pathType.connection,
@@ -252,7 +251,7 @@ class Field {
 //    grid[row][column].card = card
 //    currentPlayer.status = "waiting"
 //    currentPlayer.hand[0] = deck.cards.popLast()!
-//    print("Placed card \(card.cardConent)")
+//    print("Placed card \(card.cardContent)")
 //}
 
 struct Cell: Hashable, Identifiable {

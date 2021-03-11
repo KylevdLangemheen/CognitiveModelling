@@ -17,6 +17,7 @@ class Deck {
         self.directionCount = directionCount
         self.crossCardCount = crossCardCount
         
+        
         let directions: Array<String> = ["⬆️","➡️","⬇️","⬅️"]
         
         var id: Int = 0
@@ -28,7 +29,7 @@ class Deck {
 //                newCard.connections[start] = 1
 //                newCard.connections[end] = 1
 //                let newDirections = [directions[start],directions[end]]
-//                newCard.cardConent = newDirections.joined(separator: "")
+//                newCard.cardContent = newDirections.joined(separator: "")
 //                cards.append(newCard)
 //                id += 1
 //            }
@@ -46,7 +47,7 @@ class Deck {
 //            newCard.connections = 0
 //            var newDirections = directions
 //            newDirections.remove(at: closed)
-//            newCard.cardConent = newDirections.joined(separator: "")
+//            newCard.cardContent = newDirections.joined(separator: "")
 //            cards.append(newCard)
 //            id += 1
 //        }
@@ -54,7 +55,7 @@ class Deck {
         // X-Shape
         for _ in 0..<crossCardCount {
             cards.append(Card(cardType: cardType.path,
-                              cardConent: directions.joined(separator: ""),
+                              cardContent: directions.joined(separator: ""),
                               sides: Sides(
                                 top: pathType.connection,
                                 right: pathType.connection,
@@ -82,7 +83,7 @@ struct Card: Hashable {
 
     var isFaceUp: Bool = true
     var cardType: cardType
-    var cardConent: String = " "
+    var cardContent: String = " "
     var sides: Sides = Sides()
     var id: Int = 0
 }

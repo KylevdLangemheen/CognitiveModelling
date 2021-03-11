@@ -73,7 +73,7 @@ struct playerHand: View {
             ZStack {
                 RoundedRectangle(cornerRadius: 10.0).fill(Color.gray).frame(height: 60)
                 RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: 60)
-                Text(card.cardConent).font(.title)
+                Text(card.cardContent).font(.title)
             }
         }
     }
@@ -142,7 +142,7 @@ struct CellView: View {
                 RoundedRectangle(cornerRadius: 10.0).fill(Color.gray).frame(height: 60)
                 RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: 60)
                 if cell.card.isFaceUp {
-                    Text(verbatim: cell.card.cardConent).font(.largeTitle)
+                    Text(verbatim: cell.card.cardContent).font(.largeTitle)
                 } else {
                     Text("⛏").font(.largeTitle)
                 }
