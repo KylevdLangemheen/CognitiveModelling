@@ -22,42 +22,56 @@ class Deck {
         var id: Int = 0
         
         // Corners
-        for start in 0..<directionCount {
-            for end in start+1..<directionCount {
-                var newCard = Card(cardType: "path",id: id)
-                newCard.connections[start] = 1
-                newCard.connections[end] = 1
-                let newDirections = [directions[start],directions[end]]
-                newCard.cardConent = newDirections.joined(separator: "")
-                cards.append(newCard)
-                id += 1
-            }
-        }
-        
-        // T-Shape
-        for closed in 0..<directionCount {
-            var newCard = Card(cardType: "path", connections: [1,1,1,1],id: id)
-            newCard.connections[closed] = 0
-            var newDirections = directions
-            newDirections.remove(at: closed)
-            newCard.cardConent = newDirections.joined(separator: "")
-            cards.append(newCard)
-            id += 1
-        }
+//        for start in 0..<directionCount {
+//            for end in start+1..<directionCount {
+//                var newCard = Card(cardType: "path",id: id)
+//                newCard.connections[start] = 1
+//                newCard.connections[end] = 1
+//                let newDirections = [directions[start],directions[end]]
+//                newCard.cardConent = newDirections.joined(separator: "")
+//                cards.append(newCard)
+//                id += 1
+//            }
+//        }
+//
+//        // T-Shape
+//        for closed in 0..<directionCount {
+//            var newCard = Card(cardType: cardType.path,
+//                               connections: connections(
+//                                 top: pathType.connection,
+//                                 right: pathType.connection,
+//                                 bottom: pathType.connection,
+//                                 left: pathType.connection),
+//                               id: id)
+//            newCard.connections = 0
+//            var newDirections = directions
+//            newDirections.remove(at: closed)
+//            newCard.cardConent = newDirections.joined(separator: "")
+//            cards.append(newCard)
+//            id += 1
+//        }
         
         // X-Shape
         for _ in 0..<crossCardCount {
-            cards.append(Card(cardType: "path", cardConent: directions.joined(separator: ""), connections: [1,1,1,1],id: id))
+            cards.append(Card(cardType: cardType.path,
+                              cardConent: directions.joined(separator: ""),
+                              sides: Sides(
+                                top: pathType.connection,
+                                right: pathType.connection,
+                                bottom: pathType.connection,
+                                left: pathType.connection),
+                              id: id))
             id += 1
         }
         cards.shuffle()
     }
 
+
     func drawCard() -> Card {
         if self.cards.count != 0 {
             return self.cards.popLast()!
         } else {
-            return Card(cardType: "None",id:0)
+            return Card(cardType: cardType.path,id:0)
         }
         
     }
@@ -65,10 +79,25 @@ class Deck {
 
 
 struct Card: Hashable {
-    var isFaceUp: Bool = false
-    var cardType: String = "" // goal, action or path
+
+    var isFaceUp: Bool = true
+    var cardType: cardType
     var cardConent: String = " "
-    var connections: Array<Int> = [0,0,0,0] // If 1 then there a open connection at [Top,Right,Bottom,Left] if  2, then there is closed connection from that side thus, [2,0,2,0] can be connected at the top and bottom but both have a dead end.
-    var id: Int
+    var sides: Sides = Sides()
+    var id: Int = 0
 }
-    
+
+struct Sides: Hashable {
+    var top: pathType = .none
+    var right: pathType = .none
+    var bottom: pathType = .none
+    var left: pathType = .none
+}
+	
+enum pathType {
+    case none, connection, blocked
+}
+
+enum cardType {
+    case goal, action, path
+}

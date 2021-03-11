@@ -20,52 +20,59 @@ class Field {
         self.columns = columns
         self.rows = rows
  
-        
         grid = Array(repeating: Array(repeating: Cell(), count: columns), count: rows)
-        
-        self.startCell = grid[rows-1][columns/2]
-        self.goalCells.append(grid[rows-9][columns/2+2])
-        self.goalCells.append(grid[rows-9][columns/2-2])
-        self.goalCells.append(grid[rows-1][columns/2])
         
         for rowIdx in 0..<rows {
             for columnIdx in 0..<columns {
-                grid[rowIdx][columnIdx].id = columnIdx + rowIdx * columns
+                grid[rowIdx][columnIdx] = Cell(x: rowIdx, y: columnIdx,id: columnIdx + rowIdx * columns)
+                
             }
         }
         
         var goalCards: Array<Card> = []
-        goalCards.append(Card(isFaceUp: true, cardType: "coal", cardConent: "⚫️", connections: [1,1,0,0], id: 0))
-        goalCards.append(Card(isFaceUp: true, cardType: "coal", cardConent: "💎",connections: [1,1,1,1],id: 0))
-        goalCards.append(Card(isFaceUp: true, cardType: "gold", cardConent: "⚫️", connections: [0,1,1,0],id: 0))
+        goalCards.append(Card(isFaceUp: false, cardType: cardType.goal, cardConent: "⚫️", sides: Sides(top: .connection, right: .connection, bottom: .none, left: .none), id: 0))
+        goalCards.append(Card(isFaceUp: false, cardType: cardType.goal, cardConent: "💎", sides: Sides(
+                              top: pathType.connection,
+                              right: pathType.connection,
+                              bottom: pathType.connection,
+                              left: pathType.connection),id: 0))
+        goalCards.append(Card(isFaceUp: false, cardType: cardType.goal, cardConent: "⚫️", sides: Sides(top: .none, right: .none, bottom: .connection, left: .connection),id: 0))
         goalCards.shuffle()
         
         grid[rows-9][columns/2+2].hasCard = true
         grid[rows-9][columns/2+2].card = goalCards[0]
-        grid[rows-9][columns/2+2].cellType = 1
+        grid[rows-9][columns/2+2].cellType = cardType.goal
         
         grid[rows-9][columns/2-2].hasCard = true
         grid[rows-9][columns/2-2].card = goalCards[1]
-        grid[rows-9][columns/2-2].cellType = 1
+        grid[rows-9][columns/2-2].cellType = cardType.goal
         
         grid[rows-9][columns/2].hasCard = true
         grid[rows-9][columns/2].card = goalCards[2]
-        grid[rows-9][columns/2].cellType = 1
-
+        grid[rows-9][columns/2].cellType = cardType.goal
 
         grid[rows-1][columns/2].hasCard = true
-        grid[rows-1][columns/2].card = Card(isFaceUp: false, cardType: "start", cardConent: "Start", connections: [1,1,1,1], id: 0)
-        grid[rows-1][columns/2].cellType = 0
+        grid[rows-1][columns/2].card = Card(isFaceUp: true, cardType: .goal, cardConent: "Start", sides: Sides(
+                                                top: pathType.connection,
+                                                right: pathType.connection,
+                                                bottom: pathType.connection,
+                                                left: pathType.connection), id: 0)
+        grid[rows-1][columns/2].cellType = cardType.goal
     
+        
+        self.startCell = grid[rows-1][columns/2]
+        self.goalCells.append(grid[rows-9][columns/2+2])
+        self.goalCells.append(grid[rows-9][columns/2-2])
+        self.goalCells.append(grid[rows-9][columns/2])
     }
     
     func placeCard(cell: Cell, card: Card) -> Bool {
-        let cellPos = getCellIndexById(cellId: cell.id)
         
-        if validCardPlacement(cellPos: cellPos, directions: card.connections) {
-            grid[cellPos[0]][cellPos[1]].card = card
-            grid[cellPos[0]][cellPos[1]].hasCard = true
-            grid[cellPos[0]][cellPos[1]].cellType = 2
+        if validCardPlacement(x:cell.x,y: cell.y, sides: card.sides) {
+            grid[cell.x][cell.y].card = card
+            grid[cell.x][cell.y].hasCard = true
+            grid[cell.x][cell.y].cellType = cardType.path
+//            checkGoalPath()
             print("Placed Card")
             return true
         } else {
@@ -74,66 +81,70 @@ class Field {
         }
     }
     
-    func validCardPlacement(cellPos: Array<Int>, directions: Array<Int>) -> Bool {
-        let topCell = grid[cellPos[0]-1][cellPos[1]]
-        let rightCell = grid[cellPos[0]][cellPos[1]+1]
-        let bottomCell = grid[cellPos[0]+1][cellPos[1]]
-        let leftCell = grid[cellPos[0]][cellPos[1]-1]
-//        let surroundingCells = [topCell,rightCell,bottomCell,leftCell]
+    func validCardPlacement(x: Int, y: Int, sides: Sides) -> Bool {
 
-        print(directions)
-        if directions[0] == 1 {
+        let topCell = grid[x-1][y]
+        let rightCell = grid[x][y+1]
+        let bottomCell = grid[x+1][y]
+        let leftCell = grid[x][y-1]
+//        let surroundingCells = [topCell,rightCell,bottomCell,leftCell]
+        
+        if (!topCell.hasCard && !rightCell.hasCard && !bottomCell.hasCard && !leftCell.hasCard){
+            return false
+        }
+        
+        if sides.top != .none {
             if topCell.hasCard {
-                if topCell.card.connections[2] == 0 {
+                if topCell.card.sides.bottom == pathType.none {
                     return false
                 }
             }
         } else {
             if topCell.hasCard {
-                if !(topCell.card.connections[2] == 0) {
+                if topCell.card.sides.bottom != pathType.none {
                     return false
                 }
             }
         }
         
-        if directions[0] == 1 {
+        if sides.right != .none {
             if rightCell.hasCard {
-                if rightCell.card.connections[3] == 0 {
+                if rightCell.card.sides.left == pathType.none {
                     return false
                 }
             }
         } else {
             if rightCell.hasCard {
-                if !(rightCell.card.connections[3] == 0) {
+                if rightCell.card.sides.left != pathType.none {
                     return false
                 }
             }
         }
         
-        if directions[2] == 1 {
+        if sides.bottom != .none {
             if bottomCell.hasCard {
-                if bottomCell.card.connections[0] == 0 {
+                if bottomCell.card.sides.top == pathType.none {
                     return false
                 }
             }
         } else {
             if bottomCell.hasCard {
-                if !(bottomCell.card.connections[0] == 0) {
+                if bottomCell.card.sides.top != pathType.none {
                     return false
                 }
             }
         }
         
         
-        if directions[3] == 1 {
+        if sides.left != .none {
             if leftCell.hasCard {
-                if leftCell.card.connections[1] == 0 {
+                if leftCell.card.sides.right == pathType.none {
                     return false
                 }
             }
         } else {
             if leftCell.hasCard {
-                if !(leftCell.card.connections[1] == 0) {
+                if leftCell.card.sides.right != pathType.none {
                     return false
                 }
             }
@@ -143,28 +154,36 @@ class Field {
     
     
     func checkGoalPath() {
-        
         for goalcell in self.goalCells {
             let neighbours = getNeightbours(cell: goalcell)
             for neighbourIndex in 0..<neighbours.count {
                 if neighbours[neighbourIndex].hasCard {
+                    openCard(cell: goalcell)
+                    print("opening card")
                     switch neighbourIndex {
                         case 0:
-                            if neighbours[neighbourIndex].card.connections[2] == 1 {
-                                openCard(cell: goalcell)
-                                checkCellConnection(cell: goalcell, direction: 2)
+                            if neighbours[neighbourIndex].card.sides.bottom == pathType.connection {
+                                if checkCellConnection(cell: goalcell, side: side.bottom) {
+                                    print("Connection between path and goal card")
+                                }
                             }
                         case 1:
-                            if neighbours[neighbourIndex].card.connections[3] == 1 {
-                                openCard(cell: goalcell)
+                            if neighbours[neighbourIndex].card.sides.left == pathType.connection {
+                                if checkCellConnection(cell: goalcell, side: side.left) {
+                                    print("Connection between path and goal card")
+                                }
                             }
                         case 2:
-                            if neighbours[neighbourIndex].card.connections[0] == 1 {
-                                openCard(cell: goalcell)
+                            if neighbours[neighbourIndex].card.sides.top == pathType.connection {
+                                if checkCellConnection(cell: goalcell, side: side.top) {
+                                    print("Connection between path and goal card")
+                                }
                             }
                         case 3:
-                            if neighbours[neighbourIndex].card.connections[1] == 1 {
-                                openCard(cell: goalcell)
+                            if neighbours[neighbourIndex].card.sides.right == pathType.connection {
+                                if checkCellConnection(cell: goalcell, side: side.right) {
+                                    print("Connection between path and goal card")
+                                }
                             }
                 
                     default:
@@ -174,55 +193,45 @@ class Field {
             }
         }
     }
-    
-    func checkCellConnection(cell: Cell, direction: Int) {
-        
+
+
+    func getNeightbours(cell: Cell) -> Array<Cell> {
+        return [grid[cell.x-1][cell.y],
+                grid[cell.x][cell.y+1],
+                grid[cell.x+1][cell.y],
+                grid[cell.x][cell.y-1]]
     }
     
     func openCard(cell: Cell) {
-        
+        grid[cell.x][cell.y].card.isFaceUp = true
     }
-//    func updatePath() {
-//        var queue: Array<Cell> = []
-//        var explored: Array<Cell> = []
-//        queue.append(startCell)
-//        var currentCell: Cell
-//        var currentCellNeighbours: neighBours
-//        while queue != [] {
-//            currentCell = queue.popLast()!
-//            currentCellNeighbours = getNeightbours(cell: currentCell)
-//
-//            if currentCellNeighbours.top.hasCard {
-//                if currentCellNeighbours.top.card.connections[2] == 1 {
-//                    queue.append(currentCellNeighbours.top)
-//                }
-//            }
-//
-//            if currentCellNeighbours.right.hasCard {
-//                if currentCellNeighbours.right.card.connections[3] == 1 {
-//                    queue.append(currentCellNeighbours.right)
-//                }
-//            }
-//
-//            if currentCellNeighbours.bottom.hasCard {
-//                if currentCellNeighbours.bottom.card.connections[0] == 1 {
-//                    if
-//                    queue.append(currentCellNeighbours.bottom)
-//                }
-//            }
-//
-//            if currentCellNeighbours.left.hasCard {
-//                if currentCellNeighbours.left.card.connections[1] == 1 {
-//                    queue.append(currentCellNeighbours.left)
-//                }
-//            }
-//
-//            explored.append(currentCell)
-//        }
-//
-//
-//    }
+    
+    func checkCellConnection(cell: Cell, side: side) -> Bool{
+        switch side{
+        case .top:
+            if cell.card.sides.top != pathType.none {
+                return true
+            }
+        case .right:
+            if cell.card.sides.right != pathType.none  {
+                return true
+            }
+        case .bottom:
+            if cell.card.sides.bottom != pathType.none {
+                return true
+            }
+        case .left:
+            if cell.card.sides.left != pathType.none {
+                return true
+            }
+        }
+        return false
+    }
+    
+
+
     func getCellIndexById(cellId: Int) -> Array<Int> {
+        
         for row in 0..<self.rows {
             for column in 0..<self.columns {
                 if grid[row][column].id == cellId {
@@ -231,14 +240,6 @@ class Field {
             }
         }
         return [0,0]
-    }
-    
-    func getNeightbours(cell: Cell) -> Array<Cell> {
-        let cellPos = getCellIndexById(cellId: cell.id)
-        return [grid[cellPos[0]-1][cellPos[0]],
-                grid[cellPos[0]][cellPos[0]+1],
-                grid[cellPos[0]+1][cellPos[0]],
-                grid[cellPos[0]][cellPos[0]-1]]
     }
 }
     
@@ -255,15 +256,23 @@ class Field {
 //}
 
 struct Cell: Hashable, Identifiable {
+    
     var hasCard: Bool = false
-    var cellType: Int! // 0 for start, 1 for goal, 2 for path card
+    var cellType: cardType!
     var card: Card!
+    var x: Int = 0
+    var y: Int = 0
     var id: Int = 0
 }
+
 
 struct neighBours {
     var top: Cell
     var right: Cell
     var bottom: Cell
     var left: Cell
+}
+
+enum side {
+    case top, right, bottom, left
 }

@@ -31,6 +31,7 @@ struct Game {
                 gameStatus.currentPlayer.removeCardFromHand(card: card)
                 gameStatus.currentPlayer.newCard(card: deck.drawCard())
                 gameStatus.currentPlayer.status = "waiting"
+                field.checkGoalPath()
                 
                 return true
             } else {

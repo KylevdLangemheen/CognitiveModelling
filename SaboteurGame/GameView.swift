@@ -25,7 +25,7 @@ struct GameView: View {
             field(grid: viewModel.grid, viewModel: viewModel)
             HStack{
                 ForEach(viewModel.currrentPlayer.hand, id: \.self) { card in
-                    if card.cardType == "path" {
+                    if card.cardType == cardType.path {
                         playerHand(card: card,deck: viewModel.playDeck.cards).onTapGesture {
                             viewModel.changeStatus(player: viewModel.currrentPlayer, status: "placingCard")
                             viewModel.setCard(card: card, player: viewModel.currrentPlayer)
@@ -141,7 +141,7 @@ struct CellView: View {
             if cell.hasCard {
                 RoundedRectangle(cornerRadius: 10.0).fill(Color.gray).frame(height: 60)
                 RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: 60)
-                if !cell.card.isFaceUp {
+                if cell.card.isFaceUp {
                     Text(verbatim: cell.card.cardConent).font(.largeTitle)
                 } else {
                     Text("⛏").font(.largeTitle)

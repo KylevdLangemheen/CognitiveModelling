@@ -35,7 +35,7 @@ class PlayingFieldViewModel: ObservableObject {
     
     func placeCard(card: Card,cell: Cell) -> Bool {
         objectWillChange.send()
-        return GameModel.field.placeCard(cell: cell, card: card)
+        return GameModel.placeCard(card: card,cell: cell)
     }
     
     func setCard(card: Card, player: Player) {
