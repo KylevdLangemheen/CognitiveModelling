@@ -29,13 +29,13 @@ class Field {
         }
         
         var goalCards: Array<Card> = []
-        goalCards.append(Card(isFaceUp: false, cardType: cardType.goal, cardContent: "⚫️", sides: Sides(top: .connection, right: .connection, bottom: .none, left: .none), id: 0))
-        goalCards.append(Card(isFaceUp: false, cardType: cardType.goal, cardContent: "💎", sides: Sides(
+        goalCards.append(Card(isFaceUp: false, cardType: cardType.goal, cardContent: "", sides: Sides(top: .connection, right: .connection, bottom: .none, left: .none), id: 0))
+        goalCards.append(Card(isFaceUp: false, cardType: cardType.goal, cardContent: "", sides: Sides(
                               top: pathType.connection,
                               right: pathType.connection,
                               bottom: pathType.connection,
                               left: pathType.connection),id: 0))
-        goalCards.append(Card(isFaceUp: false, cardType: cardType.goal, cardContent: "⚫️", sides: Sides(top: .none, right: .none, bottom: .connection, left: .connection),id: 0))
+        goalCards.append(Card(isFaceUp: false, cardType: cardType.goal, cardContent: "", sides: Sides(top: .none, right: .none, bottom: .connection, left: .connection),id: 0))
         goalCards.shuffle()
         
         grid[rows-9][columns/2+2].hasCard = true
@@ -51,7 +51,7 @@ class Field {
         grid[rows-9][columns/2].cellType = cardType.goal
 
         grid[rows-1][columns/2].hasCard = true
-        grid[rows-1][columns/2].card = Card(isFaceUp: true, cardType: .goal, cardContent: "Start", sides: Sides(
+        grid[rows-1][columns/2].card = Card(isFaceUp: true, cardType: cardType.start, cardContent: "", sides: Sides(
                                                 top: pathType.connection,
                                                 right: pathType.connection,
                                                 bottom: pathType.connection,

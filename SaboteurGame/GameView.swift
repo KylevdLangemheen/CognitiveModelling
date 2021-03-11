@@ -52,7 +52,7 @@ struct field: View {
         ForEach(grid, id: \.self) { row in
             HStack {
                 ForEach(row) { cell in
-                    CellView(cell: cell).onTapGesture {
+                    CellView(viewModel: viewModel, cell: cell).onTapGesture {
                         if !viewModel.placeCard(card: viewModel.currrentPlayer.playCard ,cell: cell) {
                             self.invalidMove = true
                         }
@@ -71,9 +71,13 @@ struct playerHand: View {
     var body: some View{
         HStack {
             ZStack {
-                RoundedRectangle(cornerRadius: 10.0).fill(Color.gray).frame(height: 60)
+//                RoundedRectangle(cornerRadius: 10.0).fill(Color.white).frame(height: 60)
                 RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: 60)
-                Text(card.cardContent).font(.title)
+                Image("PC1")
+                        .resizable()
+                        .blendMode(.multiply)
+                        .rotationEffect(.degrees(-90))
+                        .aspectRatio(contentMode: .fit)
             }
         }
     }
@@ -135,17 +139,28 @@ struct opponentInfo: View {
 }
 
 struct CellView: View {
+    var viewModel: PlayingFieldViewModel
     var cell: Cell
     var body: some View{
         ZStack {
             if cell.hasCard {
-                RoundedRectangle(cornerRadius: 10.0).fill(Color.gray).frame(height: 60)
                 RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: 60)
                 if cell.card.isFaceUp {
                     Text(verbatim: cell.card.cardContent).font(.largeTitle)
                 } else {
-                    Text("⛏").font(.largeTitle)
+                    Image("Goal_Card_Face_Down")
+                        .resizable()
+                        .blendMode(.multiply)
+                        .rotationEffect(.degrees(-90))
+                        .aspectRatio(contentMode: .fit)
                 }
+                if cell.card.cardType == cardType.start {
+                    Image(viewModel.playDeck.PC41.cardContent)
+                        .resizable()
+                        .blendMode(.multiply)
+                        .rotationEffect(.degrees(-90))
+                        .aspectRatio(contentMode: .fit)
+}
             } else {
                 RoundedRectangle(cornerRadius: 10.0).fill(Color.white)
                 RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: 60)
