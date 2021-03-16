@@ -12,30 +12,19 @@ struct GameView: View {
     
     
     var body: some View {
-        
-
-
-
         VStack {
-
-        
-            opponentInfo().padding(.trailing, 50)
+            opponentInfo(viewModel: viewModel).padding(.trailing, 50)
                 .padding(.leading, 50)
-
-            field(grid: viewModel.grid, viewModel: viewModel)
+            
+            field(viewModel: viewModel, grid: viewModel.grid)
+            
             HStack{
-                ForEach(viewModel.currrentPlayer.hand, id: \.self) { card in
-                    if card.cardType == cardType.path {
-                        playerHand(card: card,deck: viewModel.playDeck.cards).onTapGesture {
-                            viewModel.changeStatus(player: viewModel.currrentPlayer, status: "placingCard")
-                            viewModel.setCard(card: card, player: viewModel.currrentPlayer)
-                        }
-                    }
-                }
+                playerHand(viewModel: viewModel)
                 playerInfo(deckCount: viewModel.playDeck.cards.count)
             }.padding(.trailing, 50)
             .padding(.leading, 50)
             .padding(.bottom, 20)
+
             
         }
         
@@ -43,39 +32,49 @@ struct GameView: View {
 
 }
 
+ 
 struct field: View {
-    var grid: Array<Array<Cell>>
     var viewModel: PlayingFieldViewModel
+    var grid: Array<Array<Cell>>
     @State private var invalidMove = false
+    @State private var computersTurn = false
     
     var body: some View {
         ForEach(grid, id: \.self) { row in
             HStack {
                 ForEach(row) { cell in
                     CellView(cell: cell).onTapGesture {
-                        if !viewModel.placeCard(card: viewModel.currrentPlayer.playCard ,cell: cell) {
-                            self.invalidMove = true
+                        if viewModel.currrentPlayer.type == .human{
+                            viewModel.placeCard(card: viewModel.currrentPlayer.playCard ,cell: cell)
                         }
                     }
                 }
             }.alert(isPresented: $invalidMove) {
                 Alert(title: Text("Invalid Action"), message: Text("You cannot place this card here"), dismissButton: .default(Text("Got it!")))
+            }.alert(isPresented: $computersTurn) {
+                Alert(title: Text("It is not your turn"), message: Text("Please wait for the other players to finish their turn"), dismissButton: .default(Text("Got it!")))
             }
         }.padding(.trailing, 100)
         .padding(.leading, 100)
     }
 }
 struct playerHand: View {
-    var card: Card
-    var deck: Array<Card>
+    var viewModel: PlayingFieldViewModel
     var body: some View{
-        HStack {
-            ZStack {
-                RoundedRectangle(cornerRadius: 10.0).fill(Color.gray).frame(height: 60)
-                RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: 60)
-                Text(card.cardConent).font(.title)
+        
+        HStack{
+            ForEach(viewModel.currrentPlayer.hand, id: \.self) { card in
+                ZStack {
+                    RoundedRectangle(cornerRadius: 10.0).fill(Color.gray).frame(height: 60)
+                    RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: 60)
+                    Text(card.cardContent).font(.title)
+                }
+                .onTapGesture {
+                    viewModel.setCard(card: card, player: viewModel.currrentPlayer)
+                }
             }
         }
+
     }
 }
 
@@ -118,6 +117,7 @@ struct playerInfo: View {
 }
 
 struct opponentInfo: View {
+    var viewModel: PlayingFieldViewModel
     var body: some View {
         ZStack{
             RoundedRectangle(cornerRadius: 10.0).fill(Color.white)
@@ -130,6 +130,10 @@ struct opponentInfo: View {
             }.padding(.leading, 500)
             .padding(.trailing, 50)
             Text("Opponent").font(.largeTitle)
+        }.onTapGesture {
+            if viewModel.currrentPlayer.playerStatus == .usingCard {
+                viewModel.playActionCard()
+            }
         }
     }
 }
@@ -142,7 +146,7 @@ struct CellView: View {
                 RoundedRectangle(cornerRadius: 10.0).fill(Color.gray).frame(height: 60)
                 RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: 60)
                 if cell.card.isFaceUp {
-                    Text(verbatim: cell.card.cardConent).font(.largeTitle)
+                    Text(verbatim: cell.card.cardContent).font(.largeTitle)
                 } else {
                     Text("⛏").font(.largeTitle)
                 }
@@ -150,7 +154,6 @@ struct CellView: View {
                 RoundedRectangle(cornerRadius: 10.0).fill(Color.white)
                 RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: 60)
             }
-//            Text("⛏").font(.largeTitle)
         }
     }
 }

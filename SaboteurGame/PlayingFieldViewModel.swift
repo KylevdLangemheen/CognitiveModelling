@@ -29,16 +29,21 @@ class PlayingFieldViewModel: ObservableObject {
     
     // MARK: Intent(s)
     
-    func changeStatus(player: Player, status: String){
-        player.changeStatus(status: status)
+    func changePlayerStatus(player: Player, status: playerStatus){
+        objectWillChange.send()
+        player.changePlayerStatus(status: status)
     }
     
-    func placeCard(card: Card,cell: Cell) -> Bool {
+    func placeCard(card: Card,cell: Cell) {
         objectWillChange.send()
         return GameModel.placeCard(card: card,cell: cell)
     }
     
+    func playActionCard(){
+        return GameModel.playActionCard()
+    }
     func setCard(card: Card, player: Player) {
+        objectWillChange.send()
         GameModel.gameStatus.currentPlayer.setCard(card: card)
         
     }

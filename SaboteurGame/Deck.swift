@@ -13,48 +13,24 @@ class Deck {
     var cards: Array<Card> = []
     var directionCount: Int
     var crossCardCount: Int
-    init(directionCount: Int, crossCardCount: Int) {
+    var actionCardCount: Int
+    init(directionCount: Int, crossCardCount: Int, actionCardCount: Int) {
         self.directionCount = directionCount
         self.crossCardCount = crossCardCount
+        self.actionCardCount = actionCardCount
         
         let directions: Array<String> = ["⬆️","➡️","⬇️","⬅️"]
         
         var id: Int = 0
         
-        // Corners
-//        for start in 0..<directionCount {
-//            for end in start+1..<directionCount {
-//                var newCard = Card(cardType: "path",id: id)
-//                newCard.connections[start] = 1
-//                newCard.connections[end] = 1
-//                let newDirections = [directions[start],directions[end]]
-//                newCard.cardConent = newDirections.joined(separator: "")
-//                cards.append(newCard)
-//                id += 1
-//            }
-//        }
-//
-//        // T-Shape
-//        for closed in 0..<directionCount {
-//            var newCard = Card(cardType: cardType.path,
-//                               connections: connections(
-//                                 top: pathType.connection,
-//                                 right: pathType.connection,
-//                                 bottom: pathType.connection,
-//                                 left: pathType.connection),
-//                               id: id)
-//            newCard.connections = 0
-//            var newDirections = directions
-//            newDirections.remove(at: closed)
-//            newCard.cardConent = newDirections.joined(separator: "")
-//            cards.append(newCard)
-//            id += 1
-//        }
-        
+        for _ in 0..<actionCardCount {
+            cards.append(Card( cardType: .action, actionType: actionType.breakAxe, cardContent: "Break Axe",id: id) )
+            id += 1
+        }
         // X-Shape
         for _ in 0..<crossCardCount {
             cards.append(Card(cardType: cardType.path,
-                              cardConent: directions.joined(separator: ""),
+                              cardContent: directions.joined(separator: ""),
                               sides: Sides(
                                 top: pathType.connection,
                                 right: pathType.connection,
@@ -82,8 +58,9 @@ struct Card: Hashable {
 
     var isFaceUp: Bool = true
     var cardType: cardType
-    var cardConent: String = " "
-    var sides: Sides = Sides()
+    var actionType: actionType!
+    var cardContent: String = " "
+    var sides: Sides! = Sides()
     var id: Int = 0
 }
 
@@ -99,5 +76,9 @@ enum pathType {
 }
 
 enum cardType {
-    case goal, action, path
+    case gold, coal, action, path, start
+}
+
+enum actionType {
+    case breakAxe, breakCart, breakLamp, repairAxe, repairCart, repairLamp
 }

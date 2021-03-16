@@ -8,19 +8,24 @@
 import Foundation
 
 struct Players {
-    let playerCount: Int
     let handSize: Int
     var players: Array<Player> = []
     
-    init(playerCount: Int, handSize: Int, deck: Deck) {
-        self.playerCount = playerCount
+    init(humanPlayers: Int, computers: Int, handSize: Int, deck: Deck) {
         self.handSize = handSize
-        
-        var roles: Array<String> = Array(repeating: "Miner", count: playerCount) + Array(repeating: "Saboteur", count: playerCount-1)
+
+        var roles: Array<Role> = Array(repeating: .miner, count: humanPlayers + computers) + Array(repeating: .saboteur, count: humanPlayers + computers)
         roles.shuffle()
         
-        for id in 0..<playerCount {
-            players.append(Player(role: roles[id], id: id, deck: deck, handSize: handSize))
+        var id = 0
+        for _ in 0..<humanPlayers {
+            players.append(Player(role: roles[id], id: id, deck: deck, handSize: handSize, type: .human))
+            id += 1
+        }
+        
+        for _ in 0..<computers {
+            players.append(Computer(role: roles[id], id: id, deck: deck, handSize: handSize, type: .computer))
+            id += 1
         }
     }
     
@@ -28,26 +33,31 @@ struct Players {
 }
 
 class Player {
-    var status: String = "Nothing" // placingCard, waiting (for other player), usingCard(action), redraw
-    var role: String
+    var playerStatus: playerStatus // placingCard, waiting (for other player), usingCard(action), redraw
+    var tools: Tools
+    var role: Role
+    var type: playerType
     var playCard: Card!
     var hand: Array<Card> = []
     var id: Int
     
-    init(role: String, id: Int, deck: Deck, handSize: Int) {
+    init(role: Role, id: Int, deck: Deck, handSize: Int, type: playerType) {
+        playerStatus = .waiting
+        tools = Tools()
         self.role = role
         self.id = id
+        self.type = type
         for _ in 0..<handSize {
             self.hand.append(deck.drawCard())
         }
     }
     
     func newCard(card: Card){
-        self.hand.append(card)
+        hand.append(card)
     }
     
-    func changeStatus(status: String) {
-        self.status = status
+    func changePlayerStatus(status: playerStatus) {
+        playerStatus = status
         print("Status: \(status)")
     }
     
@@ -66,6 +76,54 @@ class Player {
     }
     
     func setCard(card: Card) {
-        self.playCard = card
+        playCard = card
+        switch card.cardType {
+        case .path:
+            changePlayerStatus(status: .placingCard)
+        case .action:
+            changePlayerStatus(status: .usingCard)
+        default:
+            changePlayerStatus(status: .playing)
+        }
+        
+        
     }
+}
+
+class Computer: Player {
+    var possiblePlays: Array<cardPlay> = []
+}
+
+struct cardPlay {
+    var playType: playType
+    var card: Card
+    var cell: Cell!
+    var player: Player!
+    var coopValue: Float
+}
+
+enum playerStatus {
+    case playing, waiting, placingCard, usingCard
+}
+
+struct Tools {
+    var pickaxe: toolStatus = .intact
+    var mineCart: toolStatus = .intact
+    var lamp: toolStatus = .intact
+}
+
+enum toolStatus {
+    case intact, broken
+}
+
+enum Role {
+    case miner, saboteur
+}
+
+enum playType {
+    case destroyCard, placeCard, toolModifier
+}
+
+enum playerType {
+    case computer, human
 }
