@@ -44,7 +44,7 @@ class PlayingFieldViewModel: ObservableObject {
     }
     func setCard(card: Card, player: Player) {
         objectWillChange.send()
-        GameModel.gameStatus.currentPlayer.setCard(card: card)
+        player.setCard(card: card)
         
     }
     

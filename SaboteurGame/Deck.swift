@@ -11,11 +11,9 @@ import Foundation
 
 class Deck {
     var cards: Array<Card> = []
-    var directionCount: Int
     var crossCardCount: Int
     var actionCardCount: Int
-    init(directionCount: Int, crossCardCount: Int, actionCardCount: Int) {
-        self.directionCount = directionCount
+    init(crossCardCount: Int, actionCardCount: Int) {
         self.crossCardCount = crossCardCount
         self.actionCardCount = actionCardCount
         

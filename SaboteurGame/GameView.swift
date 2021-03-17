@@ -19,7 +19,7 @@ struct GameView: View {
             field(viewModel: viewModel, grid: viewModel.grid)
             
             HStack{
-                playerHand(viewModel: viewModel)
+                playerHand(viewModel: viewModel, currentPlayer: viewModel.currrentPlayer, hand: viewModel.currrentPlayer.hand)
                 playerInfo(deckCount: viewModel.playDeck.cards.count)
             }.padding(.trailing, 50)
             .padding(.leading, 50)
@@ -60,17 +60,19 @@ struct field: View {
 }
 struct playerHand: View {
     var viewModel: PlayingFieldViewModel
+    var currentPlayer: Player
+    var hand: Array<Card>
     var body: some View{
         
         HStack{
-            ForEach(viewModel.currrentPlayer.hand, id: \.self) { card in
+            ForEach(hand, id: \.self) { card in
                 ZStack {
                     RoundedRectangle(cornerRadius: 10.0).fill(Color.gray).frame(height: 60)
                     RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: 60)
                     Text(card.cardContent).font(.title)
                 }
                 .onTapGesture {
-                    viewModel.setCard(card: card, player: viewModel.currrentPlayer)
+                    viewModel.setCard(card: card, player: currentPlayer)
                 }
             }
         }

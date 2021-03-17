@@ -24,7 +24,7 @@ struct Players {
         }
         
         for _ in 0..<computers {
-            players.append(Computer(role: roles[id], id: id, deck: deck, handSize: handSize, type: .computer))
+            players.append(Player(role: roles[id], id: id, deck: deck, handSize: handSize, type: .computer))
             id += 1
         }
     }
@@ -58,17 +58,16 @@ class Player {
     
     func changePlayerStatus(status: playerStatus) {
         playerStatus = status
-        print("Status: \(status)")
     }
     
-    func removeCardFromHand(card: Card) {
-        let cardIndex: Int = getCardIndexInHand(card: card)
+    func removeCardFromHand(id: Int) {
+        let cardIndex: Int = getCardIndexInHand(id: id)
         hand.remove(at: cardIndex)
     }
     
-    func getCardIndexInHand(card: Card) -> Int{
+    func getCardIndexInHand(id: Int) -> Int{
         for handIdx in 0..<hand.count {
-            if hand[handIdx].id == card.id {
+            if hand[handIdx].id == id {
                 return handIdx
             }
         }
@@ -76,7 +75,7 @@ class Player {
     }
     
     func setCard(card: Card) {
-        playCard = card
+        self.playCard = card
         switch card.cardType {
         case .path:
             changePlayerStatus(status: .placingCard)
@@ -85,22 +84,16 @@ class Player {
         default:
             changePlayerStatus(status: .playing)
         }
-        
+        print(playCard.id)
         
     }
 }
 
-class Computer: Player {
-    var possiblePlays: Array<cardPlay> = []
-}
+//class Computer: Player {
+//    var possiblePlays: Array<cardPlay> = []
+//}
 
-struct cardPlay {
-    var playType: playType
-    var card: Card
-    var cell: Cell!
-    var player: Player!
-    var coopValue: Float
-}
+
 
 enum playerStatus {
     case playing, waiting, placingCard, usingCard

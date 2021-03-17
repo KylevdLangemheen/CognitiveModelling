@@ -14,8 +14,7 @@ class Field {
     var paths: Array<Array<Int>> = [[]]
     var startCell: Cell
     var goalCells: Array<Cell> = []
-    var directions: Array<String> = ["top", "right", "bottom", "left"
-    ]
+    var validCardPlacementCells: Array<Cell> = []
     
     init(columns: Int, rows: Int) {
         
@@ -59,31 +58,92 @@ class Field {
         self.goalCells.append(grid[rows-9][columns/2+2])
         self.goalCells.append(grid[rows-9][columns/2-2])
         self.goalCells.append(grid[rows-9][columns/2])
+        
+        validCardPlacementCells.append(grid[rows-2][columns/2])
+        validCardPlacementCells.append(grid[rows-1][columns/2 - 1])
+        validCardPlacementCells.append(grid[rows-1][columns/2 + 1])
+
     }
     
     
 
     func placeCard(cell: Cell, card: Card) -> Bool {
-        
         if validCardPlacement(cell: cell, sides: card.sides) {
             grid[cell.x][cell.y].card = card
             grid[cell.x][cell.y].hasCard = true
-            
-            print("Placed Card")
+            updateValidCardPlacements(cell: cell,card: card)
+            print("Placed Card at cell \(cell.id)")
             return true
         } else {
             print("Did not place card, invalid move")
             return false
         }
     }
+    func removeCellFromValidCardPlacements(cell: Cell) {
+        for validCellIdx in 0..<validCardPlacementCells.count{
+            if cell.id == validCardPlacementCells[validCellIdx].id {
+                validCardPlacementCells.remove(at: validCellIdx)
+                return
+            }
+        }
+    }
+    
+    func updateValidCardPlacements(cell: Cell, card: Card){
+        removeCellFromValidCardPlacements(cell: cell)
+        
+        let neighBours = getNeightbours(cell: cell)
+        if card.sides.top == .connection {
+            if !validCardPlacementCells.contains(neighBours.top){
+                if !neighBours.top.hasCard{
+                    validCardPlacementCells.append(neighBours.top)
+                }
+            }
+        }
+        
+        if card.sides.right == .connection {
+            if !validCardPlacementCells.contains(neighBours.right){
+                if !neighBours.right.hasCard{
+                    validCardPlacementCells.append(neighBours.right)
+                }
+            }
+        }
+        if card.sides.bottom == .connection {
+            if !validCardPlacementCells.contains(neighBours.bottom){
+                if !neighBours.bottom.hasCard{
+                    validCardPlacementCells.append(neighBours.bottom)
+                }
+            }
+        }
+        if card.sides.left == .connection {
+            if !validCardPlacementCells.contains(neighBours.left){
+                if !neighBours.left.hasCard{
+                    validCardPlacementCells.append(neighBours.left)
+                }
+            }
+        }
+    }
+    
+    func isCellValid(cell: Cell) -> Bool{
+        for validCell in validCardPlacementCells{
+            if cell.id == validCell.id {
+                return true
+            }
+        }
+        return false
+    }
     
     func validCardPlacement(cell: Cell, sides: Sides) -> Bool {
         let neighBours = getNeightbours(cell: cell)
         
+        if !isCellValid(cell: cell){
+            return false
+        }
         
         if (!neighBours.top.hasCard && !neighBours.right.hasCard && !neighBours.bottom.hasCard && !neighBours.left.hasCard) {
             return false
         }
+        
+        
         if sides.top != .none {
             if neighBours.top.hasCard {
                 if neighBours.top.card.cardType == .path {
@@ -327,4 +387,12 @@ struct neighBours {
 
 enum side {
     case top, right, bottom, left
+}
+
+struct cardPlay {
+    var playType: playType
+    var card: Card
+    var cell: Cell!
+    var player: Player!
+    var coopValue: Float
 }
