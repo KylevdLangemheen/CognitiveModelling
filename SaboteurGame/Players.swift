@@ -32,7 +32,7 @@ struct Players {
 
 }
 
-class Player {
+class Player: Identifiable {
     var playerStatus: playerStatus // placingCard, waiting (for other player), usingCard(action), redraw
     var tools: Tools
     var role: Role
@@ -78,25 +78,29 @@ class Player {
         self.playCard = card
         switch card.cardType {
         case .path:
-            changePlayerStatus(status: .placingCard)
+            changePlayerStatus(status: .usingPathCard)
         case .action:
-            changePlayerStatus(status: .usingCard)
+            changePlayerStatus(status: .usingActionCard)
+        case .tool:
+            changePlayerStatus(status: .usingToolCard)
+        
         default:
-            changePlayerStatus(status: .playing)
+            print("Something went wrong in setCard")
+        }        
+    }
+    
+    func addCardToHand(card: Card){
+        if hand.count <= 7 {
+            hand.append(card)
+        } else {
+            print("Hand has already 6 cards, not valid to get another card. Something went wrong")
         }
-        print(playCard.id)
         
     }
 }
 
-//class Computer: Player {
-//    var possiblePlays: Array<cardPlay> = []
-//}
-
-
-
 enum playerStatus {
-    case playing, waiting, placingCard, usingCard
+    case playing, waiting, usingActionCard, usingPathCard, usingToolCard
 }
 
 struct Tools {

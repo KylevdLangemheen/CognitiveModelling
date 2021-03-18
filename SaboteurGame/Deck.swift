@@ -22,7 +22,12 @@ class Deck {
         var id: Int = 0
         
         for _ in 0..<actionCardCount {
-            cards.append(Card( cardType: .action, actionType: actionType.breakAxe, cardContent: "Break Axe",id: id) )
+            cards.append(Card( cardType: .tool, actionType: actionType.breakAxe, cardContent: "Break Axe",id: id) )
+            cards.append(Card( cardType: .tool, actionType: actionType.breakCart, cardContent: "Break cart",id: id) )
+            cards.append(Card( cardType: .tool, actionType: actionType.breakLamp, cardContent: "Break lamp",id: id) )
+            cards.append(Card( cardType: .tool, actionType: actionType.repairAxe, cardContent: "Repair Axe",id: id) )
+            cards.append(Card( cardType: .tool, actionType: actionType.repairCart, cardContent: "Repair Cart",id: id) )
+            cards.append(Card( cardType: .tool, actionType: actionType.repairLamp, cardContent: "Repair Lamp",id: id) )
             id += 1
         }
         // X-Shape
@@ -74,7 +79,7 @@ enum pathType {
 }
 
 enum cardType {
-    case gold, coal, action, path, start
+    case gold, coal, tool, action, path, start
 }
 
 enum actionType {

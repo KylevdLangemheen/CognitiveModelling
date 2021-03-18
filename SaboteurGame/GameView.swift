@@ -13,14 +13,23 @@ struct GameView: View {
     
     var body: some View {
         VStack {
-            opponentInfo(viewModel: viewModel).padding(.trailing, 50)
-                .padding(.leading, 50)
+            HStack{
+                ForEach(viewModel.players) { player in
+                    if player.type == .computer {
+                        opponentInfo(viewModel: viewModel, player: player).padding(.trailing, 50)
+                            .padding(.leading, 50)
+                    }
+
+                }
+
+            }
+
             
-            field(viewModel: viewModel, grid: viewModel.grid)
+            field(viewModel: viewModel, currentPlayer: viewModel.currrentPlayer, grid: viewModel.grid)
             
             HStack{
-                playerHand(viewModel: viewModel, currentPlayer: viewModel.currrentPlayer, hand: viewModel.currrentPlayer.hand)
-                playerInfo(deckCount: viewModel.playDeck.cards.count)
+                playerHand(viewModel: viewModel, currentPlayer: viewModel.currrentPlayer, hand: viewModel.playerHand)
+                playerInfo(player: viewModel.currrentPlayer, viewModel: viewModel, deckCount: viewModel.playDeck.cards.count, role: viewModel.playerRole)
             }.padding(.trailing, 50)
             .padding(.leading, 50)
             .padding(.bottom, 20)
@@ -35,6 +44,7 @@ struct GameView: View {
  
 struct field: View {
     var viewModel: PlayingFieldViewModel
+    var currentPlayer: Player
     var grid: Array<Array<Cell>>
     @State private var invalidMove = false
     @State private var computersTurn = false
@@ -44,8 +54,8 @@ struct field: View {
             HStack {
                 ForEach(row) { cell in
                     CellView(cell: cell).onTapGesture {
-                        if viewModel.currrentPlayer.type == .human{
-                            viewModel.placeCard(card: viewModel.currrentPlayer.playCard ,cell: cell)
+                        if currentPlayer.type == .human{
+                            viewModel.placeCard(card: currentPlayer.playCard ,cell: cell)
                         }
                     }
                 }
@@ -81,14 +91,25 @@ struct playerHand: View {
 }
 
 struct playerInfo: View {
+    var player: Player
+    var viewModel: PlayingFieldViewModel
     var deckCount: Int
+    var role: Role
+
     var body: some View {
         HStack {
             VStack {
                 ZStack {
                     RoundedRectangle(cornerRadius: 10.0).fill(Color.gray).frame(height: 100)
                     RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: 100)
-                    Text("Role").font(.title)
+                    if role == .miner {
+                        Text("Miner").font(.title)
+                    } else {
+                        Text("Saboteur").font(.title)
+                    }
+                    
+                }.onTapGesture {
+                    viewModel.playActionCard(player: player)
                 }
                 HStack {
                     RoundedRectangle(cornerRadius: 25.0).stroke(lineWidth: 3).frame(height: 20)
@@ -104,6 +125,11 @@ struct playerInfo: View {
                     RoundedRectangle(cornerRadius: 10.0).fill(Color.gray).frame(height: 60)
                     RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: 60)
                     Text("Switch").font(.title)
+                }.onTapGesture {
+                    if player.playCard != nil {
+                        viewModel.swapCard(card: player.playCard)
+                    }
+                    
                 }
                 ZStack {
                     RoundedRectangle(cornerRadius: 10.0).fill(Color.gray).frame(height: 60)
@@ -120,6 +146,7 @@ struct playerInfo: View {
 
 struct opponentInfo: View {
     var viewModel: PlayingFieldViewModel
+    var player: Player
     var body: some View {
         ZStack{
             RoundedRectangle(cornerRadius: 10.0).fill(Color.white)
@@ -133,9 +160,7 @@ struct opponentInfo: View {
             .padding(.trailing, 50)
             Text("Opponent").font(.largeTitle)
         }.onTapGesture {
-            if viewModel.currrentPlayer.playerStatus == .usingCard {
-                viewModel.playActionCard()
-            }
+            viewModel.playActionCard(player: player)
         }
     }
 }

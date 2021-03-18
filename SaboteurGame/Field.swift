@@ -72,13 +72,14 @@ class Field {
             grid[cell.x][cell.y].card = card
             grid[cell.x][cell.y].hasCard = true
             updateValidCardPlacements(cell: cell,card: card)
-            print("Placed Card at cell \(cell.id)")
+//            print("Placed Card at cell \(cell.id)")
             return true
         } else {
             print("Did not place card, invalid move")
             return false
         }
     }
+    
     func removeCellFromValidCardPlacements(cell: Cell) {
         for validCellIdx in 0..<validCardPlacementCells.count{
             if cell.id == validCardPlacementCells[validCellIdx].id {
@@ -330,6 +331,8 @@ class Field {
     
     func getCoopValue(card: Card, cell: Cell) -> Float{
         return 1.0
+//        neighbours = getNeightbours(cell)
+        
     }
 }
 
@@ -396,3 +399,7 @@ struct cardPlay {
     var player: Player!
     var coopValue: Float
 }
+
+// After playing path card update model accordingly Player number ("one", "two" ..) and calculated role ("unknown, "saboteur", "miner")
+// After playing action cards update model differently
+// Switch
