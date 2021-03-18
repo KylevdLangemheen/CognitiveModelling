@@ -156,8 +156,9 @@ struct Game {
                 player.tools.lamp = .intact
             }
         default:
-            print("something went wrong wen playing an action card")
+            print("something went wrong when playing an action card")
         }
+        //depending on what was played, infer or update beliefs act-r model
         endTurn()
         print("played action card")
     }
@@ -167,6 +168,7 @@ struct Game {
             if field.placeCard(cell: cell, card: card) {
                 gameStatus.currentPlayer.removeCardFromHand(id: card.id)
                 gameStatus.currentPlayer.newCard(card: deck.drawCard())
+                //depending on who played what, update beliefs act-r model
                 endTurn()
             } else {
                 gameStatus.currentPlayer.changePlayerStatus(status: .playing)
