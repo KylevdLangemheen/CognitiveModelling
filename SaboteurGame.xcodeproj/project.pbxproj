@@ -16,6 +16,7 @@
 		03B1468125E64E1600371620 /* PlayingFieldViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B1468025E64E1600371620 /* PlayingFieldViewModel.swift */; };
 		03C3ECBA25ED374500A71642 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C3ECB925ED374500A71642 /* Deck.swift */; };
 		03C3ECBD25EE471B00A71642 /* Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C3ECBC25EE471B00A71642 /* Field.swift */; };
+		4D80035D2603633800DA1ED1 /* ACT-R in Resources */ = {isa = PBXBuildFile; fileRef = 4D80035C2603633800DA1ED1 /* ACT-R */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		03B1468025E64E1600371620 /* PlayingFieldViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingFieldViewModel.swift; sourceTree = "<group>"; };
 		03C3ECB925ED374500A71642 /* Deck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
 		03C3ECBC25EE471B00A71642 /* Field.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Field.swift; sourceTree = "<group>"; };
+		4D80035C2603633800DA1ED1 /* ACT-R */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "ACT-R"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,6 +48,7 @@
 		0325B37725DD8FD3006BBBDE = {
 			isa = PBXGroup;
 			children = (
+				4D80035C2603633800DA1ED1 /* ACT-R */,
 				0325B38225DD8FD3006BBBDE /* SaboteurGame */,
 				0325B38125DD8FD3006BBBDE /* Products */,
 			);
@@ -141,6 +144,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D80035D2603633800DA1ED1 /* ACT-R in Resources */,
 				0325B38B25DD8FD6006BBBDE /* Preview Assets.xcassets in Resources */,
 				0325B38825DD8FD6006BBBDE /* Assets.xcassets in Resources */,
 			);
