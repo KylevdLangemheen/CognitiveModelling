@@ -12,30 +12,28 @@ struct GameView: View {
     
     
     var body: some View {
-        
-
-
-
         VStack {
-
-        
-            opponentInfo().padding(.trailing, 50)
-                .padding(.leading, 50)
-
-            field(grid: viewModel.grid, viewModel: viewModel)
             HStack{
-                ForEach(viewModel.currrentPlayer.hand, id: \.self) { card in
-                    if card.cardType == "path" {
-                        playerHand(card: card,deck: viewModel.playDeck.cards).onTapGesture {
-                            viewModel.changeStatus(player: viewModel.currrentPlayer, status: "placingCard")
-                            viewModel.setCard(card: card, player: viewModel.currrentPlayer)
-                        }
+                ForEach(viewModel.players) { player in
+                    if player.type == .computer {
+                        opponentInfo(viewModel: viewModel, player: player).padding(.trailing, 50)
+                            .padding(.leading, 50)
                     }
+
                 }
-                playerInfo(deckCount: viewModel.playDeck.cards.count)
+
+            }
+
+            
+            field(viewModel: viewModel, currentPlayer: viewModel.currrentPlayer, grid: viewModel.grid)
+            
+            HStack{
+                playerHand(viewModel: viewModel, currentPlayer: viewModel.currrentPlayer, hand: viewModel.playerHand)
+                playerInfo(player: viewModel.currrentPlayer, viewModel: viewModel, deckCount: viewModel.playDeck.cards.count, role: viewModel.playerRole)
             }.padding(.trailing, 50)
             .padding(.leading, 50)
             .padding(.bottom, 20)
+
             
         }
         
@@ -43,54 +41,75 @@ struct GameView: View {
 
 }
 
+ 
 struct field: View {
-    var grid: Array<Array<Cell>>
     var viewModel: PlayingFieldViewModel
+    var currentPlayer: Player
+    var grid: Array<Array<Cell>>
     @State private var invalidMove = false
+    @State private var computersTurn = false
     
     var body: some View {
         ForEach(grid, id: \.self) { row in
             HStack {
                 ForEach(row) { cell in
                     CellView(cell: cell).onTapGesture {
-                        if !viewModel.placeCard(card: viewModel.currrentPlayer.playCard ,cell: cell) {
-                            self.invalidMove = true
+                        if currentPlayer.type == .human{
+                            viewModel.placeCard(card: currentPlayer.playCard ,cell: cell)
                         }
                     }
                 }
             }.alert(isPresented: $invalidMove) {
                 Alert(title: Text("Invalid Action"), message: Text("You cannot place this card here"), dismissButton: .default(Text("Got it!")))
+            }.alert(isPresented: $computersTurn) {
+                Alert(title: Text("It is not your turn"), message: Text("Please wait for the other players to finish their turn"), dismissButton: .default(Text("Got it!")))
             }
         }.padding(.trailing, 100)
         .padding(.leading, 100)
     }
 }
 struct playerHand: View {
-    var card: Card
-    var deck: Array<Card>
+    var viewModel: PlayingFieldViewModel
+    var currentPlayer: Player
+    var hand: Array<Card>
     var body: some View{
-        HStack {
-            ZStack {
-                RoundedRectangle(cornerRadius: 10.0).fill(Color.gray).frame(height: 60)
-                RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: 60)
-                Text(card.cardContent).font(.title)
+        
+        HStack{
+            ForEach(hand, id: \.self) { card in
+                ZStack {
+                    RoundedRectangle(cornerRadius: 10.0).fill(Color.gray).frame(height: 60)
+                    RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: 60)
+                    Text(card.cardContent).font(.title)
+                }
+                .onTapGesture {
+                    viewModel.setCard(card: card, player: currentPlayer)
+                }
             }
         }
+
     }
 }
 
 struct playerInfo: View {
+    var player: Player
+    var viewModel: PlayingFieldViewModel
     var deckCount: Int
+    var role: Role
+
     var body: some View {
         HStack {
             VStack {
                 ZStack {
-                    RoundedRectangle(cornerRadius: 10.0).fill(Color.white).frame(height: 100)
+                    RoundedRectangle(cornerRadius: 10.0).fill(Color.gray).frame(height: 100)
                     RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: 100)
-                    Image("Gold_Digger")
-                        .resizable()
-                        .blendMode(.multiply)
-                        .aspectRatio(contentMode: .fit)
+                    if role == .miner {
+                        Text("Miner").font(.title)
+                    } else {
+                        Text("Saboteur").font(.title)
+                    }
+                    
+                }.onTapGesture {
+                    viewModel.playActionCard(player: player)
                 }
                 HStack {
                     RoundedRectangle(cornerRadius: 25.0).stroke(lineWidth: 3).frame(height: 20)
@@ -106,6 +125,11 @@ struct playerInfo: View {
                     RoundedRectangle(cornerRadius: 10.0).fill(Color.gray).frame(height: 60)
                     RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: 60)
                     Text("Switch").font(.title)
+                }.onTapGesture {
+                    if player.playCard != nil {
+                        viewModel.swapCard(card: player.playCard)
+                    }
+                    
                 }
                 ZStack {
                     RoundedRectangle(cornerRadius: 10.0).fill(Color.gray).frame(height: 60)
@@ -121,6 +145,8 @@ struct playerInfo: View {
 }
 
 struct opponentInfo: View {
+    var viewModel: PlayingFieldViewModel
+    var player: Player
     var body: some View {
         ZStack{
             RoundedRectangle(cornerRadius: 10.0).fill(Color.white)
@@ -133,6 +159,8 @@ struct opponentInfo: View {
             }.padding(.leading, 500)
             .padding(.trailing, 50)
             Text("Opponent").font(.largeTitle)
+        }.onTapGesture {
+            viewModel.playActionCard(player: player)
         }
     }
 }
@@ -142,29 +170,17 @@ struct CellView: View {
     var body: some View{
         ZStack {
             if cell.hasCard {
-                RoundedRectangle(cornerRadius: 10.0).fill(Color.white).frame(height: 60)
+                RoundedRectangle(cornerRadius: 10.0).fill(Color.gray).frame(height: 60)
                 RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: 60)
-                if !cell.card.isFaceUp {
+                if cell.card.isFaceUp {
                     Text(verbatim: cell.card.cardContent).font(.largeTitle)
                 } else {
-                    Image("GC_FD")
-                        .resizable()
-                        .blendMode(.multiply)
-                        .rotationEffect(.degrees(-90))
-                        .aspectRatio(contentMode: .fit)
-                }
-                if cell.card.cardType == "start" {
-                    Image("PC41")
-                        .resizable()
-                        .blendMode(.multiply)
-                        .rotationEffect(.degrees(-90))
-                        .aspectRatio(contentMode: .fit)
+                    Text("⛏").font(.largeTitle)
                 }
             } else {
                 RoundedRectangle(cornerRadius: 10.0).fill(Color.white)
                 RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: 60)
             }
-//            Text("⛏").font(.largeTitle)
         }
     }
 }

@@ -15,6 +15,10 @@ class PlayingFieldViewModel: ObservableObject {
         GameModel.field.grid
     }
     
+    var players: Array<Player> {
+        GameModel.players.players
+    }
+    
     var handSize: Int {
         GameModel.players.handSize
     }
@@ -23,24 +27,49 @@ class PlayingFieldViewModel: ObservableObject {
         GameModel.deck
     }
     
+//    var playCard: Card {
+//        currrentPlayer.playCard
+//    }
     var currrentPlayer: Player {
         GameModel.gameStatus.currentPlayer
+    }
+    var playerHand: Array<Card> {
+        GameModel.gameStatus.currentPlayer.hand
+    }
+    
+    var playerRole: Role {
+        GameModel.gameStatus.currentPlayer.role
+    }
+    var playerStatus: playerStatus {
+        GameModel.gameStatus.currentPlayer.playerStatus
     }
     
     // MARK: Intent(s)
     
-    func changeStatus(player: Player, status: String){
-        player.changeStatus(status: status)
+    func changePlayerStatus(player: Player, status: playerStatus){
+        objectWillChange.send()
+        player.changePlayerStatus(status: status)
     }
     
-    func placeCard(card: Card,cell: Cell) -> Bool {
+    func placeCard(card: Card,cell: Cell) {
         objectWillChange.send()
-        return GameModel.field.placeCard(cell: cell, card: card)
+        return GameModel.placeCard(card: card,cell: cell)
+    }
+    
+    func playActionCard(player: Player){
+        return GameModel.playActionCard(player: player, card: currrentPlayer.playCard)
     }
     
     func setCard(card: Card, player: Player) {
-        GameModel.gameStatus.currentPlayer.setCard(card: card)
+        objectWillChange.send()
+        print("set card \(card.cardType)")
+        player.setCard(card: card)
         
+    }
+    
+    func swapCard(card: Card) {
+        objectWillChange.send()
+        GameModel.swapCard(card: card)
     }
     
 
