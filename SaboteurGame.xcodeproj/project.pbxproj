@@ -16,6 +16,7 @@
 		03B1468125E64E1600371620 /* PlayingFieldViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B1468025E64E1600371620 /* PlayingFieldViewModel.swift */; };
 		03C3ECBA25ED374500A71642 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C3ECB925ED374500A71642 /* Deck.swift */; };
 		03C3ECBD25EE471B00A71642 /* Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C3ECBC25EE471B00A71642 /* Field.swift */; };
+		FA74F556260795AA00A15BE3 /* StartPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA74F555260795AA00A15BE3 /* StartPageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		03B1468025E64E1600371620 /* PlayingFieldViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingFieldViewModel.swift; sourceTree = "<group>"; };
 		03C3ECB925ED374500A71642 /* Deck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
 		03C3ECBC25EE471B00A71642 /* Field.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Field.swift; sourceTree = "<group>"; };
+		FA74F555260795AA00A15BE3 /* StartPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartPageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 			children = (
 				0325B38325DD8FD3006BBBDE /* SaboteurGameApp.swift */,
 				0325B38525DD8FD3006BBBDE /* GameView.swift */,
+				FA74F555260795AA00A15BE3 /* StartPageView.swift */,
 				0325B39425DD90F4006BBBDE /* Game.swift */,
 				03A5929F25EE746B009B2A0F /* Players.swift */,
 				03C3ECB925ED374500A71642 /* Deck.swift */,
@@ -157,6 +160,7 @@
 				03C3ECBA25ED374500A71642 /* Deck.swift in Sources */,
 				0325B38625DD8FD3006BBBDE /* GameView.swift in Sources */,
 				0325B39525DD90F4006BBBDE /* Game.swift in Sources */,
+				FA74F556260795AA00A15BE3 /* StartPageView.swift in Sources */,
 				0325B38425DD8FD3006BBBDE /* SaboteurGameApp.swift in Sources */,
 				03C3ECBD25EE471B00A71642 /* Field.swift in Sources */,
 				03B1468125E64E1600371620 /* PlayingFieldViewModel.swift in Sources */,

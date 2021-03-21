@@ -39,17 +39,17 @@ class Deck {
         self.verticalLinePathCardsCount = verticalLinePathCardsCount        
         self.rotatedTShapedPathCardsCount = rotatedTShapedPathCardsCount
         self.crossShapedPathCardsCount = crossShapedPathCardsCount
-//        let directions: Array<String> = ["⬆️","➡️","⬇️","⬅️"]
+
         
         var id: Int = 0
         
         for _ in 0..<actionCardsCount {
-            cards.append(Card( cardType: .tool, actionType: actionType.breakAxe, cardContent: "Break Axe",id: id) )
-            cards.append(Card( cardType: .tool, actionType: actionType.breakCart, cardContent: "Break cart",id: id) )
-            cards.append(Card( cardType: .tool, actionType: actionType.breakLamp, cardContent: "Break lamp",id: id) )
-            cards.append(Card( cardType: .tool, actionType: actionType.repairAxe, cardContent: "Repair Axe",id: id) )
-            cards.append(Card( cardType: .tool, actionType: actionType.repairCart, cardContent: "Repair Cart",id: id) )
-            cards.append(Card( cardType: .tool, actionType: actionType.repairLamp, cardContent: "Repair Lamp",id: id) )
+            cards.append(Card( cardType: .tool, actionType: actionType.breakAxe, cardContent: "AC6" ,id: id) )
+            cards.append(Card( cardType: .tool, actionType: actionType.breakCart, cardContent: "AC11",id: id) )
+            cards.append(Card( cardType: .tool, actionType: actionType.breakLamp, cardContent: "AC16",id: id) )
+            cards.append(Card( cardType: .tool, actionType: actionType.repairAxe, cardContent: "AC9",id: id) )
+            cards.append(Card( cardType: .tool, actionType: actionType.repairCart, cardContent: "AC14",id: id) )
+            cards.append(Card( cardType: .tool, actionType: actionType.repairLamp, cardContent: "AC19",id: id) )
             id += 1
         }
         
