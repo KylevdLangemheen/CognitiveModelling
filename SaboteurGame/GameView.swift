@@ -53,7 +53,7 @@ struct field: View {
         ForEach(grid, id: \.self) { row in
             HStack {
                 ForEach(row) { cell in
-                    CellView(cell: cell).onTapGesture {
+                    CellView(viewModel: viewModel, cell: cell).onTapGesture {
                         if currentPlayer.type == .human{
                             viewModel.placeCard(card: currentPlayer.playCard ,cell: cell)
                         }
@@ -166,16 +166,27 @@ struct opponentInfo: View {
 }
 
 struct CellView: View {
+    var viewModel: PlayingFieldViewModel
     var cell: Cell
     var body: some View{
         ZStack {
             if cell.hasCard {
-                RoundedRectangle(cornerRadius: 10.0).fill(Color.gray).frame(height: 60)
                 RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: 60)
                 if cell.card.isFaceUp {
                     Text(verbatim: cell.card.cardContent).font(.largeTitle)
                 } else {
-                    Text("⛏").font(.largeTitle)
+                    Image("GC_Face_Down")
+                        .resizable()
+                        .blendMode(.multiply)
+                        .rotationEffect(.degrees(-90))
+                        .aspectRatio(contentMode: .fit)
+                }
+                if cell.card.cardType == cardType.start {
+                    Image("PC41")
+                        .resizable()
+                        .blendMode(.multiply)
+                        .rotationEffect(.degrees(-90))
+                        .aspectRatio(contentMode: .fit)                    
                 }
             } else {
                 RoundedRectangle(cornerRadius: 10.0).fill(Color.white)

@@ -46,7 +46,7 @@ class Field {
 
         // Place start card on the field
         grid[rows-1][columns/2].hasCard = true
-        grid[rows-1][columns/2].card = Card(isFaceUp: true, cardType: .start, cardContent: "Start", sides: Sides(
+        grid[rows-1][columns/2].card = Card(isFaceUp: true, cardType: .start, cardContent: "", sides: Sides(
                                                 top: pathType.connection,
                                                 right: pathType.connection,
                                                 bottom: pathType.connection,
@@ -340,7 +340,7 @@ class Field {
 func createGoalCards() -> Array<Card>{
     var goalCards: Array<Card> = []
     goalCards.append(Card(isFaceUp: false,
-                          cardType: cardType.coal,
+                          cardType: cardType.goal,
                           cardContent: "⚫️",
                           sides: Sides(
                             top: .connection,
@@ -349,7 +349,7 @@ func createGoalCards() -> Array<Card>{
                             left: .none),
                           id: 0))
     goalCards.append(Card(isFaceUp: false,
-                          cardType: cardType.gold,
+                          cardType: cardType.goal,
                           cardContent: "💎",
                           sides: Sides(
                               top: pathType.connection,
@@ -359,7 +359,7 @@ func createGoalCards() -> Array<Card>{
                           id: 0))
     goalCards.append(Card(
                         isFaceUp: false,
-                        cardType: cardType.coal,
+                        cardType: cardType.goal,
                         cardContent: "⚫️",
                         sides: Sides(
                             top: .none,

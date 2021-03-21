@@ -17,7 +17,15 @@ struct Game {
     init() {
         print("Initializing the game")
         self.field = Field(columns: 7, rows: 11)
-        self.deck = Deck(crossCardCount: 44, actionCardCount: 4)
+        self.deck = Deck(actionCardsCount: 4,
+                         firstNinePathCardsCount: 9,
+                         horizontalLinePathCardsCount: 3,
+                         tShapedPathCardsCount: 5,
+                         rightCornerPathCardsCount: 4,
+                         leftCornerPathCardsCount: 5,
+                         verticalLinePathCardsCount: 4,
+                         rotatedTShapedPathCardsCount: 5,
+                         crossShapedPathCardsCount: 5)
         self.players = Players(humanPlayers: 1, computers: 1, handSize: 6, deck: deck )
         self.gameStatus = GameStatus(currentPlayer: players.players[0])
         gameStatus.currentPlayer.playerStatus = .playing
@@ -211,7 +219,15 @@ struct Game {
     }
     mutating func endGame() {
         self.field = Field(columns: 7, rows: 11)
-        self.deck = Deck(crossCardCount: 30, actionCardCount: 16)
+        self.deck = Deck(actionCardsCount: 4,
+                         firstNinePathCardsCount: 9,
+                         horizontalLinePathCardsCount: 3,
+                         tShapedPathCardsCount: 5,
+                         rightCornerPathCardsCount: 4,
+                         leftCornerPathCardsCount: 5,
+                         verticalLinePathCardsCount: 4,
+                         rotatedTShapedPathCardsCount: 5,
+                         crossShapedPathCardsCount: 5)
         self.players = Players(humanPlayers: 1, computers: 1, handSize: 6, deck: deck )
         self.gameStatus = GameStatus(currentPlayer: players.players[0])
         gameStatus.currentPlayer.playerStatus = .playing
