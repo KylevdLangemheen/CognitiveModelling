@@ -15,61 +15,53 @@ class PlayingFieldViewModel: ObservableObject {
         GameModel.field.grid
     }
     
-    var players: Array<Player> {
-        GameModel.players.players
-    }
-    
-    var handSize: Int {
-        GameModel.players.handSize
-    }
-    
-    var playDeck: Deck {
+    var deck: Deck {
         GameModel.deck
     }
     
-//    var playCard: Card {
-//        currrentPlayer.playCard
-//    }
+    var humanHand: Array<Card> {
+        GameModel.players.human.hand
+    }
+    var humanPlayer: Player {
+        GameModel.players.human
+    }
+    
     var currrentPlayer: Player {
-        GameModel.gameStatus.currentPlayer
-    }
-    var playerHand: Array<Card> {
-        GameModel.gameStatus.currentPlayer.hand
+        GameModel.currentPlayer
     }
     
-    var playerRole: Role {
-        GameModel.gameStatus.currentPlayer.role
-    }
-    var playerStatus: playerStatus {
-        GameModel.gameStatus.currentPlayer.playerStatus
+    var computerPlayers: Array<Player> {
+        GameModel.players.computers
     }
     
+    func skipTurn() {
+        GameModel.skipTurn()
+    }
     // MARK: Intent(s)
-    
-    func changePlayerStatus(player: Player, status: playerStatus){
+
+    func getComputerPlayerById(id: Int) -> Player {
         objectWillChange.send()
-        player.changePlayerStatus(status: status)
+        return GameModel.getComputerPlayerById(id:id)
     }
-    
     func placeCard(card: Card,cell: Cell) {
         objectWillChange.send()
         return GameModel.placeCard(card: card,cell: cell)
     }
     
     func playActionCard(player: Player){
-        return GameModel.playActionCard(player: player, card: currrentPlayer.playCard)
+        objectWillChange.send()
+        return GameModel.playActionCard(player: player, card: humanPlayer.playCard)
     }
     
     func setCard(card: Card, player: Player) {
         objectWillChange.send()
-        print("set card \(card.cardType)")
         player.setCard(card: card)
         
     }
     
     func swapCard(card: Card) {
         objectWillChange.send()
-        GameModel.swapCard(card: card)
+        GameModel.swapCard()
     }
     
 
