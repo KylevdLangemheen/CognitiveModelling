@@ -117,7 +117,6 @@ struct playerInfo: View {
                     RoundedRectangle(cornerRadius: 25.0).stroke(lineWidth: 3).frame(height: 20)
                     RoundedRectangle(cornerRadius: 25.0).stroke(lineWidth: 3).frame(height: 20)
                     RoundedRectangle(cornerRadius: 25.0).stroke(lineWidth: 3).frame(height: 20)
-                    RoundedRectangle(cornerRadius: 25.0).stroke(lineWidth: 3).frame(height: 20)
                 }
             }.padding(.leading, 80)
 
@@ -154,8 +153,7 @@ struct opponentInfo: View {
         ZStack{
             RoundedRectangle(cornerRadius: 10.0).fill(Color.white)
             RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: 100)
-            HStack {
-                RoundedRectangle(cornerRadius: 25.0).stroke(lineWidth: 3).frame(height: 20)
+            HStack {            
                 RoundedRectangle(cornerRadius: 25.0).stroke(lineWidth: 3).frame(height: 20)
                 RoundedRectangle(cornerRadius: 25.0).stroke(lineWidth: 3).frame(height: 20)
                 RoundedRectangle(cornerRadius: 25.0).stroke(lineWidth: 3).frame(height: 20)
