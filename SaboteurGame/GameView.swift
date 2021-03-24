@@ -146,22 +146,22 @@ struct playerInfo: View {
                 }
             }
             HStack {
-                if player.tools.pickaxe == .intact {
-                    RoundedRectangle(cornerRadius: 25.0).fill(Color.green).frame(height: 20)
+                if player.tools.pickaxe == .intact {//
+                    Image("pickaxe_on")
                 } else {
-                    RoundedRectangle(cornerRadius: 25.0).fill(Color.red).frame(height: 20)
+                    Image("pickaxe_off")
                 }
                 
-                if player.tools.mineCart == .intact {
-                    RoundedRectangle(cornerRadius: 25.0).fill(Color.green).frame(height: 20)
+                if player.tools.mineCart == .intact {//
+                    Image("mineCart_on")
                 } else {
-                    RoundedRectangle(cornerRadius: 25.0).fill(Color.red).frame(height: 20)
+                    Image("mineCart_off")
                 }
                 
                 if player.tools.lamp == .intact {
-                    RoundedRectangle(cornerRadius: 25.0).fill(Color.green).frame(height: 20)
+                    Image("lamp_on")
                 } else {
-                    RoundedRectangle(cornerRadius: 25.0).fill(Color.red).frame(height: 20)
+                    Image("lamp_off")
                 }
             }
         }
@@ -179,21 +179,21 @@ struct opponentInfo: View {
             VStack {
                 HStack {
                     if player.tools.pickaxe == .intact {
-                        RoundedRectangle(cornerRadius: 25.0).fill(Color.green).frame(height: 20)
+                        Image("pickaxe_on")
                     } else {
-                        RoundedRectangle(cornerRadius: 25.0).fill(Color.red).frame(height: 20)
+                        Image("pickaxe_off")
                     }
                     
                     if player.tools.mineCart == .intact {
-                        RoundedRectangle(cornerRadius: 25.0).fill(Color.green).frame(height: 20)
+                        Image("mineCart_on")
                     } else {
-                        RoundedRectangle(cornerRadius: 25.0).fill(Color.red).frame(height: 20)
+                        Image("mineCart_off")
                     }
                     
                     if player.tools.lamp == .intact {
-                        RoundedRectangle(cornerRadius: 25.0).fill(Color.green).frame(height: 20)
+                        Image("lamp_on")
                     } else {
-                        RoundedRectangle(cornerRadius: 25.0).fill(Color.red).frame(height: 20)
+                        Image("lamp_off")
                     }
                     
                 }.padding(.leading, 50)
