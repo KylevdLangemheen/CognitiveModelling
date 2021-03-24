@@ -12,46 +12,70 @@ struct Game {
     var field: Field
     var deck: Deck
     var players: Players
-    var gameStatus: GameStatus
+    var currentPlayer: Player
+    var turnsNotPlayed: Int = 0
+    let numOfComputer: Int = 2
+    
     
     init() {
         print("Initializing the game")
-        self.field = Field(columns: 7, rows: 11)
+        self.field = Field(columns: 11, rows: 7)
         self.deck = Deck(actionCardsCount: 4,
-                         firstNinePathCardsCount: 9,
-                         horizontalLinePathCardsCount: 3,
-                         tShapedPathCardsCount: 5,
-                         rightCornerPathCardsCount: 4,
-                         leftCornerPathCardsCount: 5,
-                         verticalLinePathCardsCount: 4,
-                         rotatedTShapedPathCardsCount: 5,
-                         crossShapedPathCardsCount: 5)
-        self.players = Players(humanPlayers: 1, computers: 1, handSize: 6, deck: deck )
-        self.gameStatus = GameStatus(currentPlayer: players.players[0])
-        gameStatus.currentPlayer.playerStatus = .playing
-        self.gameStatus.status = .playing
+                         deadEndCardsCount: 1,
+                         horizontalLinePathCardsCount: 1,
+                         tShapedPathCardsCount: 1,
+                         rightCornerPathCardsCount: 1,
+                         leftCornerPathCardsCount: 1,
+                         verticalLinePathCardsCount: 1,
+                         rotatedTShapedPathCardsCount: 1,
+                         crossShapedPathCardsCount: 20)
+        self.players = Players(numOfComputers: numOfComputer, handSize: 6, deck: deck)
+        self.currentPlayer = players.human
+        self.currentPlayer.playerStatus = .playing
     }
     
-    mutating func changeStatus(status: gameStatus) {
-        gameStatus.status = status
-    }
+
     
     mutating func play() {
-        if gameStatus.currentPlayer.type == .computer {
-            computerPlay(computer: gameStatus.currentPlayer)
+        if deck.cards.count == 0 {
+            print("No more cards in deck")
+            if players.human.skipped && players.computers[0].skipped {
+                endGame()
+            }
         }
+        
+        if currentPlayer.type == .computer {
+            computerPlay(computer: currentPlayer)
+        }
+    }
+    
+    func playableActions(players: Array<Player>) -> Int {
+        var possiblePathPlays: Array<cardPlay> = []
+        var posibeToolPlays: Array<cardPlay> = []
+        
+        for player in players {
+            for card in player.hand {
+                switch card.cardType{
+                case .path: if checkTools(tools: player.tools) == .intact {possiblePathPlays.append(contentsOf: field.getPosiblePathPlays(card: card))}
+                case .tool: posibeToolPlays.append(contentsOf: getPossibleToolPlays(card: card))
+                default:
+                    break
+                }
+            }
+        }
+        return posibeToolPlays.count + possiblePathPlays.count
     }
     
     mutating func endTurn() {
-        gameStatus.currentPlayer.changePlayerStatus(status: .waiting)
-        if gameStatus.currentPlayer.type == .computer {
-            gameStatus.currentPlayer = players.players[0]
-            gameStatus.currentPlayer.changePlayerStatus(status: .playing)
+        currentPlayer.changePlayerStatus(status: .waiting)
+        
+        if currentPlayer.type == .computer {
+            currentPlayer = nextPlayer(currentPlayerId: currentPlayer.id, players: players)
+            currentPlayer.changePlayerStatus(status: .playing)
         } else {
-            gameStatus.currentPlayer = players.players[1]
-            gameStatus.currentPlayer.changePlayerStatus(status: .playing)
+            currentPlayer = nextPlayer(currentPlayerId: currentPlayer.id, players: players)
+            currentPlayer.changePlayerStatus(status: .playing)
         }
-//        print("\(gameStatus.currentPlayer.type) is now \(gameStatus.currentPlayer.playerStatus)")
         play()
     }
     
@@ -61,7 +85,7 @@ struct Game {
         
         for card in computer.hand {
             switch card.cardType{
-            case .path: possiblePathPlays.append(contentsOf: field.getPosiblePathPlays(card: card))
+            case .path: if checkTools(tools: computer.tools) == .intact {possiblePathPlays.append(contentsOf: field.getPosiblePathPlays(card: card))}
             case .tool: posibeToolPlays.append(contentsOf: getPossibleToolPlays(card: card))
             default:
                 break
@@ -74,24 +98,37 @@ struct Game {
         
         
         if possiblePathPlays.count != 0 && checkTools(tools: computer.tools) == .intact{
-            computer.playerStatus = .usingPathCard
+            currentPlayer.setCard(card: possiblePathPlays[0].card)
             placeCard(card: possiblePathPlays[0].card, cell: possiblePathPlays[0].cell)
-        } else if posibeToolPlays.count > 0{
-            computer.playerStatus = .usingToolCard
-            playActionCard(player: posibeToolPlays[0].player, card: posibeToolPlays[0].card)
+//        } else if posibeToolPlays.count != 0{
+//            currentPlayer.setCard(card: posibeToolPlays[0].card)
+//            playActionCard(player: posibeToolPlays[0].player, card: posibeToolPlays[0].card)
         } else if deck.cards.count > 0{
-//            print("Computer is swapping a card")
-            swapCard(card: computer.hand[0])
+            print(computer.tools)
+            computer.playCard = computer.hand[0]
+            swapCard()
+        } else {
+            skipTurn()
         }
         
-        
+    }
+    
+    func getComputerPlayerById(id: Int) -> Player!{
+        for computer in players.computers {
+            if computer.id == id {
+                return computer
+            }
+        }
+        return nil
     }
     
     func getPossibleToolPlays(card: Card) -> Array<cardPlay> {
         var possiblePlays: Array<cardPlay> = []
+        var allPlayers: Array<Player> = players.computers
+        allPlayers.append(players.human)
         
-        for player in players.players {
-            if player.id != gameStatus.currentPlayer.id {
+        for player in allPlayers {
+            if player.id != currentPlayer.id {
                 switch(card.actionType){
                 case .breakAxe: if player.tools.pickaxe == .intact {possiblePlays.append(cardPlay(playType: .toolModifier,
                                                                                                   card: card,
@@ -132,26 +169,50 @@ struct Game {
     }
     
 
-    mutating func swapCard(card: Card){
-        if deck.cards.count > 0 {
-            gameStatus.currentPlayer.removeCardFromHand(id: card.id)
-            gameStatus.currentPlayer.addCardToHand(card: deck.drawCard())
+    mutating func swapCard(){
+        if deck.cards.count > 0 && currentPlayer.playCard != nil {
+            currentPlayer.swapCard(card: deck.drawCard())
+            currentPlayer.removeSetCard()
             endTurn()
-        } else {
+        } else if currentPlayer.playCard == nil {
+            print("Did not select a card")
+        } else{
             print("no more cards in the deck")
         }
 
     }
     
+    mutating func skipTurn() {
+        if deck.cards.count == 0 {
+            currentPlayer.skipped = true
+            endTurn()
+        }
+    }
+    
+    mutating func removePlayedCard(){
+        let card: Card = currentPlayer.playCard
+        if deck.cards.count > 0 && currentPlayer.playCard != nil {
+            currentPlayer.removeCardFromHand(id: card.id)
+            currentPlayer.addCardToHand(card: deck.drawCard())
+            currentPlayer.removeSetCard()
+        } else if currentPlayer.playCard == nil {
+            print("Did not select a card")
+        } else{
+            currentPlayer.removeCardFromHand(id: card.id)
+            currentPlayer.removeSetCard()
+        }
+
+    }
+    
     mutating func playActionCard(player: Player, card: Card){
-        
-        if gameStatus.currentPlayer.playerStatus == .usingToolCard {
+        if currentPlayer.playCard != nil{
             switch card.actionType {
             case .breakAxe:
                 if player.tools.pickaxe == .broken {
                     print("Pickaxe is already broken")
                 } else {
                     player.tools.pickaxe = .broken
+                    removePlayedCard()
                     endTurn()
                 }
             case .breakCart:
@@ -159,6 +220,7 @@ struct Game {
                     print("Minecart is already broken")
                 } else {
                     player.tools.mineCart = .broken
+                    removePlayedCard()
                     endTurn()
                 }
             case .breakLamp:
@@ -166,6 +228,7 @@ struct Game {
                     print("Lamp is already broken")
                 } else {
                     player.tools.lamp = .broken
+                    removePlayedCard()
                     endTurn()
                 }
             case .repairAxe:
@@ -173,6 +236,7 @@ struct Game {
                     print("Pickaxe is already intact")
                 } else {
                     player.tools.pickaxe = .intact
+                    removePlayedCard()
                     endTurn()
                 }
             case .repairCart:
@@ -180,6 +244,7 @@ struct Game {
                     print("Minecart is already intact")
                 } else {
                     player.tools.mineCart = .intact
+                    removePlayedCard()
                     endTurn()
                 }
             case .repairLamp:
@@ -187,6 +252,7 @@ struct Game {
                     print("Lamp is already intact")
                 } else {
                     player.tools.lamp = .intact
+                    removePlayedCard()
                     endTurn()
                 }
             default:
@@ -200,44 +266,35 @@ struct Game {
     }
     
     mutating func placeCard(card: Card, cell: Cell){
-        print(gameStatus.currentPlayer.tools)
-        if gameStatus.currentPlayer.playerStatus == .usingPathCard && checkTools(tools: gameStatus.currentPlayer.tools) == .intact{
+        if currentPlayer.playerStatus == .usingPathCard && checkTools(tools: currentPlayer.tools) == .intact{
             if field.placeCard(cell: cell, card: card) {
-                gameStatus.currentPlayer.removeCardFromHand(id: card.id)
-                gameStatus.currentPlayer.newCard(card: deck.drawCard())
+                removePlayedCard()
                 if field.checkGoalPath() {
                     endGame()
                 }
                 endTurn()
             } else {
-                gameStatus.currentPlayer.changePlayerStatus(status: .playing)
+                currentPlayer.changePlayerStatus(status: .playing)
             }
         } else {
-            print("\(gameStatus.currentPlayer.type) did not select a card")
+            print("\(currentPlayer.type) did something wrong when placing a card")
+            print("\(currentPlayer.playerStatus)")
+            print("\(currentPlayer.tools)")
         }
         
     }
     mutating func endGame() {
-        self.field = Field(columns: 7, rows: 11)
+        self.field = Field(columns: 11, rows: 7)
         self.deck = Deck(actionCardsCount: 4,
-                         firstNinePathCardsCount: 9,
-                         horizontalLinePathCardsCount: 3,
-                         tShapedPathCardsCount: 5,
-                         rightCornerPathCardsCount: 4,
-                         leftCornerPathCardsCount: 5,
-                         verticalLinePathCardsCount: 4,
-                         rotatedTShapedPathCardsCount: 5,
-                         crossShapedPathCardsCount: 5)
-        self.players = Players(humanPlayers: 1, computers: 1, handSize: 6, deck: deck )
-        self.gameStatus = GameStatus(currentPlayer: players.players[0])
-        gameStatus.currentPlayer.playerStatus = .playing
-        self.gameStatus.status = .playing
-    }
-    
-    struct GameStatus {
-        var status: gameStatus = .start
-        var currentPlayer: Player
-        var turnsNotPlayed: Int = 0
+                         deadEndCardsCount: 1,
+                         horizontalLinePathCardsCount: 1,
+                         tShapedPathCardsCount: 1,
+                         rightCornerPathCardsCount: 1,
+                         leftCornerPathCardsCount: 1,
+                         verticalLinePathCardsCount: 1,
+                         rotatedTShapedPathCardsCount: 1,
+                         crossShapedPathCardsCount: 20)
+        self.players = Players(numOfComputers: numOfComputer, handSize: 6, deck: deck )
     }
     
 

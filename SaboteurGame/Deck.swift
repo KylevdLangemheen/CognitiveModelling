@@ -7,12 +7,10 @@
 
 import Foundation
 
-
-
 class Deck {
     var cards: Array<Card> = []
     var actionCardsCount: Int
-    var firstNinePathCardsCount: Int
+    var deadEndCardsCount: Int
     var horizontalLinePathCardsCount: Int
     var tShapedPathCardsCount: Int
     var rightCornerPathCardsCount: Int
@@ -21,22 +19,22 @@ class Deck {
     var rotatedTShapedPathCardsCount: Int
     var crossShapedPathCardsCount: Int
     init(actionCardsCount: Int,
-         firstNinePathCardsCount: Int,
-         horizontalLinePathCardsCount: Int,         
+         deadEndCardsCount: Int,
+         horizontalLinePathCardsCount: Int,
          tShapedPathCardsCount: Int,
          rightCornerPathCardsCount: Int,
          leftCornerPathCardsCount: Int,
-         verticalLinePathCardsCount: Int,
+             verticalLinePathCardsCount: Int,
          rotatedTShapedPathCardsCount: Int,
          crossShapedPathCardsCount: Int
     ) {
         self.actionCardsCount = actionCardsCount
-        self.firstNinePathCardsCount = firstNinePathCardsCount
+        self.deadEndCardsCount = deadEndCardsCount
         self.horizontalLinePathCardsCount = horizontalLinePathCardsCount
         self.tShapedPathCardsCount = tShapedPathCardsCount
         self.rightCornerPathCardsCount = rightCornerPathCardsCount
         self.leftCornerPathCardsCount = leftCornerPathCardsCount
-        self.verticalLinePathCardsCount = verticalLinePathCardsCount        
+        self.verticalLinePathCardsCount = verticalLinePathCardsCount
         self.rotatedTShapedPathCardsCount = rotatedTShapedPathCardsCount
         self.crossShapedPathCardsCount = crossShapedPathCardsCount
 
@@ -54,20 +52,20 @@ class Deck {
         }
         
         // First 9 path cards
-        for _ in 0..<firstNinePathCardsCount {
+        for _ in 0..<deadEndCardsCount {
             cards.append(Card( cardType: cardType.path, cardContent: "PC1",
                          sides: Sides(
                             top: pathType.none,
-                            right: pathType.connection,
-                            bottom: pathType.connection,
+                            right: pathType.blocked,
+                            bottom: pathType.blocked,
                             left: pathType.none),
                          id: id))
             cards.append(Card( cardType: cardType.path, cardContent: "PC2",
                          sides: Sides(
                             top: pathType.none,
                             right: pathType.none,
-                            bottom: pathType.connection,
-                            left: pathType.connection),
+                            bottom: pathType.blocked,
+                            left: pathType.blocked),
                          id: id))
             cards.append(Card( cardType: cardType.path, cardContent: "PC3",
                          sides: Sides(
@@ -151,7 +149,7 @@ class Deck {
         // right corner Path cards
         for _ in 0..<rightCornerPathCardsCount {
             cards.append(Card(cardType: cardType.path,
-                              cardContent: "rightCornerPC",
+                              cardContent: "leftCornerPC",
                               sides: Sides(
                                 top: pathType.none,
                                 right: pathType.none,
@@ -164,7 +162,7 @@ class Deck {
         // left corner Path cards
         for _ in 0..<leftCornerPathCardsCount {
             cards.append(Card(cardType: cardType.path,
-                              cardContent: "leftCornerPC",
+                              cardContent: "rightCornerPC",
                               sides: Sides(
                                 top: pathType.none,
                                 right: pathType.connection,
@@ -226,7 +224,6 @@ class Deck {
     }
 }
 
-
 struct Card: Hashable {
 
     var isFaceUp: Bool = true
@@ -249,7 +246,7 @@ enum pathType {
 }
 
 enum cardType {
-    case gold, goal, tool, action, path, start
+    case gold, coal, tool, action, path, start
 }
 
 enum actionType {

@@ -35,18 +35,18 @@ class Field {
         let goalCards: Array<Card> = createGoalCards()
         
         // Place goal cards on the field
-        grid[rows-9][columns/2+2].hasCard = true
-        grid[rows-9][columns/2+2].card = goalCards[0]
+        grid[rows/2+2][columns-2].hasCard = true
+        grid[rows/2+2][columns-2].card = goalCards[0]
         
-        grid[rows-9][columns/2-2].hasCard = true
-        grid[rows-9][columns/2-2].card = goalCards[1]
+        grid[rows/2-2][columns-2].hasCard = true
+        grid[rows/2-2][columns-2].card = goalCards[1]
         
-        grid[rows-9][columns/2].hasCard = true
-        grid[rows-9][columns/2].card = goalCards[2]
+        grid[rows/2][columns-2].hasCard = true
+        grid[rows/2][columns-2].card = goalCards[2]
 
         // Place start card on the field
-        grid[rows-1][columns/2].hasCard = true
-        grid[rows-1][columns/2].card = Card(isFaceUp: true, cardType: .start, cardContent: "", sides: Sides(
+        grid[rows/2][columns-10].hasCard = true
+        grid[rows/2][columns-10].card = Card(isFaceUp: true, cardType: .start, cardContent: "PC41", sides: Sides(
                                                 top: pathType.connection,
                                                 right: pathType.connection,
                                                 bottom: pathType.connection,
@@ -54,14 +54,15 @@ class Field {
     
         
         // Set goal cells
-        self.startCell = grid[rows-1][columns/2]
-        self.goalCells.append(grid[rows-9][columns/2+2])
-        self.goalCells.append(grid[rows-9][columns/2-2])
-        self.goalCells.append(grid[rows-9][columns/2])
+        self.startCell = grid[rows/2][columns-10]
+        self.goalCells.append(grid[rows/2+2][columns-2])
+        self.goalCells.append(grid[rows/2-2][columns-2])
+        self.goalCells.append(grid[rows/2][columns-2])
         
-        validCardPlacementCells.append(grid[rows-2][columns/2])
-        validCardPlacementCells.append(grid[rows-1][columns/2 - 1])
-        validCardPlacementCells.append(grid[rows-1][columns/2 + 1])
+        validCardPlacementCells.append(grid[rows/2][columns-9])
+        validCardPlacementCells.append(grid[rows/2][columns-11])
+        validCardPlacementCells.append(grid[rows/2 - 1][columns-10])
+        validCardPlacementCells.append(grid[rows/2 + 1][columns-10])
 
     }
     
@@ -340,17 +341,17 @@ class Field {
 func createGoalCards() -> Array<Card>{
     var goalCards: Array<Card> = []
     goalCards.append(Card(isFaceUp: false,
-                          cardType: cardType.goal,
-                          cardContent: "⚫️",
+                          cardType: cardType.coal,
+                          cardContent: "PC43",
                           sides: Sides(
-                            top: .connection,
+                            top: .none,
                             right: .connection,
-                            bottom: .none,
+                            bottom: .connection,
                             left: .none),
                           id: 0))
     goalCards.append(Card(isFaceUp: false,
-                          cardType: cardType.goal,
-                          cardContent: "💎",
+                          cardType: cardType.gold,
+                          cardContent: "PC42",
                           sides: Sides(
                               top: pathType.connection,
                               right: pathType.connection,
@@ -359,8 +360,8 @@ func createGoalCards() -> Array<Card>{
                           id: 0))
     goalCards.append(Card(
                         isFaceUp: false,
-                        cardType: cardType.goal,
-                        cardContent: "⚫️",
+                        cardType: cardType.coal,
+                        cardContent: "PC44",
                         sides: Sides(
                             top: .none,
                             right: .none,
@@ -399,7 +400,3 @@ struct cardPlay {
     var player: Player!
     var coopValue: Float
 }
-
-// After playing path card update model accordingly Player number ("one", "two" ..) and calculated role ("unknown, "saboteur", "miner")
-// After playing action cards update model differently
-// Switch

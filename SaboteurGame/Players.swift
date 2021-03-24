@@ -9,28 +9,38 @@ import Foundation
 
 struct Players {
     let handSize: Int
-    var players: Array<Player> = []
-    
-    init(humanPlayers: Int, computers: Int, handSize: Int, deck: Deck) {
+    var human: Player
+    var computers: Array<Player> = []
+    var numberOfPlayers = 0
+    init(numOfComputers: Int, handSize: Int, deck: Deck) {
         self.handSize = handSize
-
-        var roles: Array<Role> = Array(repeating: .miner, count: humanPlayers + computers) + Array(repeating: .saboteur, count: humanPlayers + computers)
+        self.numberOfPlayers = numOfComputers + 1
+        var roles: Array<Role> = Array(repeating: .miner, count: numberOfPlayers) + Array(repeating: .saboteur, count: numberOfPlayers)
         roles.shuffle()
         
         var id = 0
-        for _ in 0..<humanPlayers {
-            players.append(Player(role: roles[id], id: id, deck: deck, handSize: handSize, type: .human))
-            id += 1
-        }
+        self.human = (Player(role: roles[id], id: id, deck: deck, handSize: handSize, type: .human))
+        id += 1
+      
         
-        for _ in 0..<computers {
-            players.append(Player(role: roles[id], id: id, deck: deck, handSize: handSize, type: .computer))
+        for _ in 0..<numOfComputers {
+            self.computers.append(Player(role: roles[id], id: id, deck: deck, handSize: handSize, type: .computer))
             id += 1
         }
     }
-    
-
 }
+
+func nextPlayer(currentPlayerId: Int, players: Players) -> Player {
+    if currentPlayerId != players.numberOfPlayers - 1 {
+        for computer in players.computers {
+            if computer.id == currentPlayerId + 1 {
+                return computer
+            }
+        }
+    }
+    return players.human
+}
+
 
 class Player: Identifiable {
     var playerStatus: playerStatus // placingCard, waiting (for other player), usingCard(action), redraw
@@ -40,6 +50,7 @@ class Player: Identifiable {
     var playCard: Card!
     var hand: Array<Card> = []
     var id: Int
+    var skipped: Bool = false
     
     init(role: Role, id: Int, deck: Deck, handSize: Int, type: playerType) {
         playerStatus = .waiting
@@ -58,6 +69,7 @@ class Player: Identifiable {
     
     func changePlayerStatus(status: playerStatus) {
         playerStatus = status
+        print("\(self.type) is now \(self.playerStatus)")
     }
     
     func removeCardFromHand(id: Int) {
@@ -74,8 +86,14 @@ class Player: Identifiable {
         return 0
     }
     
+    func swapCard(card: Card) {
+        let cardIdx = getCardIndexInHand(id: playCard.id)
+        self.hand[cardIdx] = card
+    }
+    
     func setCard(card: Card) {
         self.playCard = card
+        
         switch card.cardType {
         case .path:
             changePlayerStatus(status: .usingPathCard)
@@ -83,10 +101,14 @@ class Player: Identifiable {
             changePlayerStatus(status: .usingActionCard)
         case .tool:
             changePlayerStatus(status: .usingToolCard)
-        
         default:
             print("Something went wrong in setCard")
-        }        
+        }
+   
+    }
+    
+    func removeSetCard() {
+        self.playCard = nil
     }
     
     func addCardToHand(card: Card){
