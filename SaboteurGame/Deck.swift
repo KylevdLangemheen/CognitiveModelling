@@ -42,12 +42,12 @@ class Deck {
         var id: Int = 0
         
         for _ in 0..<actionCardsCount {
-            cards.append(Card( cardType: .tool, actionType: actionType.breakAxe, cardContent: "AC6" ,id: id) )
-            cards.append(Card( cardType: .tool, actionType: actionType.breakCart, cardContent: "AC11",id: id) )
-            cards.append(Card( cardType: .tool, actionType: actionType.breakLamp, cardContent: "AC16",id: id) )
-            cards.append(Card( cardType: .tool, actionType: actionType.repairAxe, cardContent: "AC9",id: id) )
-            cards.append(Card( cardType: .tool, actionType: actionType.repairCart, cardContent: "AC14",id: id) )
-            cards.append(Card( cardType: .tool, actionType: actionType.repairLamp, cardContent: "AC19",id: id) )
+            cards.append(Card( cardType: .tool, action: Action(actionType: .breakTool, tool: .pickaxe), cardContent: "AC6" ,id: id) )
+            cards.append(Card( cardType: .tool, action: Action(actionType: .breakTool, tool: .minecart), cardContent: "AC11",id: id) )
+            cards.append(Card( cardType: .tool, action: Action(actionType: .breakTool, tool: .lamp), cardContent: "AC16",id: id) )
+            cards.append(Card( cardType: .tool, action: Action(actionType: .repairTool, tool: .pickaxe), cardContent: "AC9",id: id) )
+            cards.append(Card( cardType: .tool, action: Action(actionType: .repairTool, tool: .minecart), cardContent: "AC14",id: id) )
+            cards.append(Card( cardType: .tool, action: Action(actionType: .repairTool, tool: .lamp), cardContent: "AC19",id: id) )
             id += 1
         }
         
@@ -225,10 +225,9 @@ class Deck {
 }
 
 struct Card: Hashable {
-
     var isFaceUp: Bool = true
     var cardType: cardType
-    var actionType: actionType!
+    var action: Action!
     var cardContent: String = " "
     var sides: Sides! = Sides()
     var id: Int = 0
@@ -249,6 +248,11 @@ enum cardType {
     case gold, coal, tool, action, path, start
 }
 
+struct Action: Hashable {
+    var actionType: actionType
+    var tool: toolType
+}
+
 enum actionType {
-    case breakAxe, breakCart, breakLamp, repairAxe, repairCart, repairLamp
+    case breakTool, repairTool
 }

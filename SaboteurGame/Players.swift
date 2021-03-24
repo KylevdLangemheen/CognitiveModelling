@@ -67,6 +67,27 @@ class Player: Identifiable {
         hand.append(card)
     }
     
+    func changeToolStatus(tool: toolType, actionType: actionType) -> Bool{
+        switch tool {
+        case .pickaxe:
+            switch (tools.pickaxe, actionType) {
+            case (.intact, .breakTool): tools.pickaxe = .broken
+            case (.broken, .repairTool): tools.pickaxe = .intact
+            default: print("Pickaxe already broken or already intact"); return false}
+        case .minecart:
+            switch (tools.mineCart, actionType) {
+            case (.intact, .breakTool): tools.mineCart = .broken
+            case (.broken, .repairTool): tools.mineCart = .intact
+            default: print("Pickaxe already broken or already intact"); return false}
+        case .lamp:
+            switch (tools.lamp, actionType) {
+            case (.intact, .breakTool): tools.lamp = .broken
+            case (.broken, .repairTool): tools.lamp = .intact
+            default: print("Pickaxe already broken or already intact"); return false}
+        }
+        return true
+    }
+    
     func changePlayerStatus(status: playerStatus) {
         playerStatus = status
         print("\(self.type) is now \(self.playerStatus)")
@@ -131,6 +152,9 @@ struct Tools {
     var lamp: toolStatus = .intact
 }
 
+enum toolType {
+    case pickaxe, minecart, lamp
+}
 enum toolStatus {
     case intact, broken
 }

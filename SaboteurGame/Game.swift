@@ -126,40 +126,39 @@ struct Game {
         var possiblePlays: Array<cardPlay> = []
         var allPlayers: Array<Player> = players.computers
         allPlayers.append(players.human)
-        
         for player in allPlayers {
             if player.id != currentPlayer.id {
-                switch(card.actionType){
-                case .breakAxe: if player.tools.pickaxe == .intact {possiblePlays.append(cardPlay(playType: .toolModifier,
+                switch(card.action.tool, card.action.actionType){
+                case (.pickaxe , .breakTool): if player.tools.pickaxe == .intact {possiblePlays.append(cardPlay(playType: .toolModifier,
                                                                                                   card: card,
                                                                                                   player: player,
                                                                                                   coopValue: 1.0))}
-                case .breakCart: if player.tools.mineCart == .intact {possiblePlays.append(cardPlay(playType: .toolModifier,
+                case (.minecart , .breakTool): if player.tools.mineCart == .intact {possiblePlays.append(cardPlay(playType: .toolModifier,
                                                                                                    card: card,
                                                                                                    player: player,
                                                                                                    coopValue: 1.0))}
-                case .breakLamp: if player.tools.pickaxe == .intact {possiblePlays.append(cardPlay(playType: .toolModifier,
+                case (.lamp , .breakTool): if player.tools.pickaxe == .intact {possiblePlays.append(cardPlay(playType: .toolModifier,
                                                                                                   card: card,
                                                                                                   player: player,
                                                                                                   coopValue: 1.0))}
-                case .repairAxe: if player.tools.mineCart == .intact {possiblePlays.append(cardPlay(playType: .toolModifier,
+                case (.pickaxe , .repairTool): if player.tools.mineCart == .intact {possiblePlays.append(cardPlay(playType: .toolModifier,
                                                                                                    card: card,
                                                                                                    player: player,
                                                                                                    coopValue: 1.0))}
-                case .repairCart: if player.tools.mineCart == .intact {possiblePlays.append(cardPlay(playType: .toolModifier,
+                case (.minecart , .repairTool): if player.tools.mineCart == .intact {possiblePlays.append(cardPlay(playType: .toolModifier,
                                                                                                   card: card,
                                                                                                   player: player,
                                                                                                   coopValue: 1.0))}
-                case .repairLamp: if player.tools.lamp == .intact {possiblePlays.append(cardPlay(playType: .toolModifier,
+                case (.lamp , .repairTool): if player.tools.lamp == .intact {possiblePlays.append(cardPlay(playType: .toolModifier,
                                                                                                    card: card,
                                                                                                    player: player,
                                                                                                    coopValue: 1.0))}
-                default: break
                 }
             }
         }
         return possiblePlays
     }
+
     
     func checkTools(tools: Tools) -> toolStatus {
         if (tools.lamp == .broken || tools.mineCart == .broken || tools.pickaxe == .broken){
@@ -206,57 +205,11 @@ struct Game {
     
     mutating func playActionCard(player: Player, card: Card){
         if currentPlayer.playCard != nil{
-            switch card.actionType {
-            case .breakAxe:
-                if player.tools.pickaxe == .broken {
-                    print("Pickaxe is already broken")
-                } else {
-                    player.tools.pickaxe = .broken
-                    removePlayedCard()
-                    endTurn()
-                }
-            case .breakCart:
-                if player.tools.mineCart == .broken {
-                    print("Minecart is already broken")
-                } else {
-                    player.tools.mineCart = .broken
-                    removePlayedCard()
-                    endTurn()
-                }
-            case .breakLamp:
-                if player.tools.lamp == .broken {
-                    print("Lamp is already broken")
-                } else {
-                    player.tools.lamp = .broken
-                    removePlayedCard()
-                    endTurn()
-                }
-            case .repairAxe:
-                if player.tools.pickaxe == .intact {
-                    print("Pickaxe is already intact")
-                } else {
-                    player.tools.pickaxe = .intact
-                    removePlayedCard()
-                    endTurn()
-                }
-            case .repairCart:
-                if player.tools.mineCart == .intact {
-                    print("Minecart is already intact")
-                } else {
-                    player.tools.mineCart = .intact
-                    removePlayedCard()
-                    endTurn()
-                }
-            case .repairLamp:
-                if player.tools.lamp == .intact {
-                    print("Lamp is already intact")
-                } else {
-                    player.tools.lamp = .intact
-                    removePlayedCard()
-                    endTurn()
-                }
-            default:
-                print("something went wrong wen playing an action card")
+            if player.changeToolStatus(tool: card.action.tool, actionType: card.action.actionType) {
+                removePlayedCard()
+                endTurn()
+            } else {
+                
             }
         } else {
             print("First set a card before trying to play a tool card")
@@ -268,24 +221,22 @@ struct Game {
     mutating func placeCard(card: Card, cell: Cell){
         if currentPlayer.playerStatus == .usingPathCard && checkTools(tools: currentPlayer.tools) == .intact{
             if field.placeCard(cell: cell, card: card) {
-                removePlayedCard()
                 if field.checkGoalPath() {
                     endGame()
                 }
-                endTurn()
+                swapCard()
             } else {
                 currentPlayer.changePlayerStatus(status: .playing)
             }
         } else {
             print("\(currentPlayer.type) did something wrong when placing a card")
-            print("\(currentPlayer.playerStatus)")
-            print("\(currentPlayer.tools)")
         }
         
     }
+    
     mutating func endGame() {
-        self.field = Field(columns: 11, rows: 7)
-        self.deck = Deck(actionCardsCount: 4,
+        field = Field(columns: 11, rows: 7)
+        deck = Deck(actionCardsCount: 4,
                          deadEndCardsCount: 1,
                          horizontalLinePathCardsCount: 1,
                          tShapedPathCardsCount: 1,
@@ -294,7 +245,7 @@ struct Game {
                          verticalLinePathCardsCount: 1,
                          rotatedTShapedPathCardsCount: 1,
                          crossShapedPathCardsCount: 20)
-        self.players = Players(numOfComputers: numOfComputer, handSize: 6, deck: deck )
+        players = Players(numOfComputers: numOfComputer, handSize: 6, deck: deck )
     }
     
 

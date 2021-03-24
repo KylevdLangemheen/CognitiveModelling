@@ -14,7 +14,7 @@ struct GameView: View {
         VStack {
             HStack{
                 ForEach(viewModel.computerPlayers) { player in
-                    opponentInfo(viewModel: viewModel, playerId: player.id ).padding(.trailing, 50)
+                    opponentInfo(viewModel: viewModel, player: player ).padding(.trailing, 50)
                         .padding(.leading, 50)
                 }
             }
@@ -170,9 +170,8 @@ struct playerInfo: View {
 
 struct opponentInfo: View {
     var viewModel: PlayingFieldViewModel
-    var playerId: Int
+    var player: Player
     var body: some View {
-        let player = viewModel.getComputerPlayerById(id: playerId)
         ZStack{
             RoundedRectangle(cornerRadius: 10.0).fill(Color.white)
             RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: 100)
