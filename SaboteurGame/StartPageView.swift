@@ -15,7 +15,7 @@ struct StartPageView: View {
     var body: some View {
         
         NavigationView {
-            NavigationLink(destination: Text("Game View"), tag: "Game", selection: $selection) { GameView(viewModel: PlayingFieldViewModel()) }
+            NavigationLink(destination: GameView(viewModel: PlayingFieldViewModel()), tag: "Game", selection: $selection) {  }
             
             ZStack{
                 LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0.004859850742, green: 0.09608627111, blue: 0.5749928951, alpha: 1)),                                                       Color(#colorLiteral(red: 0.5807225108, green: 0.066734083, blue: 0, alpha: 1))]), startPoint: .leading, endPoint: .trailing).ignoresSafeArea()
