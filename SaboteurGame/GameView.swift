@@ -27,7 +27,7 @@ struct GameView: View {
             .padding(.bottom, 20)
 
             
-        }
+        }.navigationBarHidden(true)
         
     }
 
