@@ -99,12 +99,12 @@ struct playerInfo: View {
             HStack {
                 VStack{
                     ZStack {
-                        RoundedRectangle(cornerRadius: 10.0).fill(Color.gray).frame(height: infoHeight)
+                        RoundedRectangle(cornerRadius: 10.0).fill(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1))).frame(height: infoHeight)
                         RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: infoHeight)
                         if role == .miner {
-                            Text("Miner")
+                            Text("Miner").foregroundColor(Color(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0))).font(.title)
                         } else {
-                            Text("Saboteur")
+                            Text("Saboteur").foregroundColor(Color(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0))).font(.title)
                         }
                         
                     }.onTapGesture {
@@ -112,13 +112,13 @@ struct playerInfo: View {
                     }
                     ZStack {
                         if deckCount == 0 {
-                            RoundedRectangle(cornerRadius: 10.0).fill(Color.green).frame(height: infoHeight)
+                            RoundedRectangle(cornerRadius: 10.0).fill(Color(#colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1))).frame(height: infoHeight)
                             RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: infoHeight)
-                            Text("Skip")
+                            Text("Skip").font(.title)
                         } else {
                             RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: infoHeight)
-                            Text("Skip")
-                            RoundedRectangle(cornerRadius: 10.0).fill(Color.gray.opacity(0.8)).frame(height: infoHeight)
+                            Text("Skip").font(.title)
+                            RoundedRectangle(cornerRadius: 10.0).fill(Color(#colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1))).opacity(0.8).frame(height: infoHeight)
                         }
                         
                     }
@@ -127,9 +127,9 @@ struct playerInfo: View {
                 VStack {
 
                     ZStack{
-                        RoundedRectangle(cornerRadius: 10.0).fill(Color.gray).frame(height: infoHeight)
+                        RoundedRectangle(cornerRadius: 10.0).fill(Color(#colorLiteral(red: 0, green: 0.3285208941, blue: 0.5748849511, alpha: 1))).frame(height: infoHeight)
                         RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: infoHeight)
-                        Text("Switch")
+                        Text("Switch").font(.title).foregroundColor(Color(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)))
                     }.onTapGesture {
                         if player.playCard != nil {
                             viewModel.swapCard(card: player.playCard)
@@ -137,9 +137,9 @@ struct playerInfo: View {
                         
                     }
                     ZStack {
-                        RoundedRectangle(cornerRadius: 10.0).fill(Color.gray).frame(height: infoHeight)
+                        RoundedRectangle(cornerRadius: 10.0).fill(Color(#colorLiteral(red: 0, green: 0.3285208941, blue: 0.5748849511, alpha: 1))).frame(height: infoHeight)
                         RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: infoHeight)
-                        Text("\(deckCount)").font(.title)
+                        Text("\(deckCount)").font(.title).foregroundColor(Color(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)))
                     }
                 }
             }
