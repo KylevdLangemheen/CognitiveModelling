@@ -79,7 +79,7 @@ struct playerHand: View {
                         .aspectRatio(contentMode: .fit)
                 }
                 .onTapGesture {
-                    viewModel.setCard(card: card, player: player)
+                    viewModel.setCard(card: card, player: player)                    
                 }
             }
         }
@@ -106,7 +106,7 @@ struct playerInfo: View {
                         if player.playCard != nil {
                             viewModel.swapCard(card: player.playCard)
                         }
-                        
+                            
                     }
                     ZStack {
                         RoundedRectangle(cornerRadius: 10.0).fill(Color(#colorLiteral(red: 0, green: 0.3285208941, blue: 0.5748849511, alpha: 1))).frame(height: infoHeight)
@@ -237,7 +237,7 @@ struct CellView: View {
 
 
 struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
+    static var previews: some View {        
         GameView(viewModel: PlayingFieldViewModel())
     }
 }
