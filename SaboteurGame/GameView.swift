@@ -66,9 +66,12 @@ struct playerHand: View {
     var viewModel: PlayingFieldViewModel
     var player: Player
     var hand: Array<Card>
+    @State var isTapped = false
     var body: some View{
         let cardWidth: CGFloat = 82.0
         let cardHeight: CGFloat = 126.0
+        let tap = TapGesture(count: 1).onEnded
+        { _ in self.isTapped = !self.isTapped }
         HStack{
             ForEach(hand, id: \.self) { card in
                 ZStack {
@@ -77,10 +80,15 @@ struct playerHand: View {
                         .resizable()
                         .blendMode(.multiply)
                         .aspectRatio(contentMode: .fit)
+                        .border(self.isTapped ? Color.black : Color.white, width:3.0)
+                        .gesture(tap)
                 }
-                .onTapGesture {
-                    viewModel.setCard(card: card, player: player)                    
-                }
+                .simultaneousGesture(
+                            TapGesture()
+                                .onEnded { _ in
+                                    viewModel.setCard(card: card, player: player)
+                                }
+                )             
             }
         }
 
