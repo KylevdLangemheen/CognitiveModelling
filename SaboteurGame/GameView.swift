@@ -2,7 +2,7 @@
 //  ContentView.swift
 //  SaboteurGame
 //
-//  Created by Nico Buiten on 17/02/2021.
+//  Created by Koen Buiten on 17/02/2021.
 //
 
 import SwiftUI
@@ -14,7 +14,7 @@ struct GameView: View {
         VStack {
             HStack{
                 ForEach(viewModel.computerPlayers) { player in
-                    opponentInfo(viewModel: viewModel, player: player ).padding(.trailing, 50)
+                    opponentInfo(viewModel: viewModel, tools: player.tools, player: player, name: player.name).padding(.trailing, 50)
                         .padding(.leading, 50)
                 }
             }
@@ -140,6 +140,8 @@ struct playerInfo: View {
                             RoundedRectangle(cornerRadius: 10.0).fill(Color(#colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1))).opacity(0.8).frame(height: infoHeight)
                         }
                         
+                    }.onTapGesture {
+                        viewModel.skipTurn()
                     }
 
                     
@@ -170,26 +172,29 @@ struct playerInfo: View {
 
 struct opponentInfo: View {
     var viewModel: PlayingFieldViewModel
+    var tools: Tools
     var player: Player
+    var name: String
     var body: some View {
         ZStack{
             RoundedRectangle(cornerRadius: 10.0).fill(Color.white)
             RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: 100)
             VStack {
+                Text(name).font(.largeTitle)
                 HStack {
-                    if player.tools.pickaxe == .intact {
+                    if tools.pickaxe == .intact {
                         RoundedRectangle(cornerRadius: 25.0).fill(Color.green).frame(height: 20)
                     } else {
                         RoundedRectangle(cornerRadius: 25.0).fill(Color.red).frame(height: 20)
                     }
                     
-                    if player.tools.mineCart == .intact {
+                    if tools.mineCart == .intact {
                         RoundedRectangle(cornerRadius: 25.0).fill(Color.green).frame(height: 20)
                     } else {
                         RoundedRectangle(cornerRadius: 25.0).fill(Color.red).frame(height: 20)
                     }
                     
-                    if player.tools.lamp == .intact {
+                    if tools.lamp == .intact {
                         RoundedRectangle(cornerRadius: 25.0).fill(Color.green).frame(height: 20)
                     } else {
                         RoundedRectangle(cornerRadius: 25.0).fill(Color.red).frame(height: 20)
@@ -197,12 +202,9 @@ struct opponentInfo: View {
                     
                 }.padding(.leading, 50)
                 .padding(.trailing, 50)
-                HStack {
-                    Text("\(player.type)" as String).font(.largeTitle)
-                }
+            }.onTapGesture {
+                viewModel.playActionCard(player: player)
             }
-        }.onTapGesture {
-            viewModel.playActionCard(player: player)
         }
     }
 }

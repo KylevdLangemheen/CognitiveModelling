@@ -190,24 +190,20 @@ struct Game {
     
     mutating func removePlayedCard(){
         let card: Card = currentPlayer.playCard
-        if deck.cards.count > 0 && currentPlayer.playCard != nil {
-            currentPlayer.removeCardFromHand(id: card.id)
-            currentPlayer.addCardToHand(card: deck.drawCard())
-            currentPlayer.removeSetCard()
-        } else if currentPlayer.playCard == nil {
-            print("Did not select a card")
-        } else{
+        if deck.cards.count > 0 {
+            swapCard()
+        } else {
             currentPlayer.removeCardFromHand(id: card.id)
             currentPlayer.removeSetCard()
+            endTurn()
         }
 
     }
     
     mutating func playActionCard(player: Player, card: Card){
-        if currentPlayer.playCard != nil{
+        if currentPlayer.playerStatus == .usingToolCard{
             if player.changeToolStatus(tool: card.action.tool, actionType: card.action.actionType) {
                 removePlayedCard()
-                endTurn()
             } else {
                 
             }
@@ -224,7 +220,7 @@ struct Game {
                 if field.checkGoalPath() {
                     endGame()
                 }
-                swapCard()
+                removePlayedCard()
             } else {
                 currentPlayer.changePlayerStatus(status: .playing)
             }

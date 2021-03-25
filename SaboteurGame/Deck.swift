@@ -60,6 +60,7 @@ class Deck {
                             bottom: pathType.blocked,
                             left: pathType.none),
                          id: id))
+            id+=1
             cards.append(Card( cardType: cardType.path, cardContent: "PC2",
                          sides: Sides(
                             top: pathType.none,
@@ -67,6 +68,7 @@ class Deck {
                             bottom: pathType.blocked,
                             left: pathType.blocked),
                          id: id))
+            id+=1
             cards.append(Card( cardType: cardType.path, cardContent: "PC3",
                          sides: Sides(
                             top: pathType.blocked,
@@ -74,6 +76,7 @@ class Deck {
                             bottom: pathType.blocked,
                             left: pathType.none),
                          id: id))
+            id+=1
             cards.append(Card( cardType: cardType.path, cardContent: "PC4",
                          sides: Sides(
                             top: pathType.none,
@@ -81,6 +84,7 @@ class Deck {
                             bottom: pathType.none,
                             left: pathType.none),
                          id: id))
+            id+=1
             cards.append(Card( cardType: cardType.path, cardContent: "PC5",
                          sides: Sides(
                             top: pathType.blocked,
@@ -88,6 +92,7 @@ class Deck {
                             bottom: pathType.none,
                             left: pathType.none),
                          id: id))
+            id+=1
             cards.append(Card( cardType: cardType.path, cardContent: "PC6",
                          sides: Sides(
                             top: pathType.blocked,
@@ -95,6 +100,7 @@ class Deck {
                             bottom: pathType.blocked,
                             left: pathType.none),
                          id: id))
+            id+=1
             cards.append(Card( cardType: cardType.path, cardContent: "PC7",
                          sides: Sides(
                             top: pathType.blocked,
@@ -102,6 +108,7 @@ class Deck {
                             bottom: pathType.blocked,
                             left: pathType.blocked),
                          id: id))
+            id+=1
             cards.append(Card( cardType: cardType.path, cardContent: "PC8",
                          sides: Sides(
                             top: pathType.none,
@@ -109,6 +116,7 @@ class Deck {
                             bottom: pathType.none,
                             left: pathType.blocked),
                          id: id))
+            id+=1
             cards.append(Card( cardType: cardType.path, cardContent: "PC9",
                          sides: Sides(
                             top: pathType.blocked,
@@ -245,7 +253,7 @@ enum pathType {
 }
 
 enum cardType {
-    case gold, coal, tool, action, path, start
+    case gold, coal, tool, path, start
 }
 
 struct Action: Hashable {
