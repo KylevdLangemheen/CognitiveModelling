@@ -13,6 +13,7 @@ struct Game {
     var deck: Deck
     var players: Players
     var gameStatus: GameStatus
+    let model = Model()
     
     init() {
         print("Initializing the game")
@@ -22,6 +23,8 @@ struct Game {
         self.gameStatus = GameStatus(currentPlayer: players.players[0])
         gameStatus.currentPlayer.playerStatus = .playing
         self.gameStatus.status = .playing
+        model.loadModel(fileName: "rps")
+        model.run()
     }
     
     mutating func changeStatus(status: gameStatus) {

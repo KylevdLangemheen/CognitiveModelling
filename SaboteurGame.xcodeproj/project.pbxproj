@@ -16,7 +16,23 @@
 		03B1468125E64E1600371620 /* PlayingFieldViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B1468025E64E1600371620 /* PlayingFieldViewModel.swift */; };
 		03C3ECBA25ED374500A71642 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C3ECB925ED374500A71642 /* Deck.swift */; };
 		03C3ECBD25EE471B00A71642 /* Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C3ECBC25EE471B00A71642 /* Field.swift */; };
-		4D80035D2603633800DA1ED1 /* ACT-R in Resources */ = {isa = PBXBuildFile; fileRef = 4D80035C2603633800DA1ED1 /* ACT-R */; };
+		4DD2D6EB260CA2A20068B8FD /* act-r_miner.actr.lisp in Resources */ = {isa = PBXBuildFile; fileRef = 4DD2D6E9260CA2A20068B8FD /* act-r_miner.actr.lisp */; };
+		4DD2D6EC260CA2A20068B8FD /* rps.actr in Resources */ = {isa = PBXBuildFile; fileRef = 4DD2D6EA260CA2A20068B8FD /* rps.actr */; };
+		4DD2D6FE260CA2AE0068B8FD /* SlotAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD2D6EF260CA2AE0068B8FD /* SlotAction.swift */; };
+		4DD2D6FF260CA2AE0068B8FD /* BufferCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD2D6F0260CA2AE0068B8FD /* BufferCondition.swift */; };
+		4DD2D700260CA2AE0068B8FD /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD2D6F1260CA2AE0068B8FD /* Model.swift */; };
+		4DD2D701260CA2AE0068B8FD /* Procedural.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD2D6F2260CA2AE0068B8FD /* Procedural.swift */; };
+		4DD2D702260CA2AE0068B8FD /* Instantiation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD2D6F3260CA2AE0068B8FD /* Instantiation.swift */; };
+		4DD2D703260CA2AE0068B8FD /* Temporal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD2D6F4260CA2AE0068B8FD /* Temporal.swift */; };
+		4DD2D704260CA2AE0068B8FD /* Vision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD2D6F5260CA2AE0068B8FD /* Vision.swift */; };
+		4DD2D705260CA2AE0068B8FD /* Tokenizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD2D6F6260CA2AE0068B8FD /* Tokenizer.swift */; };
+		4DD2D706260CA2AE0068B8FD /* SlotCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD2D6F7260CA2AE0068B8FD /* SlotCondition.swift */; };
+		4DD2D707260CA2AE0068B8FD /* BufferAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD2D6F8260CA2AE0068B8FD /* BufferAction.swift */; };
+		4DD2D708260CA2AE0068B8FD /* Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD2D6F9260CA2AE0068B8FD /* Support.swift */; };
+		4DD2D709260CA2AE0068B8FD /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD2D6FA260CA2AE0068B8FD /* Parser.swift */; };
+		4DD2D70A260CA2AE0068B8FD /* Declarative.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD2D6FB260CA2AE0068B8FD /* Declarative.swift */; };
+		4DD2D70B260CA2AE0068B8FD /* Chunk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD2D6FC260CA2AE0068B8FD /* Chunk.swift */; };
+		4DD2D70C260CA2AE0068B8FD /* Production.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD2D6FD260CA2AE0068B8FD /* Production.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,7 +47,23 @@
 		03B1468025E64E1600371620 /* PlayingFieldViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingFieldViewModel.swift; sourceTree = "<group>"; };
 		03C3ECB925ED374500A71642 /* Deck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
 		03C3ECBC25EE471B00A71642 /* Field.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Field.swift; sourceTree = "<group>"; };
-		4D80035C2603633800DA1ED1 /* ACT-R */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "ACT-R"; sourceTree = "<group>"; };
+		4DD2D6E9260CA2A20068B8FD /* act-r_miner.actr.lisp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "act-r_miner.actr.lisp"; sourceTree = "<group>"; };
+		4DD2D6EA260CA2A20068B8FD /* rps.actr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rps.actr; sourceTree = "<group>"; };
+		4DD2D6EF260CA2AE0068B8FD /* SlotAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlotAction.swift; sourceTree = "<group>"; };
+		4DD2D6F0260CA2AE0068B8FD /* BufferCondition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BufferCondition.swift; sourceTree = "<group>"; };
+		4DD2D6F1260CA2AE0068B8FD /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		4DD2D6F2260CA2AE0068B8FD /* Procedural.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Procedural.swift; sourceTree = "<group>"; };
+		4DD2D6F3260CA2AE0068B8FD /* Instantiation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Instantiation.swift; sourceTree = "<group>"; };
+		4DD2D6F4260CA2AE0068B8FD /* Temporal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Temporal.swift; sourceTree = "<group>"; };
+		4DD2D6F5260CA2AE0068B8FD /* Vision.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vision.swift; sourceTree = "<group>"; };
+		4DD2D6F6260CA2AE0068B8FD /* Tokenizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tokenizer.swift; sourceTree = "<group>"; };
+		4DD2D6F7260CA2AE0068B8FD /* SlotCondition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlotCondition.swift; sourceTree = "<group>"; };
+		4DD2D6F8260CA2AE0068B8FD /* BufferAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BufferAction.swift; sourceTree = "<group>"; };
+		4DD2D6F9260CA2AE0068B8FD /* Support.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Support.swift; sourceTree = "<group>"; };
+		4DD2D6FA260CA2AE0068B8FD /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
+		4DD2D6FB260CA2AE0068B8FD /* Declarative.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Declarative.swift; sourceTree = "<group>"; };
+		4DD2D6FC260CA2AE0068B8FD /* Chunk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chunk.swift; sourceTree = "<group>"; };
+		4DD2D6FD260CA2AE0068B8FD /* Production.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Production.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,7 +80,7 @@
 		0325B37725DD8FD3006BBBDE = {
 			isa = PBXGroup;
 			children = (
-				4D80035C2603633800DA1ED1 /* ACT-R */,
+				4DD2D6EE260CA2AE0068B8FD /* ACT-R */,
 				0325B38225DD8FD3006BBBDE /* SaboteurGame */,
 				0325B38125DD8FD3006BBBDE /* Products */,
 			);
@@ -65,6 +97,8 @@
 		0325B38225DD8FD3006BBBDE /* SaboteurGame */ = {
 			isa = PBXGroup;
 			children = (
+				4DD2D6E9260CA2A20068B8FD /* act-r_miner.actr.lisp */,
+				4DD2D6EA260CA2A20068B8FD /* rps.actr */,
 				0325B38325DD8FD3006BBBDE /* SaboteurGameApp.swift */,
 				0325B38525DD8FD3006BBBDE /* GameView.swift */,
 				0325B39425DD90F4006BBBDE /* Game.swift */,
@@ -85,6 +119,28 @@
 				0325B38A25DD8FD6006BBBDE /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		4DD2D6EE260CA2AE0068B8FD /* ACT-R */ = {
+			isa = PBXGroup;
+			children = (
+				4DD2D6EF260CA2AE0068B8FD /* SlotAction.swift */,
+				4DD2D6F0260CA2AE0068B8FD /* BufferCondition.swift */,
+				4DD2D6F1260CA2AE0068B8FD /* Model.swift */,
+				4DD2D6F2260CA2AE0068B8FD /* Procedural.swift */,
+				4DD2D6F3260CA2AE0068B8FD /* Instantiation.swift */,
+				4DD2D6F4260CA2AE0068B8FD /* Temporal.swift */,
+				4DD2D6F5260CA2AE0068B8FD /* Vision.swift */,
+				4DD2D6F6260CA2AE0068B8FD /* Tokenizer.swift */,
+				4DD2D6F7260CA2AE0068B8FD /* SlotCondition.swift */,
+				4DD2D6F8260CA2AE0068B8FD /* BufferAction.swift */,
+				4DD2D6F9260CA2AE0068B8FD /* Support.swift */,
+				4DD2D6FA260CA2AE0068B8FD /* Parser.swift */,
+				4DD2D6FB260CA2AE0068B8FD /* Declarative.swift */,
+				4DD2D6FC260CA2AE0068B8FD /* Chunk.swift */,
+				4DD2D6FD260CA2AE0068B8FD /* Production.swift */,
+			);
+			path = "ACT-R";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -144,7 +200,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D80035D2603633800DA1ED1 /* ACT-R in Resources */,
+				4DD2D6EB260CA2A20068B8FD /* act-r_miner.actr.lisp in Resources */,
+				4DD2D6EC260CA2A20068B8FD /* rps.actr in Resources */,
 				0325B38B25DD8FD6006BBBDE /* Preview Assets.xcassets in Resources */,
 				0325B38825DD8FD6006BBBDE /* Assets.xcassets in Resources */,
 			);
@@ -157,13 +214,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DD2D70A260CA2AE0068B8FD /* Declarative.swift in Sources */,
 				03A592A025EE746B009B2A0F /* Players.swift in Sources */,
+				4DD2D705260CA2AE0068B8FD /* Tokenizer.swift in Sources */,
+				4DD2D704260CA2AE0068B8FD /* Vision.swift in Sources */,
+				4DD2D70C260CA2AE0068B8FD /* Production.swift in Sources */,
 				03C3ECBA25ED374500A71642 /* Deck.swift in Sources */,
 				0325B38625DD8FD3006BBBDE /* GameView.swift in Sources */,
+				4DD2D6FE260CA2AE0068B8FD /* SlotAction.swift in Sources */,
 				0325B39525DD90F4006BBBDE /* Game.swift in Sources */,
+				4DD2D706260CA2AE0068B8FD /* SlotCondition.swift in Sources */,
+				4DD2D700260CA2AE0068B8FD /* Model.swift in Sources */,
 				0325B38425DD8FD3006BBBDE /* SaboteurGameApp.swift in Sources */,
+				4DD2D702260CA2AE0068B8FD /* Instantiation.swift in Sources */,
 				03C3ECBD25EE471B00A71642 /* Field.swift in Sources */,
+				4DD2D701260CA2AE0068B8FD /* Procedural.swift in Sources */,
+				4DD2D70B260CA2AE0068B8FD /* Chunk.swift in Sources */,
 				03B1468125E64E1600371620 /* PlayingFieldViewModel.swift in Sources */,
+				4DD2D6FF260CA2AE0068B8FD /* BufferCondition.swift in Sources */,
+				4DD2D709260CA2AE0068B8FD /* Parser.swift in Sources */,
+				4DD2D703260CA2AE0068B8FD /* Temporal.swift in Sources */,
+				4DD2D707260CA2AE0068B8FD /* BufferAction.swift in Sources */,
+				4DD2D708260CA2AE0068B8FD /* Support.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
