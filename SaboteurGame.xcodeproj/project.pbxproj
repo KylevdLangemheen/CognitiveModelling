@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -16,6 +16,7 @@
 		03B1468125E64E1600371620 /* PlayingFieldViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B1468025E64E1600371620 /* PlayingFieldViewModel.swift */; };
 		03C3ECBA25ED374500A71642 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C3ECB925ED374500A71642 /* Deck.swift */; };
 		03C3ECBD25EE471B00A71642 /* Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C3ECBC25EE471B00A71642 /* Field.swift */; };
+		FA5D01B8260E9B1400651121 /* PopupView in Frameworks */ = {isa = PBXBuildFile; productRef = FA5D01B7260E9B1400651121 /* PopupView */; };
 		FA74F556260795AA00A15BE3 /* StartPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA74F555260795AA00A15BE3 /* StartPageView.swift */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA5D01B8260E9B1400651121 /* PopupView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,6 +105,9 @@
 			dependencies = (
 			);
 			name = SaboteurGame;
+			packageProductDependencies = (
+				FA5D01B7260E9B1400651121 /* PopupView */,
+			);
 			productName = SaboteurGame;
 			productReference = 0325B38025DD8FD3006BBBDE /* SaboteurGame.app */;
 			productType = "com.apple.product-type.application";
@@ -130,6 +135,9 @@
 				Base,
 			);
 			mainGroup = 0325B37725DD8FD3006BBBDE;
+			packageReferences = (
+				FA5D01B6260E9B1400651121 /* XCRemoteSwiftPackageReference "PopupView" */,
+			);
 			productRefGroup = 0325B38125DD8FD3006BBBDE /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -350,6 +358,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		FA5D01B6260E9B1400651121 /* XCRemoteSwiftPackageReference "PopupView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/exyte/PopupView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.12;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		FA5D01B7260E9B1400651121 /* PopupView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA5D01B6260E9B1400651121 /* XCRemoteSwiftPackageReference "PopupView" */;
+			productName = PopupView;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0325B37825DD8FD3006BBBDE /* Project object */;
 }

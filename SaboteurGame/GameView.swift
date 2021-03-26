@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct GameView: View {
-    @ObservedObject var viewModel: PlayingFieldViewModel
+    @ObservedObject var viewModel: PlayingFieldViewModel   
     
     var body: some View {
         VStack {
