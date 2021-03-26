@@ -2,7 +2,7 @@
 //  ContentView.swift
 //  SaboteurGame
 //
-//  Created by Nico Buiten on 17/02/2021.
+//  Created by Koen Buiten on 17/02/2021.
 //
 
 import SwiftUI
@@ -14,7 +14,7 @@ struct GameView: View {
         VStack {
             HStack{
                 ForEach(viewModel.computerPlayers) { player in
-                    opponentInfo(viewModel: viewModel, playerId: player.id ).padding(.trailing, 50)
+                    opponentInfo(viewModel: viewModel, tools: player.tools, player: player, name: player.name).padding(.trailing, 50)
                         .padding(.leading, 50)
                 }
             }
@@ -66,12 +66,9 @@ struct playerHand: View {
     var viewModel: PlayingFieldViewModel
     var player: Player
     var hand: Array<Card>
-    @State var isTapped = false
     var body: some View{
         let cardWidth: CGFloat = 82.0
         let cardHeight: CGFloat = 126.0
-        let tap = TapGesture(count: 1).onEnded
-        { _ in self.isTapped = !self.isTapped }
         HStack{
             ForEach(hand, id: \.self) { card in
                 ZStack {
@@ -80,15 +77,10 @@ struct playerHand: View {
                         .resizable()
                         .blendMode(.multiply)
                         .aspectRatio(contentMode: .fit)
-                        .border(self.isTapped ? Color.black : Color.white, width:3.0)
-                        .gesture(tap)
                 }
-                .simultaneousGesture(
-                            TapGesture()
-                                .onEnded { _ in
-                                    viewModel.setCard(card: card, player: player)
-                                }
-                )             
+                .onTapGesture {
+                    viewModel.setCard(card: card, player: player)                    
+                }
             }
         }
 
@@ -148,28 +140,30 @@ struct playerInfo: View {
                             RoundedRectangle(cornerRadius: 10.0).fill(Color(#colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1))).opacity(0.8).frame(height: infoHeight)
                         }
                         
+                    }.onTapGesture {
+                        viewModel.skipTurn()
                     }
 
                     
                 }
             }
             HStack {
-                if player.tools.pickaxe == .intact {//
-                    Image("pickaxe_on")
+                if player.tools.pickaxe == .intact {
+                    RoundedRectangle(cornerRadius: 25.0).fill(Color.green).frame(height: 20)
                 } else {
-                    Image("pickaxe_off")
+                    RoundedRectangle(cornerRadius: 25.0).fill(Color.red).frame(height: 20)
                 }
                 
-                if player.tools.mineCart == .intact {//
-                    Image("mineCart_on")
+                if player.tools.mineCart == .intact {
+                    RoundedRectangle(cornerRadius: 25.0).fill(Color.green).frame(height: 20)
                 } else {
-                    Image("mineCart_off")
+                    RoundedRectangle(cornerRadius: 25.0).fill(Color.red).frame(height: 20)
                 }
                 
                 if player.tools.lamp == .intact {
-                    Image("lamp_on")
+                    RoundedRectangle(cornerRadius: 25.0).fill(Color.green).frame(height: 20)
                 } else {
-                    Image("lamp_off")
+                    RoundedRectangle(cornerRadius: 25.0).fill(Color.red).frame(height: 20)
                 }
             }
         }
@@ -178,40 +172,39 @@ struct playerInfo: View {
 
 struct opponentInfo: View {
     var viewModel: PlayingFieldViewModel
-    var playerId: Int
+    var tools: Tools
+    var player: Player
+    var name: String
     var body: some View {
-        let player = viewModel.getComputerPlayerById(id: playerId)
         ZStack{
             RoundedRectangle(cornerRadius: 10.0).fill(Color.white)
             RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: 100)
             VStack {
+                Text(name).font(.largeTitle)
                 HStack {
-                    if player.tools.pickaxe == .intact {
-                        Image("pickaxe_on")
+                    if tools.pickaxe == .intact {
+                        RoundedRectangle(cornerRadius: 25.0).fill(Color.green).frame(height: 20)
                     } else {
-                        Image("pickaxe_off")
+                        RoundedRectangle(cornerRadius: 25.0).fill(Color.red).frame(height: 20)
                     }
                     
-                    if player.tools.mineCart == .intact {
-                        Image("mineCart_on")
+                    if tools.mineCart == .intact {
+                        RoundedRectangle(cornerRadius: 25.0).fill(Color.green).frame(height: 20)
                     } else {
-                        Image("mineCart_off")
+                        RoundedRectangle(cornerRadius: 25.0).fill(Color.red).frame(height: 20)
                     }
                     
-                    if player.tools.lamp == .intact {
-                        Image("lamp_on")
+                    if tools.lamp == .intact {
+                        RoundedRectangle(cornerRadius: 25.0).fill(Color.green).frame(height: 20)
                     } else {
-                        Image("lamp_off")
+                        RoundedRectangle(cornerRadius: 25.0).fill(Color.red).frame(height: 20)
                     }
                     
                 }.padding(.leading, 50)
                 .padding(.trailing, 50)
-                HStack {
-                    Text("\(player.type)" as String).font(.largeTitle)
-                }
+            }.onTapGesture {
+                viewModel.playActionCard(player: player)
             }
-        }.onTapGesture {
-            viewModel.playActionCard(player: player)
         }
     }
 }

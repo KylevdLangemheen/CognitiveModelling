@@ -37,11 +37,12 @@ struct StartPageView: View {
                         .background(LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0.4494178891, green: 0.3634631038, blue: 0.003429454286, alpha: 1)), Color(#colorLiteral(red: 0.979470551, green: 0.9008276463, blue: 0.006413663272, alpha: 1))]), startPoint: .leading, endPoint: .trailing)
                                         )
                         .cornerRadius(40)
-                    }                                      
+                    }
+                    
                     
                 }
             }.navigationBarHidden(true)
-     }
+        }.navigationBarHidden(true)
     }
 }
 

@@ -19,12 +19,13 @@ struct Players {
         roles.shuffle()
         
         var id = 0
-        self.human = (Player(role: roles[id], id: id, deck: deck, handSize: handSize, type: .human))
+        self.human = (Player(role: roles[id], id: id, deck: deck, handSize: handSize, type: .human, name: "Human"))
         id += 1
       
-        
+        let names: Array<String> = ["Bob", "Jenny"]
         for _ in 0..<numOfComputers {
-            self.computers.append(Player(role: roles[id], id: id, deck: deck, handSize: handSize, type: .computer))
+            self.computers.append(Player(role: roles[id], id: id, deck: deck, handSize: handSize, type: .computer, name: names[id-1]))
+
             id += 1
         }
     }
@@ -47,17 +48,20 @@ class Player: Identifiable {
     var tools: Tools
     var role: Role
     var type: playerType
+    var name: String
     var playCard: Card!
     var hand: Array<Card> = []
     var id: Int
     var skipped: Bool = false
     
-    init(role: Role, id: Int, deck: Deck, handSize: Int, type: playerType) {
+    
+    init(role: Role, id: Int, deck: Deck, handSize: Int, type: playerType, name: String) {
         playerStatus = .waiting
         tools = Tools()
         self.role = role
         self.id = id
         self.type = type
+        self.name = name
         for _ in 0..<handSize {
             self.hand.append(deck.drawCard())
         }
@@ -65,6 +69,27 @@ class Player: Identifiable {
     
     func newCard(card: Card){
         hand.append(card)
+    }
+    
+    func changeToolStatus(tool: toolType, actionType: actionType) -> Bool{
+        switch tool {
+        case .pickaxe:
+            switch (tools.pickaxe, actionType) {
+            case (.intact, .breakTool): tools.pickaxe = .broken
+            case (.broken, .repairTool): tools.pickaxe = .intact
+            default: print("Pickaxe already broken or already intact"); return false}
+        case .minecart:
+            switch (tools.mineCart, actionType) {
+            case (.intact, .breakTool): tools.mineCart = .broken
+            case (.broken, .repairTool): tools.mineCart = .intact
+            default: print("Pickaxe already broken or already intact"); return false}
+        case .lamp:
+            switch (tools.lamp, actionType) {
+            case (.intact, .breakTool): tools.lamp = .broken
+            case (.broken, .repairTool): tools.lamp = .intact
+            default: print("Pickaxe already broken or already intact"); return false}
+        }
+        return true
     }
     
     func changePlayerStatus(status: playerStatus) {
@@ -97,8 +122,6 @@ class Player: Identifiable {
         switch card.cardType {
         case .path:
             changePlayerStatus(status: .usingPathCard)
-        case .action:
-            changePlayerStatus(status: .usingActionCard)
         case .tool:
             changePlayerStatus(status: .usingToolCard)
         default:
@@ -109,15 +132,6 @@ class Player: Identifiable {
     
     func removeSetCard() {
         self.playCard = nil
-    }
-    
-    func addCardToHand(card: Card){
-        if hand.count <= 7 {
-            hand.append(card)
-        } else {
-            print("Hand has already 6 cards, not valid to get another card. Something went wrong")
-        }
-        
     }
 }
 
@@ -131,6 +145,9 @@ struct Tools {
     var lamp: toolStatus = .intact
 }
 
+enum toolType {
+    case pickaxe, minecart, lamp
+}
 enum toolStatus {
     case intact, broken
 }

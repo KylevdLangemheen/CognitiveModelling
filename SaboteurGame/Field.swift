@@ -147,15 +147,13 @@ class Field {
         
         
         if sides.top != .none {
-            if neighBours.top.hasCard {
-                if neighBours.top.card.cardType == .path {
-                    if neighBours.top.card.sides.bottom == pathType.none {
-                        return false
-                    }
-                } 
+            if (neighBours.top.hasCard && (neighBours.top.card.cardType == .path || neighBours.top.card.cardType == .start)) {
+                if neighBours.top.card.sides.bottom == pathType.none {
+                    return false
+                }
             }
         } else {
-            if (neighBours.top.hasCard && (neighBours.top.card.cardType == .path)) {
+            if (neighBours.top.hasCard && (neighBours.top.card.cardType == .path || neighBours.top.card.cardType == .start)) {
                 if neighBours.top.card.sides.bottom != pathType.none {
                     return false
                 }
@@ -163,13 +161,13 @@ class Field {
         }
         
         if sides.right != .none {
-            if (neighBours.right.hasCard && (neighBours.right.card.cardType == .path)){
+            if (neighBours.right.hasCard && (neighBours.right.card.cardType == .path || neighBours.right.card.cardType == .start)){
                 if neighBours.right.card.sides.left == pathType.none {
                     return false
                 }
             }
         } else {
-            if (neighBours.right.hasCard && (neighBours.right.card.cardType == .path)){
+            if (neighBours.right.hasCard && (neighBours.right.card.cardType == .path || neighBours.right.card.cardType == .start)){
                 if neighBours.right.card.sides.left != pathType.none {
                     return false
                 }
@@ -177,13 +175,13 @@ class Field {
         }
         
         if sides.bottom != .none {
-            if (neighBours.bottom.hasCard && (neighBours.bottom.card.cardType == .path)) {
+            if (neighBours.bottom.hasCard && (neighBours.bottom.card.cardType == .path || neighBours.bottom.card.cardType == .start)) {
                 if neighBours.bottom.card.sides.top == pathType.none {
                     return false
                 }
             }
         } else {
-            if (neighBours.bottom.hasCard && (neighBours.bottom.card.cardType == .path)) {
+            if (neighBours.bottom.hasCard && (neighBours.bottom.card.cardType == .path || neighBours.bottom.card.cardType == .start)) {
                 if neighBours.bottom.card.sides.top != pathType.none {
                     return false
                 }
@@ -192,13 +190,13 @@ class Field {
         
         
         if sides.left != .none {
-            if (neighBours.left.hasCard && (neighBours.left.card.cardType == .path)) {
+            if (neighBours.left.hasCard && (neighBours.left.card.cardType == .path || neighBours.left.card.cardType == .start)) {
                 if neighBours.left.card.sides.right == pathType.none {
                     return false
                 }
             }
         } else {
-            if (neighBours.left.hasCard && (neighBours.left.card.cardType == .path)) {
+            if (neighBours.left.hasCard && (neighBours.left.card.cardType == .path || neighBours.left.card.cardType == .start)) {
                 if neighBours.left.card.sides.right != pathType.none {
                     return false
                 }
@@ -344,10 +342,10 @@ func createGoalCards() -> Array<Card>{
                           cardType: cardType.coal,
                           cardContent: "PC43",
                           sides: Sides(
-                            top: .none,
-                            right: .connection,
-                            bottom: .connection,
-                            left: .none),
+                            top: .connection,
+                            right: .none,
+                            bottom: .none,
+                            left: .connection),
                           id: 0))
     goalCards.append(Card(isFaceUp: false,
                           cardType: cardType.gold,

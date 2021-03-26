@@ -9,7 +9,7 @@ import SwiftUI
 
 class PlayingFieldViewModel: ObservableObject {
     @Published private var GameModel: Game = Game()
-
+    
     // MARK: Acces to the model
     var grid: Array<Array<Cell>>{
         GameModel.field.grid
@@ -33,10 +33,7 @@ class PlayingFieldViewModel: ObservableObject {
     var computerPlayers: Array<Player> {
         GameModel.players.computers
     }
-    
-    func skipTurn() {
-        GameModel.skipTurn()
-    }
+
     // MARK: Intent(s)
 
     func getComputerPlayerById(id: Int) -> Player {
@@ -62,6 +59,10 @@ class PlayingFieldViewModel: ObservableObject {
     func swapCard(card: Card) {
         objectWillChange.send()
         GameModel.swapCard()
+    }
+    
+    func skipTurn(){
+        GameModel.skipTurn()
     }
     
 
