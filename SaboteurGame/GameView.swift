@@ -9,7 +9,6 @@ import SwiftUI
 
 struct GameView: View {
     @ObservedObject var viewModel: PlayingFieldViewModel
-    
     var body: some View {
         VStack {
             HStack{
@@ -19,8 +18,16 @@ struct GameView: View {
                 }
             }
             field(viewModel: viewModel, humanPlayer: viewModel.humanPlayer, grid: viewModel.grid)
-            HStack{
-                playerHand(viewModel: viewModel, player: viewModel.humanPlayer, hand: viewModel.humanHand)
+                .padding(.trailing, 50)
+                .padding(.leading, 50)
+                
+            HStack {
+                if viewModel.humanPlayer.playCard != nil {
+                    playerHand(viewModel: viewModel, player: viewModel.humanPlayer, playCard: viewModel.humanPlayer.playCard, hand: viewModel.humanHand)
+                }else {
+                    playerHand(viewModel: viewModel, player: viewModel.humanPlayer, hand: viewModel.humanHand)
+                }
+                
                 playerInfo(player: viewModel.humanPlayer, viewModel: viewModel, deckCount: viewModel.deck.cards.count, role: viewModel.humanPlayer.role)
             }.padding(.trailing, 50)
             .padding(.leading, 50)
@@ -52,19 +59,15 @@ struct field: View {
                         }
                     }.padding(0)
                 }
-            }.alert(isPresented: $invalidMove) {
-                Alert(title: Text("Invalid Action"), message: Text("You cannot place this card here"), dismissButton: .default(Text("Got it!")))
-            }.alert(isPresented: $computersTurn) {
-                Alert(title: Text("It is not your turn"), message: Text("Please wait for the other players to finish their turn"), dismissButton: .default(Text("Got it!")))
             }
         }
-        .padding(.trailing, 20)
-        .padding(.leading, 20)
     }
 }
+
 struct playerHand: View {
     var viewModel: PlayingFieldViewModel
     var player: Player
+    var playCard: Card!
     var hand: Array<Card>
     var body: some View{
         let cardWidth: CGFloat = 82.0
@@ -77,9 +80,13 @@ struct playerHand: View {
                         .resizable()
                         .blendMode(.multiply)
                         .aspectRatio(contentMode: .fit)
+                    if player.playCard != nil && player.playCard.id == card.id{
+                        RoundedRectangle(cornerRadius: 10.0).stroke(Color.green,lineWidth: 3).frame(width: cardWidth, height: cardHeight-10)
+                        
+                    }
                 }
                 .onTapGesture {
-                    viewModel.setCard(card: card, player: player)                    
+                    viewModel.setCard(card: card, player: player)
                 }
             }
         }
@@ -106,32 +113,25 @@ struct playerInfo: View {
                         if player.playCard != nil {
                             viewModel.swapCard(card: player.playCard)
                         }
-                            
                     }
                     ZStack {
-                        RoundedRectangle(cornerRadius: 10.0).fill(Color(#colorLiteral(red: 0, green: 0.3285208941, blue: 0.5748849511, alpha: 1))).frame(height: infoHeight)
+                        RoundedRectangle(cornerRadius: 10.0).fill(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1))).frame(height: infoHeight)
                         RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: infoHeight)
                         Text("\(deckCount)").font(.title).foregroundColor(Color(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)))
                     }
                 }
-
                 VStack {
-                    
                     ZStack {
                         RoundedRectangle(cornerRadius: 10.0).fill(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1))).frame(height: infoHeight)
                         RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: infoHeight)
-                        if role == .miner {
-                            Text("Miner").foregroundColor(Color(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0))).font(.title)
-                        } else {
-                            Text("Saboteur").foregroundColor(Color(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0))).font(.title)
-                        }
+                        Text("\(role)" as String).foregroundColor(Color(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0))).font(.title)
                         
                     }.onTapGesture {
                         viewModel.playActionCard(player: player)
                     }
                     ZStack {
                         if deckCount == 0 {
-                            RoundedRectangle(cornerRadius: 10.0).fill(Color(#colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1))).frame(height: infoHeight)
+                            RoundedRectangle(cornerRadius: 10.0).fill(Color(#colorLiteral(red: 0, green: 0.3285208941, blue: 0.5748849511, alpha: 1))).frame(height: infoHeight)
                             RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: infoHeight)
                             Text("Skip").font(.title)
                         } else {
@@ -143,33 +143,38 @@ struct playerInfo: View {
                     }.onTapGesture {
                         viewModel.skipTurn()
                     }
-
-                    
-                }
-            }
-            HStack {
-                if player.tools.pickaxe == .intact {
-                    RoundedRectangle(cornerRadius: 25.0).fill(Color.green).frame(height: 20)
-                } else {
-                    RoundedRectangle(cornerRadius: 25.0).fill(Color.red).frame(height: 20)
-                }
-                
-                if player.tools.mineCart == .intact {
-                    RoundedRectangle(cornerRadius: 25.0).fill(Color.green).frame(height: 20)
-                } else {
-                    RoundedRectangle(cornerRadius: 25.0).fill(Color.red).frame(height: 20)
-                }
-                
-                if player.tools.lamp == .intact {
-                    RoundedRectangle(cornerRadius: 25.0).fill(Color.green).frame(height: 20)
-                } else {
-                    RoundedRectangle(cornerRadius: 25.0).fill(Color.red).frame(height: 20)
+                    toolView(tools: player.tools)
                 }
             }
         }
     }
 }
 
+
+struct toolView: View {
+    var tools: Tools
+    var body: some View {
+        HStack {
+            if tools.pickaxe == .intact {
+                Image("pickaxe_on")
+            } else {
+                Image("pickaxe_off")
+            }
+            
+            if tools.mineCart == .intact {
+                Image("mineCart_on")
+            } else {
+                Image("mineCart_off")
+            }
+            
+            if tools.lamp == .intact {
+                Image("lamp_on")
+            } else {
+                Image("lamp_off")
+            }
+        }
+    }
+}
 struct opponentInfo: View {
     var viewModel: PlayingFieldViewModel
     var tools: Tools
@@ -181,30 +186,10 @@ struct opponentInfo: View {
             RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: 100)
             VStack {
                 Text(name).font(.largeTitle)
-                HStack {
-                    if tools.pickaxe == .intact {
-                        RoundedRectangle(cornerRadius: 25.0).fill(Color.green).frame(height: 20)
-                    } else {
-                        RoundedRectangle(cornerRadius: 25.0).fill(Color.red).frame(height: 20)
-                    }
-                    
-                    if tools.mineCart == .intact {
-                        RoundedRectangle(cornerRadius: 25.0).fill(Color.green).frame(height: 20)
-                    } else {
-                        RoundedRectangle(cornerRadius: 25.0).fill(Color.red).frame(height: 20)
-                    }
-                    
-                    if tools.lamp == .intact {
-                        RoundedRectangle(cornerRadius: 25.0).fill(Color.green).frame(height: 20)
-                    } else {
-                        RoundedRectangle(cornerRadius: 25.0).fill(Color.red).frame(height: 20)
-                    }
-                    
-                }.padding(.leading, 50)
-                .padding(.trailing, 50)
-            }.onTapGesture {
-                viewModel.playActionCard(player: player)
+                toolView(tools: tools)
             }
+        }.onTapGesture {
+            viewModel.playActionCard(player: player)
         }
     }
 }

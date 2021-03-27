@@ -29,6 +29,26 @@ struct Players {
             id += 1
         }
     }
+    
+    func giveOutGold(winPlayer: Role) {
+        if human.role == winPlayer {
+            if winPlayer == .miner {
+                human.gold += 2
+            } else {
+                human.gold += 4
+            }
+        }
+        
+        for player in computers {
+            if player.role == winPlayer {
+                if winPlayer == .miner {
+                    player.gold += 2
+                } else {
+                    player.gold += 4
+                }
+            }
+        }
+    }
 }
 
 func nextPlayer(currentPlayerId: Int, players: Players) -> Player {
@@ -53,6 +73,7 @@ class Player: Identifiable {
     var hand: Array<Card> = []
     var id: Int
     var skipped: Bool = false
+    var gold: Int = 0
     
     
     init(role: Role, id: Int, deck: Deck, handSize: Int, type: playerType, name: String) {
