@@ -12,6 +12,23 @@
 		0325B38825DD8FD6006BBBDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0325B38725DD8FD6006BBBDE /* Assets.xcassets */; };
 		0325B38B25DD8FD6006BBBDE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0325B38A25DD8FD6006BBBDE /* Preview Assets.xcassets */; };
 		0325B39525DD90F4006BBBDE /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0325B39425DD90F4006BBBDE /* Game.swift */; };
+		03A0E73A260F6090005C7083 /* SlotAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A0E72B260F6090005C7083 /* SlotAction.swift */; };
+		03A0E73B260F6090005C7083 /* BufferCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A0E72C260F6090005C7083 /* BufferCondition.swift */; };
+		03A0E73C260F6090005C7083 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A0E72D260F6090005C7083 /* Model.swift */; };
+		03A0E73D260F6090005C7083 /* Procedural.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A0E72E260F6090005C7083 /* Procedural.swift */; };
+		03A0E73E260F6090005C7083 /* Instantiation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A0E72F260F6090005C7083 /* Instantiation.swift */; };
+		03A0E73F260F6090005C7083 /* Temporal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A0E730260F6090005C7083 /* Temporal.swift */; };
+		03A0E740260F6090005C7083 /* Vision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A0E731260F6090005C7083 /* Vision.swift */; };
+		03A0E741260F6090005C7083 /* Tokenizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A0E732260F6090005C7083 /* Tokenizer.swift */; };
+		03A0E742260F6090005C7083 /* SlotCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A0E733260F6090005C7083 /* SlotCondition.swift */; };
+		03A0E743260F6090005C7083 /* BufferAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A0E734260F6090005C7083 /* BufferAction.swift */; };
+		03A0E744260F6090005C7083 /* Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A0E735260F6090005C7083 /* Support.swift */; };
+		03A0E745260F6090005C7083 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A0E736260F6090005C7083 /* Parser.swift */; };
+		03A0E746260F6090005C7083 /* Declarative.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A0E737260F6090005C7083 /* Declarative.swift */; };
+		03A0E747260F6090005C7083 /* Chunk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A0E738260F6090005C7083 /* Chunk.swift */; };
+		03A0E748260F6090005C7083 /* Production.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A0E739260F6090005C7083 /* Production.swift */; };
+		03A0E74C260F60AC005C7083 /* rps.actr in Resources */ = {isa = PBXBuildFile; fileRef = 03A0E74A260F60AB005C7083 /* rps.actr */; };
+		03A0E74D260F60AC005C7083 /* act-r_miner.actr in Resources */ = {isa = PBXBuildFile; fileRef = 03A0E74B260F60AB005C7083 /* act-r_miner.actr */; };
 		03A592A025EE746B009B2A0F /* Players.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A5929F25EE746B009B2A0F /* Players.swift */; };
 		03B1468125E64E1600371620 /* PlayingFieldViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B1468025E64E1600371620 /* PlayingFieldViewModel.swift */; };
 		03C3ECBA25ED374500A71642 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C3ECB925ED374500A71642 /* Deck.swift */; };
@@ -28,6 +45,23 @@
 		0325B38A25DD8FD6006BBBDE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		0325B38C25DD8FD6006BBBDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0325B39425DD90F4006BBBDE /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		03A0E72B260F6090005C7083 /* SlotAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlotAction.swift; sourceTree = "<group>"; };
+		03A0E72C260F6090005C7083 /* BufferCondition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BufferCondition.swift; sourceTree = "<group>"; };
+		03A0E72D260F6090005C7083 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		03A0E72E260F6090005C7083 /* Procedural.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Procedural.swift; sourceTree = "<group>"; };
+		03A0E72F260F6090005C7083 /* Instantiation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Instantiation.swift; sourceTree = "<group>"; };
+		03A0E730260F6090005C7083 /* Temporal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Temporal.swift; sourceTree = "<group>"; };
+		03A0E731260F6090005C7083 /* Vision.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vision.swift; sourceTree = "<group>"; };
+		03A0E732260F6090005C7083 /* Tokenizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tokenizer.swift; sourceTree = "<group>"; };
+		03A0E733260F6090005C7083 /* SlotCondition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlotCondition.swift; sourceTree = "<group>"; };
+		03A0E734260F6090005C7083 /* BufferAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BufferAction.swift; sourceTree = "<group>"; };
+		03A0E735260F6090005C7083 /* Support.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Support.swift; sourceTree = "<group>"; };
+		03A0E736260F6090005C7083 /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
+		03A0E737260F6090005C7083 /* Declarative.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Declarative.swift; sourceTree = "<group>"; };
+		03A0E738260F6090005C7083 /* Chunk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chunk.swift; sourceTree = "<group>"; };
+		03A0E739260F6090005C7083 /* Production.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Production.swift; sourceTree = "<group>"; };
+		03A0E74A260F60AB005C7083 /* rps.actr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rps.actr; sourceTree = "<group>"; };
+		03A0E74B260F60AB005C7083 /* act-r_miner.actr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "act-r_miner.actr"; sourceTree = "<group>"; };
 		03A5929F25EE746B009B2A0F /* Players.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Players.swift; sourceTree = "<group>"; };
 		03B1468025E64E1600371620 /* PlayingFieldViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingFieldViewModel.swift; sourceTree = "<group>"; };
 		03C3ECB925ED374500A71642 /* Deck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
@@ -66,7 +100,10 @@
 		0325B38225DD8FD3006BBBDE /* SaboteurGame */ = {
 			isa = PBXGroup;
 			children = (
+				03A0E72A260F6090005C7083 /* ACT-R */,
 				0325B38325DD8FD3006BBBDE /* SaboteurGameApp.swift */,
+				03A0E74B260F60AB005C7083 /* act-r_miner.actr */,
+				03A0E74A260F60AB005C7083 /* rps.actr */,
 				0325B38525DD8FD3006BBBDE /* GameView.swift */,
 				FA74F555260795AA00A15BE3 /* StartPageView.swift */,
 				0325B39425DD90F4006BBBDE /* Game.swift */,
@@ -87,6 +124,28 @@
 				0325B38A25DD8FD6006BBBDE /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		03A0E72A260F6090005C7083 /* ACT-R */ = {
+			isa = PBXGroup;
+			children = (
+				03A0E72B260F6090005C7083 /* SlotAction.swift */,
+				03A0E72C260F6090005C7083 /* BufferCondition.swift */,
+				03A0E72D260F6090005C7083 /* Model.swift */,
+				03A0E72E260F6090005C7083 /* Procedural.swift */,
+				03A0E72F260F6090005C7083 /* Instantiation.swift */,
+				03A0E730260F6090005C7083 /* Temporal.swift */,
+				03A0E731260F6090005C7083 /* Vision.swift */,
+				03A0E732260F6090005C7083 /* Tokenizer.swift */,
+				03A0E733260F6090005C7083 /* SlotCondition.swift */,
+				03A0E734260F6090005C7083 /* BufferAction.swift */,
+				03A0E735260F6090005C7083 /* Support.swift */,
+				03A0E736260F6090005C7083 /* Parser.swift */,
+				03A0E737260F6090005C7083 /* Declarative.swift */,
+				03A0E738260F6090005C7083 /* Chunk.swift */,
+				03A0E739260F6090005C7083 /* Production.swift */,
+			);
+			path = "ACT-R";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -153,6 +212,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				0325B38B25DD8FD6006BBBDE /* Preview Assets.xcassets in Resources */,
+				03A0E74D260F60AC005C7083 /* act-r_miner.actr in Resources */,
+				03A0E74C260F60AC005C7083 /* rps.actr in Resources */,
 				0325B38825DD8FD6006BBBDE /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -164,14 +225,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03A0E73D260F6090005C7083 /* Procedural.swift in Sources */,
 				03A592A025EE746B009B2A0F /* Players.swift in Sources */,
 				03C3ECBA25ED374500A71642 /* Deck.swift in Sources */,
 				0325B38625DD8FD3006BBBDE /* GameView.swift in Sources */,
+				03A0E744260F6090005C7083 /* Support.swift in Sources */,
+				03A0E73A260F6090005C7083 /* SlotAction.swift in Sources */,
+				03A0E741260F6090005C7083 /* Tokenizer.swift in Sources */,
+				03A0E747260F6090005C7083 /* Chunk.swift in Sources */,
 				0325B39525DD90F4006BBBDE /* Game.swift in Sources */,
+				03A0E73B260F6090005C7083 /* BufferCondition.swift in Sources */,
 				FA74F556260795AA00A15BE3 /* StartPageView.swift in Sources */,
 				0325B38425DD8FD3006BBBDE /* SaboteurGameApp.swift in Sources */,
+				03A0E73E260F6090005C7083 /* Instantiation.swift in Sources */,
+				03A0E745260F6090005C7083 /* Parser.swift in Sources */,
+				03A0E73C260F6090005C7083 /* Model.swift in Sources */,
+				03A0E746260F6090005C7083 /* Declarative.swift in Sources */,
+				03A0E73F260F6090005C7083 /* Temporal.swift in Sources */,
+				03A0E748260F6090005C7083 /* Production.swift in Sources */,
+				03A0E740260F6090005C7083 /* Vision.swift in Sources */,
 				03C3ECBD25EE471B00A71642 /* Field.swift in Sources */,
 				03B1468125E64E1600371620 /* PlayingFieldViewModel.swift in Sources */,
+				03A0E742260F6090005C7083 /* SlotCondition.swift in Sources */,
+				03A0E743260F6090005C7083 /* BufferAction.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

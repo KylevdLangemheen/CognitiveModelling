@@ -46,9 +46,9 @@ struct StartPageView: View {
                 }
             }.navigationBarHidden(true)
         }.navigationBarHidden(true)
-         .popup(isPresented: $isPopUpShowing, type: .toast, position: .bottom, animation: .easeInOut, autohideIn: 3, closeOnTap: true, closeOnTapOutside: false, view: {
-            Toast()
-        })
+//         .popup(isPresented: $isPopUpShowing, type: .toast, position: .bottom, animation: .easeInOut, autohideIn: 3, closeOnTap: true, closeOnTapOutside: false, view: {
+//            Toast()
+//        })
     }
 }
 

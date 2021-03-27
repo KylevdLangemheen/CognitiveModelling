@@ -43,10 +43,15 @@ class Deck {
         
         for _ in 0..<actionCardsCount {
             cards.append(Card( cardType: .tool, action: Action(actionType: .breakTool, tool: .pickaxe), cardContent: "AC6" ,id: id) )
+            id += 1
             cards.append(Card( cardType: .tool, action: Action(actionType: .breakTool, tool: .minecart), cardContent: "AC11",id: id) )
+            id += 1
             cards.append(Card( cardType: .tool, action: Action(actionType: .breakTool, tool: .lamp), cardContent: "AC16",id: id) )
+            id += 1
             cards.append(Card( cardType: .tool, action: Action(actionType: .repairTool, tool: .pickaxe), cardContent: "AC9",id: id) )
+            id += 1
             cards.append(Card( cardType: .tool, action: Action(actionType: .repairTool, tool: .minecart), cardContent: "AC14",id: id) )
+            id += 1
             cards.append(Card( cardType: .tool, action: Action(actionType: .repairTool, tool: .lamp), cardContent: "AC19",id: id) )
             id += 1
         }
@@ -247,7 +252,7 @@ struct Sides: Hashable {
     var bottom: pathType = .none
     var left: pathType = .none
 }
-	
+    
 enum pathType {
     case none, connection, blocked
 }

@@ -20,7 +20,12 @@ struct GameView: View {
             }
             field(viewModel: viewModel, humanPlayer: viewModel.humanPlayer, grid: viewModel.grid)
             HStack{
-                playerHand(viewModel: viewModel, player: viewModel.humanPlayer, hand: viewModel.humanHand)
+                if viewModel.humanPlayer.playCard != nil {
+                    playerHand(viewModel: viewModel, player: viewModel.humanPlayer, playCard: viewModel.humanPlayer.playCard, hand: viewModel.humanHand)
+                }else {
+                    playerHand(viewModel: viewModel, player: viewModel.humanPlayer, hand: viewModel.humanHand)
+                }
+                
                 playerInfo(player: viewModel.humanPlayer, viewModel: viewModel, deckCount: viewModel.deck.cards.count, role: viewModel.humanPlayer.role)
             }.padding(.trailing, 50)
             .padding(.leading, 50)
@@ -65,6 +70,7 @@ struct field: View {
 struct playerHand: View {
     var viewModel: PlayingFieldViewModel
     var player: Player
+    var playCard: Card!
     var hand: Array<Card>
     var body: some View{
         let cardWidth: CGFloat = 82.0
@@ -77,9 +83,13 @@ struct playerHand: View {
                         .resizable()
                         .blendMode(.multiply)
                         .aspectRatio(contentMode: .fit)
+                    if player.playCard != nil && player.playCard.id == card.id{
+                        RoundedRectangle(cornerRadius: 10.0).stroke(Color.green,lineWidth: 3).frame(width: cardWidth, height: cardHeight-10)
+                        
+                    }
                 }
                 .onTapGesture {
-                    viewModel.setCard(card: card, player: player)                    
+                    viewModel.setCard(card: card, player: player)
                 }
             }
         }
@@ -131,7 +141,7 @@ struct playerInfo: View {
                     }
                     ZStack {
                         if deckCount == 0 {
-                            RoundedRectangle(cornerRadius: 10.0).fill(Color(#colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1))).frame(height: infoHeight)
+                            RoundedRectangle(cornerRadius: 10.0).fill(Color(#colorLiteral(red: 0, green: 0.3285208941, blue: 0.5748849511, alpha: 1))).frame(height: infoHeight)
                             RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: infoHeight)
                             Text("Skip").font(.title)
                         } else {
@@ -143,6 +153,7 @@ struct playerInfo: View {
                     }.onTapGesture {
                         viewModel.skipTurn()
                     }
+
 
                     
                 }
