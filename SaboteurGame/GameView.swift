@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct GameView: View {
-    @ObservedObject var viewModel: PlayingFieldViewModel   
-    
+    @ObservedObject var viewModel: PlayingFieldViewModel
     var body: some View {
         VStack {
             HStack{
@@ -25,29 +24,29 @@ struct GameView: View {
                 }else {
                     playerHand(viewModel: viewModel, player: viewModel.humanPlayer, hand: viewModel.humanHand)
                 }
-                
+
                 playerInfo(player: viewModel.humanPlayer, viewModel: viewModel, deckCount: viewModel.deck.cards.count, role: viewModel.humanPlayer.role)
             }.padding(.trailing, 50)
             .padding(.leading, 50)
             .padding(.bottom, 20)
 
-            
+
         }.navigationBarHidden(true)
-        
+
     }
 
 }
 
- 
+
 struct field: View {
     var viewModel: PlayingFieldViewModel
     var humanPlayer: Player
     var grid: Array<Array<Cell>>
     @State private var invalidMove = false
     @State private var computersTurn = false
-    
+
     var body: some View {
-        
+
         ForEach(grid, id: \.self) { row in
             HStack{
                 ForEach(row) { cell in
@@ -57,16 +56,11 @@ struct field: View {
                         }
                     }.padding(0)
                 }
-            }.alert(isPresented: $invalidMove) {
-                Alert(title: Text("Invalid Action"), message: Text("You cannot place this card here"), dismissButton: .default(Text("Got it!")))
-            }.alert(isPresented: $computersTurn) {
-                Alert(title: Text("It is not your turn"), message: Text("Please wait for the other players to finish their turn"), dismissButton: .default(Text("Got it!")))
             }
         }
-        .padding(.trailing, 20)
-        .padding(.leading, 20)
     }
 }
+
 struct playerHand: View {
     var viewModel: PlayingFieldViewModel
     var player: Player
@@ -85,7 +79,7 @@ struct playerHand: View {
                         .aspectRatio(contentMode: .fit)
                     if player.playCard != nil && player.playCard.id == card.id{
                         RoundedRectangle(cornerRadius: 10.0).stroke(Color.green,lineWidth: 3).frame(width: cardWidth, height: cardHeight-10)
-                        
+
                     }
                 }
                 .onTapGesture {
@@ -116,26 +110,19 @@ struct playerInfo: View {
                         if player.playCard != nil {
                             viewModel.swapCard(card: player.playCard)
                         }
-                            
                     }
                     ZStack {
-                        RoundedRectangle(cornerRadius: 10.0).fill(Color(#colorLiteral(red: 0, green: 0.3285208941, blue: 0.5748849511, alpha: 1))).frame(height: infoHeight)
+                        RoundedRectangle(cornerRadius: 10.0).fill(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1))).frame(height: infoHeight)
                         RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: infoHeight)
                         Text("\(deckCount)").font(.title).foregroundColor(Color(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)))
                     }
                 }
-
                 VStack {
-                    
                     ZStack {
                         RoundedRectangle(cornerRadius: 10.0).fill(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1))).frame(height: infoHeight)
                         RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: infoHeight)
-                        if role == .miner {
-                            Text("Miner").foregroundColor(Color(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0))).font(.title)
-                        } else {
-                            Text("Saboteur").foregroundColor(Color(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0))).font(.title)
-                        }
-                        
+                        Text("\(role)" as String).foregroundColor(Color(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0))).font(.title)
+
                     }.onTapGesture {
                         viewModel.playActionCard(player: player)
                     }
@@ -149,13 +136,13 @@ struct playerInfo: View {
                             Text("Skip").font(.title)
                             RoundedRectangle(cornerRadius: 10.0).fill(Color(#colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1))).opacity(0.8).frame(height: infoHeight)
                         }
-                        
+
                     }.onTapGesture {
                         viewModel.skipTurn()
                     }
 
 
-                    
+
                 }
             }
             HStack {
@@ -164,13 +151,13 @@ struct playerInfo: View {
                 } else {
                     Image("pickaxe_off")
                 }
-                
+
                 if player.tools.mineCart == .intact {
                     Image("mineCart_on")
                 } else {
                     Image("mineCart_off")
                 }
-                
+
                 if player.tools.lamp == .intact {
                     Image("lamp_on")
                 } else {
@@ -181,6 +168,31 @@ struct playerInfo: View {
     }
 }
 
+
+struct toolView: View {
+    var tools: Tools
+    var body: some View {
+        HStack {
+            if tools.pickaxe == .intact {
+                Image("pickaxe_on")
+            } else {
+                Image("pickaxe_off")
+            }
+
+            if tools.mineCart == .intact {
+                Image("mineCart_on")
+            } else {
+                Image("mineCart_off")
+            }
+
+            if tools.lamp == .intact {
+                Image("lamp_on")
+            } else {
+                Image("lamp_off")
+            }
+        }
+    }
+}
 struct opponentInfo: View {
     var viewModel: PlayingFieldViewModel
     var tools: Tools
@@ -198,13 +210,13 @@ struct opponentInfo: View {
                     } else {
                         Image("pickaxe_off")
                     }
-                    
+
                     if tools.mineCart == .intact {
                         Image("mineCart_on")
                     } else {
                         Image("mineCart_off")
                     }
-                    
+
                     if tools.lamp == .intact {
                         Image("lamp_on")
                     } else {
@@ -248,7 +260,7 @@ struct CellView: View {
 
 
 struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {        
+    static var previews: some View {
         GameView(viewModel: PlayingFieldViewModel())
     }
 }
