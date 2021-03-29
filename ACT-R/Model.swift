@@ -74,7 +74,7 @@ class Model: Codable {
                 return (value.description, action.activation())
             }
         }
-        return ("",0.0)
+        return nil
     }
 
 
