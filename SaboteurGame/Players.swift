@@ -9,44 +9,80 @@ import Foundation
 
 struct Players {
     let handSize: Int
-    var players: Array<Player> = []
-    
-    init(humanPlayers: Int, computers: Int, handSize: Int, deck: Deck) {
+    var human: Player
+    var computers: Array<Player> = []
+    var numberOfPlayers = 0
+    init(numOfComputers: Int, handSize: Int, deck: Deck) {
         self.handSize = handSize
-
-        var roles: Array<Role> = Array(repeating: .miner, count: humanPlayers + computers) + Array(repeating: .saboteur, count: humanPlayers + computers)
+        self.numberOfPlayers = numOfComputers + 1
+        var roles: Array<Role> = Array(repeating: .miner, count: numberOfPlayers) + Array(repeating: .saboteur, count: numberOfPlayers)
         roles.shuffle()
         
         var id = 0
-        for _ in 0..<humanPlayers {
-            players.append(Player(role: roles[id], id: id, deck: deck, handSize: handSize, type: .human))
-            id += 1
-        }
-        
-        for _ in 0..<computers {
-            players.append(Player(role: roles[id], id: id, deck: deck, handSize: handSize, type: .computer))
+        self.human = (Player(role: roles[id], id: id, deck: deck, handSize: handSize, type: .human, name: "Human"))
+        id += 1
+      
+        let names: Array<String> = ["Bob", "Jenny"]
+        for _ in 0..<numOfComputers {
+            self.computers.append(Player(role: roles[id], id: id, deck: deck, handSize: handSize, type: .computer, name: names[id-1]))
+
             id += 1
         }
     }
     
-
+    func giveOutGold(winPlayer: Role) {
+        if human.role == winPlayer {
+            if winPlayer == .miner {
+                human.gold += 2
+            } else {
+                human.gold += 4
+            }
+        }
+        
+        for player in computers {
+            if player.role == winPlayer {
+                if winPlayer == .miner {
+                    player.gold += 2
+                } else {
+                    player.gold += 4
+                }
+            }
+        }
+    }
 }
 
-class Player {
+func nextPlayer(currentPlayerId: Int, players: Players) -> Player {
+    if currentPlayerId != players.numberOfPlayers - 1 {
+        for computer in players.computers {
+            if computer.id == currentPlayerId + 1 {
+                return computer
+            }
+        }
+    }
+    return players.human
+}
+
+
+class Player: Identifiable {
     var playerStatus: playerStatus // placingCard, waiting (for other player), usingCard(action), redraw
     var tools: Tools
     var role: Role
     var type: playerType
+    var name: String
     var playCard: Card!
     var hand: Array<Card> = []
     var id: Int
+    var skipped: Bool = false
+    var gold: Int = 0
     
-    init(role: Role, id: Int, deck: Deck, handSize: Int, type: playerType) {
+    
+    init(role: Role, id: Int, deck: Deck, handSize: Int, type: playerType, name: String) {
         playerStatus = .waiting
         tools = Tools()
         self.role = role
         self.id = id
         self.type = type
+        self.name = name
         for _ in 0..<handSize {
             self.hand.append(deck.drawCard())
         }
@@ -56,8 +92,30 @@ class Player {
         hand.append(card)
     }
     
+    func changeToolStatus(tool: toolType, actionType: actionType) -> Bool{
+        switch tool {
+        case .pickaxe:
+            switch (tools.pickaxe, actionType) {
+            case (.intact, .breakTool): tools.pickaxe = .broken
+            case (.broken, .repairTool): tools.pickaxe = .intact
+            default: print("Pickaxe already broken or already intact"); return false}
+        case .minecart:
+            switch (tools.mineCart, actionType) {
+            case (.intact, .breakTool): tools.mineCart = .broken
+            case (.broken, .repairTool): tools.mineCart = .intact
+            default: print("Pickaxe already broken or already intact"); return false}
+        case .lamp:
+            switch (tools.lamp, actionType) {
+            case (.intact, .breakTool): tools.lamp = .broken
+            case (.broken, .repairTool): tools.lamp = .intact
+            default: print("Pickaxe already broken or already intact"); return false}
+        }
+        return true
+    }
+    
     func changePlayerStatus(status: playerStatus) {
         playerStatus = status
+        print("\(self.type) is now \(self.playerStatus)")
     }
     
     func removeCardFromHand(id: Int) {
@@ -74,29 +132,32 @@ class Player {
         return 0
     }
     
+    func swapCard(card: Card) {
+        let cardIdx = getCardIndexInHand(id: playCard.id)
+        self.hand[cardIdx] = card
+    }
+    
     func setCard(card: Card) {
         self.playCard = card
+        
         switch card.cardType {
         case .path:
-            changePlayerStatus(status: .placingCard)
-        case .action:
-            changePlayerStatus(status: .usingCard)
+            changePlayerStatus(status: .usingPathCard)
+        case .tool:
+            changePlayerStatus(status: .usingToolCard)
         default:
-            changePlayerStatus(status: .playing)
+            print("Something went wrong in setCard")
         }
-        print(playCard.id)
-        
+   
+    }
+    
+    func removeSetCard() {
+        self.playCard = nil
     }
 }
 
-//class Computer: Player {
-//    var possiblePlays: Array<cardPlay> = []
-//}
-
-
-
 enum playerStatus {
-    case playing, waiting, placingCard, usingCard
+    case playing, waiting, usingActionCard, usingPathCard, usingToolCard
 }
 
 struct Tools {
@@ -105,6 +166,9 @@ struct Tools {
     var lamp: toolStatus = .intact
 }
 
+enum toolType {
+    case pickaxe, minecart, lamp
+}
 enum toolStatus {
     case intact, broken
 }

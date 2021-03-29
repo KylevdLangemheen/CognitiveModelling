@@ -35,18 +35,18 @@ class Field {
         let goalCards: Array<Card> = createGoalCards()
         
         // Place goal cards on the field
-        grid[rows-9][columns/2+2].hasCard = true
-        grid[rows-9][columns/2+2].card = goalCards[0]
+        grid[rows/2+2][columns-2].hasCard = true
+        grid[rows/2+2][columns-2].card = goalCards[0]
         
-        grid[rows-9][columns/2-2].hasCard = true
-        grid[rows-9][columns/2-2].card = goalCards[1]
+        grid[rows/2-2][columns-2].hasCard = true
+        grid[rows/2-2][columns-2].card = goalCards[1]
         
-        grid[rows-9][columns/2].hasCard = true
-        grid[rows-9][columns/2].card = goalCards[2]
+        grid[rows/2][columns-2].hasCard = true
+        grid[rows/2][columns-2].card = goalCards[2]
 
         // Place start card on the field
-        grid[rows-1][columns/2].hasCard = true
-        grid[rows-1][columns/2].card = Card(isFaceUp: true, cardType: .start, cardContent: "Start", sides: Sides(
+        grid[rows/2][columns-10].hasCard = true
+        grid[rows/2][columns-10].card = Card(isFaceUp: true, cardType: .start, cardContent: "PC41", sides: Sides(
                                                 top: pathType.connection,
                                                 right: pathType.connection,
                                                 bottom: pathType.connection,
@@ -54,14 +54,15 @@ class Field {
     
         
         // Set goal cells
-        self.startCell = grid[rows-1][columns/2]
-        self.goalCells.append(grid[rows-9][columns/2+2])
-        self.goalCells.append(grid[rows-9][columns/2-2])
-        self.goalCells.append(grid[rows-9][columns/2])
+        self.startCell = grid[rows/2][columns-10]
+        self.goalCells.append(grid[rows/2+2][columns-2])
+        self.goalCells.append(grid[rows/2-2][columns-2])
+        self.goalCells.append(grid[rows/2][columns-2])
         
-        validCardPlacementCells.append(grid[rows-2][columns/2])
-        validCardPlacementCells.append(grid[rows-1][columns/2 - 1])
-        validCardPlacementCells.append(grid[rows-1][columns/2 + 1])
+        validCardPlacementCells.append(grid[rows/2][columns-9])
+        validCardPlacementCells.append(grid[rows/2][columns-11])
+        validCardPlacementCells.append(grid[rows/2 - 1][columns-10])
+        validCardPlacementCells.append(grid[rows/2 + 1][columns-10])
 
     }
     
@@ -72,13 +73,14 @@ class Field {
             grid[cell.x][cell.y].card = card
             grid[cell.x][cell.y].hasCard = true
             updateValidCardPlacements(cell: cell,card: card)
-            print("Placed Card at cell \(cell.id)")
+//            print("Placed Card at cell \(cell.id)")
             return true
         } else {
             print("Did not place card, invalid move")
             return false
         }
     }
+    
     func removeCellFromValidCardPlacements(cell: Cell) {
         for validCellIdx in 0..<validCardPlacementCells.count{
             if cell.id == validCardPlacementCells[validCellIdx].id {
@@ -145,15 +147,13 @@ class Field {
         
         
         if sides.top != .none {
-            if neighBours.top.hasCard {
-                if neighBours.top.card.cardType == .path {
-                    if neighBours.top.card.sides.bottom == pathType.none {
-                        return false
-                    }
-                } 
+            if (neighBours.top.hasCard && (neighBours.top.card.cardType == .path || neighBours.top.card.cardType == .start)) {
+                if neighBours.top.card.sides.bottom == pathType.none {
+                    return false
+                }
             }
         } else {
-            if (neighBours.top.hasCard && (neighBours.top.card.cardType == .path)) {
+            if (neighBours.top.hasCard && (neighBours.top.card.cardType == .path || neighBours.top.card.cardType == .start)) {
                 if neighBours.top.card.sides.bottom != pathType.none {
                     return false
                 }
@@ -161,13 +161,13 @@ class Field {
         }
         
         if sides.right != .none {
-            if (neighBours.right.hasCard && (neighBours.right.card.cardType == .path)){
+            if (neighBours.right.hasCard && (neighBours.right.card.cardType == .path || neighBours.right.card.cardType == .start)){
                 if neighBours.right.card.sides.left == pathType.none {
                     return false
                 }
             }
         } else {
-            if (neighBours.right.hasCard && (neighBours.right.card.cardType == .path)){
+            if (neighBours.right.hasCard && (neighBours.right.card.cardType == .path || neighBours.right.card.cardType == .start)){
                 if neighBours.right.card.sides.left != pathType.none {
                     return false
                 }
@@ -175,13 +175,13 @@ class Field {
         }
         
         if sides.bottom != .none {
-            if (neighBours.bottom.hasCard && (neighBours.bottom.card.cardType == .path)) {
+            if (neighBours.bottom.hasCard && (neighBours.bottom.card.cardType == .path || neighBours.bottom.card.cardType == .start)) {
                 if neighBours.bottom.card.sides.top == pathType.none {
                     return false
                 }
             }
         } else {
-            if (neighBours.bottom.hasCard && (neighBours.bottom.card.cardType == .path)) {
+            if (neighBours.bottom.hasCard && (neighBours.bottom.card.cardType == .path || neighBours.bottom.card.cardType == .start)) {
                 if neighBours.bottom.card.sides.top != pathType.none {
                     return false
                 }
@@ -190,13 +190,13 @@ class Field {
         
         
         if sides.left != .none {
-            if (neighBours.left.hasCard && (neighBours.left.card.cardType == .path)) {
+            if (neighBours.left.hasCard && (neighBours.left.card.cardType == .path || neighBours.left.card.cardType == .start)) {
                 if neighBours.left.card.sides.right == pathType.none {
                     return false
                 }
             }
         } else {
-            if (neighBours.left.hasCard && (neighBours.left.card.cardType == .path)) {
+            if (neighBours.left.hasCard && (neighBours.left.card.cardType == .path || neighBours.left.card.cardType == .start)) {
                 if neighBours.left.card.sides.right != pathType.none {
                     return false
                 }
@@ -330,6 +330,8 @@ class Field {
     
     func getCoopValue(card: Card, cell: Cell) -> Float{
         return 1.0
+//        neighbours = getNeightbours(cell)
+        
     }
 }
 
@@ -338,16 +340,16 @@ func createGoalCards() -> Array<Card>{
     var goalCards: Array<Card> = []
     goalCards.append(Card(isFaceUp: false,
                           cardType: cardType.coal,
-                          cardContent: "⚫️",
+                          cardContent: "PC43",
                           sides: Sides(
                             top: .connection,
-                            right: .connection,
+                            right: .none,
                             bottom: .none,
-                            left: .none),
+                            left: .connection),
                           id: 0))
     goalCards.append(Card(isFaceUp: false,
                           cardType: cardType.gold,
-                          cardContent: "💎",
+                          cardContent: "PC42",
                           sides: Sides(
                               top: pathType.connection,
                               right: pathType.connection,
@@ -357,7 +359,7 @@ func createGoalCards() -> Array<Card>{
     goalCards.append(Card(
                         isFaceUp: false,
                         cardType: cardType.coal,
-                        cardContent: "⚫️",
+                        cardContent: "PC44",
                         sides: Sides(
                             top: .none,
                             right: .none,
