@@ -39,6 +39,71 @@
 
 ;; At the start of the model, retrieve miner decision
 
+
+
+
+
+
+
+(p prepare-for-action-start
+    =goal>
+        isa goal
+        state start
+==>
+    =goal>
+        state waiting
+    +action>
+        isa process
+)
+
+(p retrieve-player-belief
+    =goal>
+        isa goal
+        state waiting
+    =action>
+        isa process
+        playerno =p
+==>
+    =goal>
+        state retrieving-belief
+    +retrieval>
+        isa restimate
+        player =p
+    -imaginal>
+    -action>
+)
+
+(p return-player-belief
+    =goal>
+        isa goal
+        state retrieving-belief
+    =retrieval>
+        isa restimate
+        role =r
+==>
+    =goal>
+        state returned-belief
+    +action
+        isa process
+        role =r
+)
+
+(p restart-after-returning
+    =goal>
+        isa goal
+        state returned-belief
+==>
+    +goal>
+        isa goal
+        state start
+    -action>
+)
+
+
+
+
+
+
 (p retrieve-decision-start
    =goal>
      isa goal

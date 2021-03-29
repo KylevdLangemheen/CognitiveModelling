@@ -69,11 +69,15 @@ class Model: Codable {
      - returns: the value of the slot as String or nil if it doesn't exist
     */
     func lastAction(slot: String) -> (String, Double)? {
+        //print("Last action requested")
         if let action = buffers["action"] {
+            //print("There is an action in the buffer")
             if let value = action.slotvals[slot] {
+                //print("There is a value present in the given slot")
                 return (value.description, action.activation())
             }
         }
+        print("Failure :(")
         return nil
     }
     

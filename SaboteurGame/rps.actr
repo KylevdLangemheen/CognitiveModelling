@@ -1,105 +1,96 @@
-;;; Model of Rock Paper Scissors
+;;; Miner act-r model
 ;;;
 
 (add-dm
-    (RR isa decision step1 rock step2 rock)
-    (RP isa decision step1 rock step2 paper)
-    (RS isa decision step1 rock step2 scissors)
-    (PR isa decision step1 paper step2 rock)
-    (PP isa decision step1 paper step2 paper)
-    (PS isa decision step1 paper step2 scissors)
-    (SR isa decision step1 scissors step2 rock)
-    (SP isa decision step1 scissors step2 paper)
-    (SS isa decision step1 scissors step2 scissors)
-    (d1 isa beats slot1 scissors slot2 rock)
-    (d2 isa beats slot1 rock slot2 paper)
-    (d3 isa beats slot1 paper slot2 scissors)
+    (ATTACK1 isa move player one role saboteur action attack)
+;;    (ATTACK2 isa move player two role saboteur action attack)
+;;    (ATTACK3 isa move player three role saboteur action attack)
+
+    (HELP1 isa move player one role miner action help)
+;;    (HELP2 isa move player two role miner action help)
+;;    (HELP3 isa move player three role miner action help)
+
+;;    (NEUTRAL isa genericmove player any role unknown action play)
+    (NEUTRAL1 isa move player one role unknown action play)
+;;    (NEUTRAL2 isa genericmove player two role unknown action play)
+;;    (NEUTRAL3 isa genericmove player three role unknown action play)
+
+    (r1 isa rimplication role unknown implication unknown)
+    (r2 isa rimplication role miner implication saboteur)
+    (r3 isa rimplication role saboteur implication miner)
+
+    (s0 isa restimate player zero role saboteur)
+    (m0 isa restimate player zero role miner)
+    (n0 isa restimate player zero role unknown)
+    (s1 isa restimate player one role saboteur)
+    (m1 isa restimate player one role miner)
+    (n1 isa restimate player one role unknown)
+;;    (s2 isa restimate player two role saboteur)
+;;    (m2 isa restimate player two role miner)
+;;    (n2 isa restimate player two role unknown)
+;;    (s3 isa restimate player three role saboteur)
+;;    (m3 isa restimate player three role miner)
+;;    (n3 isa restimate player three role unknown)
     (goal isa goal state start)
 )
 
 (set-all-baselevels -100 10) ;; time offset and number of references
+;; Prefer 'unknown' restimates?
 
-;; At the start of the model, retrieve any decision
+;; At the start of the model, prepare for taking action
 
-(p retrieve-decision-start
-   =goal>
-     isa goal
-     state start
-     playerlast nil
-==>
-   =goal>
-     state retrieve
-     playerlast start
-   +retrieval>
-     isa decision
-   -imaginal>
-)
-
-;; But afterwards, retrieve base on the last decision of the opponent
-(p retrieve-decision
+(p prepare-for-action-start
     =goal>
         isa goal
         state start
-        playerlast =last
 ==>
     =goal>
-        state retrieve
-    +retrieval>
-        isa decision
-        step1 =last
+        state waiting
+    +action>
+        isa process
 )
 
-;; retrieve what beats the predictions
-(p retrieve-beats
+(p retrieve-player-belief
     =goal>
         isa goal
-        state retrieve
-    =retrieval>
-        isa decision
-        step2 =prediction
+        state waiting
+    =action>
+        isa process
+        playerno =p
 ==>
     =goal>
-        state retrieve-beats
+        state retrievebelief
     +retrieval>
-        isa beats
-        slot1 =prediction
+        isa restimate
+        player =p
+    -imaginal>
+    -action>
 )
 
-(p make-decision
-   =goal>
-     isa goal
-     state retrieve-beats
-   =retrieval>
-     isa beats
-     slot2 =decision
+(p return-player-belief
+    =goal>
+        isa goal
+        state retrievebelief
+    =retrieval>
+        isa restimate
+        role =r
 ==>
-   =goal>
-     state decide
-   +action>
-     isa move
-     choice =decision
+    =goal>
+        state returnbelief
+    +action>
+        isa process
+        role =r
 )
 
-(p restart-after-action
-  =goal>
-    isa goal
-    state decide
-    playerlast =last
-  =action>
-    isa move
-    opponent =decision
+(p restart-after-returning
+    =goal>
+        isa goal
+        state returnbelief
 ==>
-  +goal>
-     isa goal
-     state start
-     playerlast =decision
-  +imaginal>
-    isa decision
-    step1 =last
-    step2 =decision
-  -action>
+    +goal>
+        isa goal
+        state start
+    -action>
 )
-
 
 (goal-focus goal)
-

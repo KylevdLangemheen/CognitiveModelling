@@ -68,15 +68,16 @@ struct Game {
                 0: "one",
                 1: "zero"
             ]
-            var activation = 0.4
+            //var activation = 0.4
             for player in players.players {
                 if let playerno = playerMap[player.id] {
                     //TODO: skip if playerno is "zero"
-                    //model.modifyLastAction(slot: "playerno", value: playerno)
-                    //(let role, let activation) = model.lastAction(slot: "role")
-                    //playerRoles[player.id] = (role, activation)
-                    playerRoles[player.id] = (playerno, activation)
-                    activation += 0.2
+                    model.modifyLastAction(slot: "playerno", value: playerno)
+                    model.run()
+                    let (role, activation) = model.lastAction(slot: "role")!
+                    print("The model believes \(playerno) is a \(role)")
+                    playerRoles[player.id] = (role, activation)
+                    model.run()
                 }
             }
             var sortedKeyValues = Array(playerRoles).sorted(by: {$0.value.1 > $1.value.1})
