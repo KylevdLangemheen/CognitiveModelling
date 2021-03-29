@@ -109,7 +109,7 @@ struct Game {
                 0: "one"
             ]
             var toAssign: Array<String> = ["three", "two"]
-            for i in 1...3 {
+            for i in 1..<players.numberOfPlayers {
                 if i == computer.id {
                     playerMap[i] = "zero"
                 } else {
@@ -122,15 +122,16 @@ struct Game {
                 }
                 var player = players.human
                 if i != 0 {
-                    player = players.computers[i]
+                    player = players.computers[i-1]
                 }
                     
                 if let playerno = playerMap[player.id] {
                     model.modifyLastAction(slot: "playerno", value: playerno)
-                    //(let role, let activation) = model.lastAction(slot: "role")
-                    //playerRoles[player.id] = (role, activation)
-                    playerRoles[player.id] = (playerno, activation)
-                    activation += 0.2
+                    model.run()
+                    let (role, activation) = model.lastAction(slot: "role")!
+                    print("The model believes \(playerno) is a \(role)")
+                    playerRoles[player.id] = (role, activation)
+                    model.run()
                 }
             }
             var sortedKeyValues = Array(playerRoles).sorted(by: {$0.value.1 > $1.value.1})
