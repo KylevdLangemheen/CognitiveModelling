@@ -87,6 +87,7 @@ struct Game {
     mutating func computerPlay(computer: Player){
         var possiblePathPlays: Array<cardPlay> = []
         var posibeToolPlays: Array<cardPlay> = []
+        var possiblePlays: Array<cardPlay> = []
 
         for card in computer.hand {
             if card.cardType == .path {
@@ -99,21 +100,33 @@ struct Game {
                     break
             }
         }
-
-            break
         possiblePlays.shuffle()
         if possiblePlays.count != 0 {
-            computer.playerStatus = .placingCard
+            
+            //computer.playerStatus = .placingCard
             var playerRoles: [Int: (String, Double)] = [:]
-            let playerMap: [Int: String] = [
-                0: "one",
-                1: "zero"
+            var playerMap: [Int: String] = [
+                0: "one"
             ]
-            var activation = 0.4
-            for player in players.players {
+            var toAssign: Array<String> = ["three", "two"]
+            for i in 1...3 {
+                if i == computer.id {
+                    playerMap[i] = "zero"
+                } else {
+                    playerMap[i] = toAssign.popLast()
+                }
+            }
+            for i in 0..<players.numberOfPlayers {
+                if i == computer.id {
+                    continue
+                }
+                var player = players.human
+                if i != 0 {
+                    player = players.computers[i]
+                }
+                    
                 if let playerno = playerMap[player.id] {
-                    //TODO: skip if playerno is "zero"
-                    //model.modifyLastAction(slot: "playerno", value: playerno)
+                    model.modifyLastAction(slot: "playerno", value: playerno)
                     //(let role, let activation) = model.lastAction(slot: "role")
                     //playerRoles[player.id] = (role, activation)
                     playerRoles[player.id] = (playerno, activation)
@@ -125,7 +138,7 @@ struct Game {
             for (index, (key, value)) in sortedKeyValues {
                 if key == "unknown" {
                     toRemove.append(index)
-                }
+                }	
             }
             for i in toRemove {
                 sortedKeyValues.remove(at: i)
