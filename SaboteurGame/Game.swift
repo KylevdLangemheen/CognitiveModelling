@@ -129,7 +129,7 @@ struct Game {
                     model.modifyLastAction(slot: "playerno", value: playerno)
                     model.run()
                     let (role, activation) = model.lastAction(slot: "role")!
-                    print("The model believes \(playerno) is a \(role)")
+                    print("Model \(computer.name) believes \(playerno) is a \(role)")
                     playerRoles[player.id] = (role, activation)
                     model.run()
                 }
@@ -141,10 +141,15 @@ struct Game {
                     toRemove.append(index)
                 }	
             }
+            toRemove = toRemove.sorted().reversed()
+            for element in toRemove {
+              print(element, terminator: " ")
+            }
             for i in toRemove {
                 sortedKeyValues.remove(at: i)
             }
             for (key, (role, activation)) in sortedKeyValues {
+                print("found something")
                 //TODO: find a possible action card to play:
                 //Go over each possibleActions
                     //check if the role matches the player role
@@ -152,6 +157,7 @@ struct Game {
                     //else
                         //possible action has to be unhelpful to that player
             }
+            print("or maybe not?")
             //TODO: if action has been found, play it. else, if not blocked:
             //Sort possible players by coop value (desc for miner, asc for saboteur)
             //play most coop and value > 3 if miner

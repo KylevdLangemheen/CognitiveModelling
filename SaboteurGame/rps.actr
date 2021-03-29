@@ -1,19 +1,24 @@
 ;;; Miner act-r model
 ;;;
+
 (add-dm
     (ATTACK1 isa move player one role saboteur action attack)
-    (ATTACK2 isa move player two role saboteur action attack)
-    (ATTACK3 isa move player three role saboteur action attack)
+;;    (ATTACK2 isa move player two role saboteur action attack)
+;;    (ATTACK3 isa move player three role saboteur action attack)
+
     (HELP1 isa move player one role miner action help)
     (HELP2 isa move player two role miner action help)
     (HELP3 isa move player three role miner action help)
+
     (NEUTRAL isa genericmove player any role unknown action play)
     (NEUTRAL1 isa move player one role unknown action play)
     (NEUTRAL2 isa genericmove player two role unknown action play)
     (NEUTRAL3 isa genericmove player three role unknown action play)
+
     (r1 isa rimplication role unknown implication unknown)
     (r2 isa rimplication role miner implication saboteur)
     (r3 isa rimplication role saboteur implication miner)
+
     (s0 isa restimate player zero role saboteur)
     (m0 isa restimate player zero role miner)
     (n0 isa restimate player zero role unknown)
@@ -29,12 +34,13 @@
     (goal isa goal state start)
 )
 
-
 (set-all-baselevels -100 10) ;; time offset and number of references
 ;; Prefer 'unknown' restimates?
+
 ;; At the start of the model, prepare for taking action
 
-(p prepare-for-action-start=goal>
+(p prepare-for-action-start
+    =goal>
         isa goal
         state start
 ==>
