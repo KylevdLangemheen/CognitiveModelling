@@ -41,7 +41,7 @@ class Model: Codable {
         case procedural
         case imaginalActionTime
     }
-    
+
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         if let value = try? values.decode(Double.self, forKey: .time) {
@@ -52,17 +52,17 @@ class Model: Codable {
         }
         if let value = try? values.decode(Declarative.self, forKey: .dm) {
             self.dm = value
-        } 
+        }
         if let value = try? values.decode(Int.self, forKey: .chunkIdCounter) {
             self.chunkIdCounter = value
         }
         if let value = try? values.decode(Procedural.self, forKey: .procedural) {
             self.procedural = value
-        } 
+        }
         self.trace = ""
     }
-    
-    
+
+
     /**
     Inspect a slot value of the last action
      - parameter slot: The name of the slot
@@ -74,10 +74,10 @@ class Model: Codable {
                 return (value.description, action.activation())
             }
         }
-        return ("",0.0)
+        return nil
     }
-    
-    
+
+
     /**
     Set a slot value of the chunk in the action buffer
     - parameter slot: the name of the slot
@@ -88,7 +88,7 @@ class Model: Codable {
             action.setSlot(slot: slot, value: value)
         }
     }
-    
+
     /**
     Is there a chunk in the action buffer?
     - returns: Whether there is one
@@ -96,31 +96,31 @@ class Model: Codable {
     func actionChunk() -> Bool {
         return buffers["action"] != nil
     }
-    
+
     init() {
         trace = ""
     }
-    
+
     func addToTrace(string s: String) {
         let timeString = String(format:"%.2f", time)
         trace += "\(timeString)  " + s + "\n"
         print("\(timeString)  " + s)
     }
-    
+
     func clearTrace() {
         trace = ""
     }
-    
+
     func loadModel(fileName fname: String) {
         let bundle = Bundle.main
         let path = bundle.path(forResource: fname, ofType: "actr")!
-        
+
         modelText = try! String(contentsOfFile: path, encoding: String.Encoding.utf8)
         print("Got model text")
         //        println("\(modelText)")
         self.reset()
 
-        
+
         for (_,chunk) in dm.chunks {
             print("\(chunk)")
         }
@@ -129,7 +129,7 @@ class Model: Codable {
             print("\(prod)")
         }
     }
-    
+
     /**
     When you want to use partial matching, override this function when you subclass Model
     */
@@ -140,8 +140,8 @@ class Model: Codable {
             return -1
         }
     }
-    
-    
+
+
    /**
     Run the model until a production has a +action> or no productions match. If the model stops because of an action, waitingForAction is made true, which in turn posts
      an "Action" notification
@@ -178,7 +178,7 @@ class Model: Codable {
 //            print("production \(inst!.p.name) fires")
             inst!.p.fire(instantiation: inst!)
             //model.addToTrace("Goal after production\n\(goalchunk)")
-            
+
             //        for (buffer,chunk) in buffers {
             //            println("Buffer \(buffer) has chunk\n\(chunk)")
             //        }
@@ -235,16 +235,16 @@ class Model: Codable {
             time += moduleLatency
             if step { return }
         }
-        
+
     }
-    
+
     func run(step: Bool = false) {
         print("Running model")
         if isValid {
             run(maxTime: 10000, step: step)
         }
     }
-    
+
     /**
     Reset the model to its initial state
     */
@@ -283,7 +283,7 @@ class Model: Codable {
         waitingForAction = false
         print("resetting model")
     }
-    
+
     /**
      Reset the model, but do not clear memory or reload the model file
      */
@@ -294,8 +294,8 @@ class Model: Codable {
         running = false
         waitingForAction = false
     }
-    
-    
+
+
     /**
     Generate a chunk with a unique ID starting with the given string
     - parameter s1: The base name of the chunk
@@ -306,13 +306,13 @@ class Model: Codable {
         let chunk = Chunk(s: name, m: self)
         return chunk
     }
-    
+
     func generateName(string s1: String = "name") -> String {
         let name = s1 + "\(chunkIdCounter)"
         chunkIdCounter += 1
         return name
     }
-    
+
     func stringToValue(_ s: String) -> Value {
         let possibleNumVal = Double(s) //NumberFormatter().number(from: s)?.doubleValue
         if possibleNumVal != nil {

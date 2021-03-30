@@ -38,19 +38,24 @@ class Deck {
         self.rotatedTShapedPathCardsCount = rotatedTShapedPathCardsCount
         self.crossShapedPathCardsCount = crossShapedPathCardsCount
 
-        
+
         var id: Int = 0
-        
+
         for _ in 0..<actionCardsCount {
             cards.append(Card( cardType: .tool, action: Action(actionType: .breakTool, tool: .pickaxe), cardContent: "AC6" ,id: id) )
+            id += 1
             cards.append(Card( cardType: .tool, action: Action(actionType: .breakTool, tool: .minecart), cardContent: "AC11",id: id) )
+            id += 1
             cards.append(Card( cardType: .tool, action: Action(actionType: .breakTool, tool: .lamp), cardContent: "AC16",id: id) )
+            id += 1
             cards.append(Card( cardType: .tool, action: Action(actionType: .repairTool, tool: .pickaxe), cardContent: "AC9",id: id) )
+            id += 1
             cards.append(Card( cardType: .tool, action: Action(actionType: .repairTool, tool: .minecart), cardContent: "AC14",id: id) )
+            id += 1
             cards.append(Card( cardType: .tool, action: Action(actionType: .repairTool, tool: .lamp), cardContent: "AC19",id: id) )
             id += 1
         }
-        
+
         // First 9 path cards
         for _ in 0..<deadEndCardsCount {
             cards.append(Card( cardType: cardType.path, cardContent: "PC1",
@@ -126,8 +131,8 @@ class Deck {
                          id: id))
             id += 1
         }
-        
-              
+
+
         // Horizontal Line path cards
         for _ in 0..<horizontalLinePathCardsCount {
             cards.append(Card(cardType: cardType.path,
@@ -140,7 +145,7 @@ class Deck {
                               id: id))
             id += 1
         }
-    
+
         // t-shaped Path cards
         for _ in 0..<tShapedPathCardsCount {
             cards.append(Card(cardType: cardType.path,
@@ -153,7 +158,7 @@ class Deck {
                               id: id))
             id += 1
         }
-        
+
         // right corner Path cards
         for _ in 0..<rightCornerPathCardsCount {
             cards.append(Card(cardType: cardType.path,
@@ -166,7 +171,7 @@ class Deck {
                               id: id))
             id += 1
         }
-        
+
         // left corner Path cards
         for _ in 0..<leftCornerPathCardsCount {
             cards.append(Card(cardType: cardType.path,
@@ -179,7 +184,7 @@ class Deck {
                               id: id))
             id += 1
         }
-              
+
         // Vertical Line path cards
         for _ in 0..<verticalLinePathCardsCount {
             cards.append(Card(cardType: cardType.path,
@@ -192,7 +197,7 @@ class Deck {
                               id: id))
             id += 1
         }
-        
+
         // rotated T-shaped Path cards
         for _ in 0..<rotatedTShapedPathCardsCount {
             cards.append(Card(cardType: cardType.path,
@@ -205,7 +210,7 @@ class Deck {
                               id: id))
             id += 1
         }
-        
+
         //cross shaped path cards
         for _ in 0..<crossShapedPathCardsCount {
             cards.append(Card(cardType: cardType.path,
@@ -228,7 +233,7 @@ class Deck {
         } else {
             return Card(cardType: cardType.path,id:0)
         }
-        
+
     }
 }
 
@@ -247,7 +252,7 @@ struct Sides: Hashable {
     var bottom: pathType = .none
     var left: pathType = .none
 }
-	
+
 enum pathType {
     case none, connection, blocked
 }

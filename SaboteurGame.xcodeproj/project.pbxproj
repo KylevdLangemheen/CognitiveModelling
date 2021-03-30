@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,27 +12,28 @@
 		0325B38825DD8FD6006BBBDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0325B38725DD8FD6006BBBDE /* Assets.xcassets */; };
 		0325B38B25DD8FD6006BBBDE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0325B38A25DD8FD6006BBBDE /* Preview Assets.xcassets */; };
 		0325B39525DD90F4006BBBDE /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0325B39425DD90F4006BBBDE /* Game.swift */; };
-		035605C7260CEA2300AD73DA /* SlotAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035605B8260CEA2300AD73DA /* SlotAction.swift */; };
-		035605C8260CEA2300AD73DA /* BufferCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035605B9260CEA2300AD73DA /* BufferCondition.swift */; };
-		035605C9260CEA2300AD73DA /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035605BA260CEA2300AD73DA /* Model.swift */; };
-		035605CA260CEA2300AD73DA /* Procedural.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035605BB260CEA2300AD73DA /* Procedural.swift */; };
-		035605CB260CEA2300AD73DA /* Instantiation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035605BC260CEA2300AD73DA /* Instantiation.swift */; };
-		035605CC260CEA2300AD73DA /* Temporal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035605BD260CEA2300AD73DA /* Temporal.swift */; };
-		035605CD260CEA2300AD73DA /* Vision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035605BE260CEA2300AD73DA /* Vision.swift */; };
-		035605CE260CEA2300AD73DA /* Tokenizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035605BF260CEA2300AD73DA /* Tokenizer.swift */; };
-		035605CF260CEA2300AD73DA /* SlotCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035605C0260CEA2300AD73DA /* SlotCondition.swift */; };
-		035605D0260CEA2300AD73DA /* BufferAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035605C1260CEA2300AD73DA /* BufferAction.swift */; };
-		035605D1260CEA2300AD73DA /* Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035605C2260CEA2300AD73DA /* Support.swift */; };
-		035605D2260CEA2300AD73DA /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035605C3260CEA2300AD73DA /* Parser.swift */; };
-		035605D3260CEA2300AD73DA /* Declarative.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035605C4260CEA2300AD73DA /* Declarative.swift */; };
-		035605D4260CEA2300AD73DA /* Chunk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035605C5260CEA2300AD73DA /* Chunk.swift */; };
-		035605D5260CEA2300AD73DA /* Production.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035605C6260CEA2300AD73DA /* Production.swift */; };
-		035605D8260CEA5700AD73DA /* act-r_miner.actr in Resources */ = {isa = PBXBuildFile; fileRef = 035605D7260CEA5700AD73DA /* act-r_miner.actr */; };
-		035605DD260D0CF700AD73DA /* rps.actr in Resources */ = {isa = PBXBuildFile; fileRef = 035605DC260D0CF700AD73DA /* rps.actr */; };
+		03A0E73A260F6090005C7083 /* SlotAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A0E72B260F6090005C7083 /* SlotAction.swift */; };
+		03A0E73B260F6090005C7083 /* BufferCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A0E72C260F6090005C7083 /* BufferCondition.swift */; };
+		03A0E73C260F6090005C7083 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A0E72D260F6090005C7083 /* Model.swift */; };
+		03A0E73D260F6090005C7083 /* Procedural.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A0E72E260F6090005C7083 /* Procedural.swift */; };
+		03A0E73E260F6090005C7083 /* Instantiation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A0E72F260F6090005C7083 /* Instantiation.swift */; };
+		03A0E73F260F6090005C7083 /* Temporal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A0E730260F6090005C7083 /* Temporal.swift */; };
+		03A0E740260F6090005C7083 /* Vision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A0E731260F6090005C7083 /* Vision.swift */; };
+		03A0E741260F6090005C7083 /* Tokenizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A0E732260F6090005C7083 /* Tokenizer.swift */; };
+		03A0E742260F6090005C7083 /* SlotCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A0E733260F6090005C7083 /* SlotCondition.swift */; };
+		03A0E743260F6090005C7083 /* BufferAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A0E734260F6090005C7083 /* BufferAction.swift */; };
+		03A0E744260F6090005C7083 /* Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A0E735260F6090005C7083 /* Support.swift */; };
+		03A0E745260F6090005C7083 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A0E736260F6090005C7083 /* Parser.swift */; };
+		03A0E746260F6090005C7083 /* Declarative.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A0E737260F6090005C7083 /* Declarative.swift */; };
+		03A0E747260F6090005C7083 /* Chunk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A0E738260F6090005C7083 /* Chunk.swift */; };
+		03A0E748260F6090005C7083 /* Production.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A0E739260F6090005C7083 /* Production.swift */; };
+		03A0E74C260F60AC005C7083 /* rps.actr in Resources */ = {isa = PBXBuildFile; fileRef = 03A0E74A260F60AB005C7083 /* rps.actr */; };
+		03A0E74D260F60AC005C7083 /* act-r_miner.actr in Resources */ = {isa = PBXBuildFile; fileRef = 03A0E74B260F60AB005C7083 /* act-r_miner.actr */; };
 		03A592A025EE746B009B2A0F /* Players.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A5929F25EE746B009B2A0F /* Players.swift */; };
 		03B1468125E64E1600371620 /* PlayingFieldViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B1468025E64E1600371620 /* PlayingFieldViewModel.swift */; };
 		03C3ECBA25ED374500A71642 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C3ECB925ED374500A71642 /* Deck.swift */; };
 		03C3ECBD25EE471B00A71642 /* Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C3ECBC25EE471B00A71642 /* Field.swift */; };
+		FA5D01B8260E9B1400651121 /* PopupView in Frameworks */ = {isa = PBXBuildFile; productRef = FA5D01B7260E9B1400651121 /* PopupView */; };
 		FA74F556260795AA00A15BE3 /* StartPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA74F555260795AA00A15BE3 /* StartPageView.swift */; };
 /* End PBXBuildFile section */
 
@@ -44,23 +45,23 @@
 		0325B38A25DD8FD6006BBBDE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		0325B38C25DD8FD6006BBBDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0325B39425DD90F4006BBBDE /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
-		035605B8260CEA2300AD73DA /* SlotAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlotAction.swift; sourceTree = "<group>"; };
-		035605B9260CEA2300AD73DA /* BufferCondition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BufferCondition.swift; sourceTree = "<group>"; };
-		035605BA260CEA2300AD73DA /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
-		035605BB260CEA2300AD73DA /* Procedural.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Procedural.swift; sourceTree = "<group>"; };
-		035605BC260CEA2300AD73DA /* Instantiation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Instantiation.swift; sourceTree = "<group>"; };
-		035605BD260CEA2300AD73DA /* Temporal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Temporal.swift; sourceTree = "<group>"; };
-		035605BE260CEA2300AD73DA /* Vision.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vision.swift; sourceTree = "<group>"; };
-		035605BF260CEA2300AD73DA /* Tokenizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tokenizer.swift; sourceTree = "<group>"; };
-		035605C0260CEA2300AD73DA /* SlotCondition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlotCondition.swift; sourceTree = "<group>"; };
-		035605C1260CEA2300AD73DA /* BufferAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BufferAction.swift; sourceTree = "<group>"; };
-		035605C2260CEA2300AD73DA /* Support.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Support.swift; sourceTree = "<group>"; };
-		035605C3260CEA2300AD73DA /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
-		035605C4260CEA2300AD73DA /* Declarative.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Declarative.swift; sourceTree = "<group>"; };
-		035605C5260CEA2300AD73DA /* Chunk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chunk.swift; sourceTree = "<group>"; };
-		035605C6260CEA2300AD73DA /* Production.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Production.swift; sourceTree = "<group>"; };
-		035605D7260CEA5700AD73DA /* act-r_miner.actr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "act-r_miner.actr"; sourceTree = "<group>"; };
-		035605DC260D0CF700AD73DA /* rps.actr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rps.actr; sourceTree = "<group>"; };
+		03A0E72B260F6090005C7083 /* SlotAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlotAction.swift; sourceTree = "<group>"; };
+		03A0E72C260F6090005C7083 /* BufferCondition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BufferCondition.swift; sourceTree = "<group>"; };
+		03A0E72D260F6090005C7083 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		03A0E72E260F6090005C7083 /* Procedural.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Procedural.swift; sourceTree = "<group>"; };
+		03A0E72F260F6090005C7083 /* Instantiation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Instantiation.swift; sourceTree = "<group>"; };
+		03A0E730260F6090005C7083 /* Temporal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Temporal.swift; sourceTree = "<group>"; };
+		03A0E731260F6090005C7083 /* Vision.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vision.swift; sourceTree = "<group>"; };
+		03A0E732260F6090005C7083 /* Tokenizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tokenizer.swift; sourceTree = "<group>"; };
+		03A0E733260F6090005C7083 /* SlotCondition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlotCondition.swift; sourceTree = "<group>"; };
+		03A0E734260F6090005C7083 /* BufferAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BufferAction.swift; sourceTree = "<group>"; };
+		03A0E735260F6090005C7083 /* Support.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Support.swift; sourceTree = "<group>"; };
+		03A0E736260F6090005C7083 /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
+		03A0E737260F6090005C7083 /* Declarative.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Declarative.swift; sourceTree = "<group>"; };
+		03A0E738260F6090005C7083 /* Chunk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chunk.swift; sourceTree = "<group>"; };
+		03A0E739260F6090005C7083 /* Production.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Production.swift; sourceTree = "<group>"; };
+		03A0E74A260F60AB005C7083 /* rps.actr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rps.actr; sourceTree = "<group>"; };
+		03A0E74B260F60AB005C7083 /* act-r_miner.actr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "act-r_miner.actr"; sourceTree = "<group>"; };
 		03A5929F25EE746B009B2A0F /* Players.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Players.swift; sourceTree = "<group>"; };
 		03B1468025E64E1600371620 /* PlayingFieldViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingFieldViewModel.swift; sourceTree = "<group>"; };
 		03C3ECB925ED374500A71642 /* Deck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
@@ -73,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA5D01B8260E9B1400651121 /* PopupView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,7 +84,6 @@
 		0325B37725DD8FD3006BBBDE = {
 			isa = PBXGroup;
 			children = (
-				035605B7260CEA2300AD73DA /* ACT-R */,
 				0325B38225DD8FD3006BBBDE /* SaboteurGame */,
 				0325B38125DD8FD3006BBBDE /* Products */,
 			);
@@ -99,9 +100,10 @@
 		0325B38225DD8FD3006BBBDE /* SaboteurGame */ = {
 			isa = PBXGroup;
 			children = (
-				035605DC260D0CF700AD73DA /* rps.actr */,
-				035605D7260CEA5700AD73DA /* act-r_miner.actr */,
+				03A0E72A260F6090005C7083 /* ACT-R */,
 				0325B38325DD8FD3006BBBDE /* SaboteurGameApp.swift */,
+				03A0E74B260F60AB005C7083 /* act-r_miner.actr */,
+				03A0E74A260F60AB005C7083 /* rps.actr */,
 				0325B38525DD8FD3006BBBDE /* GameView.swift */,
 				FA74F555260795AA00A15BE3 /* StartPageView.swift */,
 				0325B39425DD90F4006BBBDE /* Game.swift */,
@@ -124,24 +126,24 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		035605B7260CEA2300AD73DA /* ACT-R */ = {
+		03A0E72A260F6090005C7083 /* ACT-R */ = {
 			isa = PBXGroup;
 			children = (
-				035605B8260CEA2300AD73DA /* SlotAction.swift */,
-				035605B9260CEA2300AD73DA /* BufferCondition.swift */,
-				035605BA260CEA2300AD73DA /* Model.swift */,
-				035605BB260CEA2300AD73DA /* Procedural.swift */,
-				035605BC260CEA2300AD73DA /* Instantiation.swift */,
-				035605BD260CEA2300AD73DA /* Temporal.swift */,
-				035605BE260CEA2300AD73DA /* Vision.swift */,
-				035605BF260CEA2300AD73DA /* Tokenizer.swift */,
-				035605C0260CEA2300AD73DA /* SlotCondition.swift */,
-				035605C1260CEA2300AD73DA /* BufferAction.swift */,
-				035605C2260CEA2300AD73DA /* Support.swift */,
-				035605C3260CEA2300AD73DA /* Parser.swift */,
-				035605C4260CEA2300AD73DA /* Declarative.swift */,
-				035605C5260CEA2300AD73DA /* Chunk.swift */,
-				035605C6260CEA2300AD73DA /* Production.swift */,
+				03A0E72B260F6090005C7083 /* SlotAction.swift */,
+				03A0E72C260F6090005C7083 /* BufferCondition.swift */,
+				03A0E72D260F6090005C7083 /* Model.swift */,
+				03A0E72E260F6090005C7083 /* Procedural.swift */,
+				03A0E72F260F6090005C7083 /* Instantiation.swift */,
+				03A0E730260F6090005C7083 /* Temporal.swift */,
+				03A0E731260F6090005C7083 /* Vision.swift */,
+				03A0E732260F6090005C7083 /* Tokenizer.swift */,
+				03A0E733260F6090005C7083 /* SlotCondition.swift */,
+				03A0E734260F6090005C7083 /* BufferAction.swift */,
+				03A0E735260F6090005C7083 /* Support.swift */,
+				03A0E736260F6090005C7083 /* Parser.swift */,
+				03A0E737260F6090005C7083 /* Declarative.swift */,
+				03A0E738260F6090005C7083 /* Chunk.swift */,
+				03A0E739260F6090005C7083 /* Production.swift */,
 			);
 			path = "ACT-R";
 			sourceTree = "<group>";
@@ -162,6 +164,9 @@
 			dependencies = (
 			);
 			name = SaboteurGame;
+			packageProductDependencies = (
+				FA5D01B7260E9B1400651121 /* PopupView */,
+			);
 			productName = SaboteurGame;
 			productReference = 0325B38025DD8FD3006BBBDE /* SaboteurGame.app */;
 			productType = "com.apple.product-type.application";
@@ -189,6 +194,9 @@
 				Base,
 			);
 			mainGroup = 0325B37725DD8FD3006BBBDE;
+			packageReferences = (
+				FA5D01B6260E9B1400651121 /* XCRemoteSwiftPackageReference "PopupView" */,
+			);
 			productRefGroup = 0325B38125DD8FD3006BBBDE /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -203,9 +211,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				035605D8260CEA5700AD73DA /* act-r_miner.actr in Resources */,
-				035605DD260D0CF700AD73DA /* rps.actr in Resources */,
 				0325B38B25DD8FD6006BBBDE /* Preview Assets.xcassets in Resources */,
+				03A0E74D260F60AC005C7083 /* act-r_miner.actr in Resources */,
+				03A0E74C260F60AC005C7083 /* rps.actr in Resources */,
 				0325B38825DD8FD6006BBBDE /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -217,29 +225,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				035605CA260CEA2300AD73DA /* Procedural.swift in Sources */,
+				03A0E73D260F6090005C7083 /* Procedural.swift in Sources */,
 				03A592A025EE746B009B2A0F /* Players.swift in Sources */,
 				03C3ECBA25ED374500A71642 /* Deck.swift in Sources */,
 				0325B38625DD8FD3006BBBDE /* GameView.swift in Sources */,
-				035605D1260CEA2300AD73DA /* Support.swift in Sources */,
-				035605C7260CEA2300AD73DA /* SlotAction.swift in Sources */,
-				035605CE260CEA2300AD73DA /* Tokenizer.swift in Sources */,
-				035605D4260CEA2300AD73DA /* Chunk.swift in Sources */,
+				03A0E744260F6090005C7083 /* Support.swift in Sources */,
+				03A0E73A260F6090005C7083 /* SlotAction.swift in Sources */,
+				03A0E741260F6090005C7083 /* Tokenizer.swift in Sources */,
+				03A0E747260F6090005C7083 /* Chunk.swift in Sources */,
 				0325B39525DD90F4006BBBDE /* Game.swift in Sources */,
-				035605C8260CEA2300AD73DA /* BufferCondition.swift in Sources */,
+				03A0E73B260F6090005C7083 /* BufferCondition.swift in Sources */,
 				FA74F556260795AA00A15BE3 /* StartPageView.swift in Sources */,
 				0325B38425DD8FD3006BBBDE /* SaboteurGameApp.swift in Sources */,
-				035605CB260CEA2300AD73DA /* Instantiation.swift in Sources */,
-				035605D2260CEA2300AD73DA /* Parser.swift in Sources */,
-				035605C9260CEA2300AD73DA /* Model.swift in Sources */,
-				035605D3260CEA2300AD73DA /* Declarative.swift in Sources */,
-				035605CC260CEA2300AD73DA /* Temporal.swift in Sources */,
-				035605D5260CEA2300AD73DA /* Production.swift in Sources */,
-				035605CD260CEA2300AD73DA /* Vision.swift in Sources */,
+				03A0E73E260F6090005C7083 /* Instantiation.swift in Sources */,
+				03A0E745260F6090005C7083 /* Parser.swift in Sources */,
+				03A0E73C260F6090005C7083 /* Model.swift in Sources */,
+				03A0E746260F6090005C7083 /* Declarative.swift in Sources */,
+				03A0E73F260F6090005C7083 /* Temporal.swift in Sources */,
+				03A0E748260F6090005C7083 /* Production.swift in Sources */,
+				03A0E740260F6090005C7083 /* Vision.swift in Sources */,
 				03C3ECBD25EE471B00A71642 /* Field.swift in Sources */,
 				03B1468125E64E1600371620 /* PlayingFieldViewModel.swift in Sources */,
-				035605CF260CEA2300AD73DA /* SlotCondition.swift in Sources */,
-				035605D0260CEA2300AD73DA /* BufferAction.swift in Sources */,
+				03A0E742260F6090005C7083 /* SlotCondition.swift in Sources */,
+				03A0E743260F6090005C7083 /* BufferAction.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -426,6 +434,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		FA5D01B6260E9B1400651121 /* XCRemoteSwiftPackageReference "PopupView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/exyte/PopupView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.12;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		FA5D01B7260E9B1400651121 /* PopupView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA5D01B6260E9B1400651121 /* XCRemoteSwiftPackageReference "PopupView" */;
+			productName = PopupView;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0325B37825DD8FD3006BBBDE /* Project object */;
 }
