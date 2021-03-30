@@ -94,21 +94,22 @@ struct Game {
                 possiblePlays.append(contentsOf: field.getPosiblePathPlays(card: card))
             }
             switch card.cardType{
-                case .path: if checkTools(tools: computer.tools) == .intact {possiblePathPlays.append(contentsOf: field.getPosiblePathPlays(card: card))}
+                case .path: if checkTools(tools: computer.tools) == .intact {
+                    possiblePathPlays.append(contentsOf: field.getPosiblePathPlays(card: card))}
                 case .tool: posibeToolPlays.append(contentsOf: getPossibleToolPlays(card: card))
                 default:
                     break
             }
         }
         possiblePlays.shuffle()
-        if possiblePlays.count != 0 {
+        if possiblePathPlays.count != 0 || posibeToolPlays.count != 0 {
             
             //computer.playerStatus = .placingCard
             var playerRoles: [Int: (String, Double)] = [:]
             var playerMap: [Int: String] = [
                 0: "one"
             ]
-            var toAssign: Array<String> = ["three", "two"]
+            var toAssign: Array<String> = ["four", "three", "two"]
             for i in 1..<players.numberOfPlayers {
                 if i == computer.id {
                     playerMap[i] = "zero"
@@ -136,28 +137,36 @@ struct Game {
             }
             var sortedKeyValues = Array(playerRoles).sorted(by: {$0.value.1 > $1.value.1})
             var toRemove: Array<Int> = []
+            var i = 0
             for (index, (key, value)) in sortedKeyValues {
                 if key == "unknown" {
-                    toRemove.append(index)
-                }	
+                    toRemove.append(i)
+                }
+                i += 1
             }
             toRemove = toRemove.sorted().reversed()
             for element in toRemove {
               print(element, terminator: " ")
             }
+            print("of total \(sortedKeyValues.count)")
             for i in toRemove {
                 sortedKeyValues.remove(at: i)
             }
-            for (key, (role, activation)) in sortedKeyValues {
-                print("found something")
-                //TODO: find a possible action card to play:
-                //Go over each possibleActions
-                    //check if the role matches the player role
-                        //possible action has to be helpful to that player
-                    //else
-                        //possible action has to be unhelpful to that player
+            let played: Bool = false
+            if sortedKeyValues.count != 0 {
+                print("Model \(computer.name) is looking for an action card to play.")
+                for (key, (role, activation)) in sortedKeyValues {
+                    //TODO: find a possible action card to play:
+                    //Go over each possibleActions
+                        //check if the role matches the player role
+                            //possible action has to be helpful to that player
+                        //else
+                            //possible action has to be unhelpful to that player
+                }
             }
-            print("or maybe not?")
+            if !played {
+                print("Model \(computer.name) is looking for a path card to play.")
+            }
             //TODO: if action has been found, play it. else, if not blocked:
             //Sort possible players by coop value (desc for miner, asc for saboteur)
             //play most coop and value > 3 if miner
@@ -232,6 +241,7 @@ struct Game {
 //            currentPlayer.setCard(card: posibeToolPlays[0].card)
 //            playActionCard(player: posibeToolPlays[0].player, card: posibeToolPlays[0].card)
         } else if deck.cards.count > 0{
+            //TODO: set least desireable card as playCard
             print(computer.tools)
             computer.playCard = computer.hand[0]
             swapCard()
