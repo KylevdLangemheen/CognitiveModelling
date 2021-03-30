@@ -134,20 +134,33 @@ struct Game {
                     model.run()
                 }
             }
+            print("unsortedKeyValues?: \(playerRoles)")
             var sortedKeyValues = Array(playerRoles).sorted(by: {$0.value.1 > $1.value.1})
             var toRemove: Array<Int> = []
+            sorted
+            
+            for index in 0..<playerRoles.count {
+                if playerRole[index].key.description == "unknown" {
+                    
+                }
+            }
+            
             for (index, (key, value)) in sortedKeyValues {
                 if key == "unknown" {
                     toRemove.append(index)
                 }	
             }
+            
             toRemove = toRemove.sorted().reversed()
             for element in toRemove {
               print(element, terminator: " ")
             }
+            
+            
             for i in toRemove {
                 sortedKeyValues.remove(at: i)
             }
+            
             for (key, (role, activation)) in sortedKeyValues {
                 print("found something")
                 //TODO: find a possible action card to play:

@@ -9,7 +9,6 @@ import SwiftUI
 
 struct GameView: View {
     @ObservedObject var viewModel: PlayingFieldViewModel
-    
     var body: some View {
         VStack {
             HStack{
@@ -57,16 +56,11 @@ struct field: View {
                         }
                     }.padding(0)
                 }
-            }.alert(isPresented: $invalidMove) {
-                Alert(title: Text("Invalid Action"), message: Text("You cannot place this card here"), dismissButton: .default(Text("Got it!")))
-            }.alert(isPresented: $computersTurn) {
-                Alert(title: Text("It is not your turn"), message: Text("Please wait for the other players to finish their turn"), dismissButton: .default(Text("Got it!")))
             }
         }
-        .padding(.trailing, 20)
-        .padding(.leading, 20)
     }
 }
+
 struct playerHand: View {
     var viewModel: PlayingFieldViewModel
     var player: Player
@@ -116,32 +110,19 @@ struct playerInfo: View {
                         if player.playCard != nil {
                             viewModel.swapCard(card: player.playCard)
                         }
-                            
                     }
                     ZStack {
-                        RoundedRectangle(cornerRadius: 10.0).fill(Color(#colorLiteral(red: 0, green: 0.3285208941, blue: 0.5748849511, alpha: 1))).frame(height: infoHeight)
+                        RoundedRectangle(cornerRadius: 10.0).fill(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1))).frame(height: infoHeight)
                         RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: infoHeight)
                         Text("\(deckCount)").font(.title).foregroundColor(Color(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)))
                     }
                 }
-
                 VStack {
-                    
                     ZStack {
                         RoundedRectangle(cornerRadius: 10.0).fill(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1))).frame(height: infoHeight)
-<<<<<<< HEAD
-                        RoundedRectangle(cornerRadius: 	10.0).stroke(lineWidth: 3).frame(height: infoHeight)
-                        if role == .miner {
-                            Text("Miner").foregroundColor(Color(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0))).font(.title)
-                        } else {
-                            Text("Saboteur").foregroundColor(Color(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0))).font(.title)
-                        }
-                        
-=======
                         RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: infoHeight)
                         Text("\(role)" as String).foregroundColor(Color(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0))).font(.title)
 
->>>>>>> main
                     }.onTapGesture {
                         viewModel.playActionCard(player: player)
                     }
@@ -159,31 +140,6 @@ struct playerInfo: View {
                     }.onTapGesture {
                         viewModel.skipTurn()
                     }
-<<<<<<< HEAD
-
-
-                    
-                }
-            }
-            HStack {
-                if player.tools.pickaxe == .intact {
-                    Image("pickaxe_on")
-                } else {
-                    Image("pickaxe_off")
-                }
-                
-                if player.tools.mineCart == .intact {
-                    Image("mineCart_on")
-                } else {
-                    Image("mineCart_off")
-                }
-                
-                if player.tools.lamp == .intact {
-                    Image("lamp_on")
-                } else {
-                    Image("lamp_off")
-                }
-=======
 
 
 
@@ -233,12 +189,10 @@ struct toolView: View {
                 Image("lamp_on")
             } else {
                 Image("lamp_off")
->>>>>>> main
             }
         }
     }
 }
-
 struct opponentInfo: View {
     var viewModel: PlayingFieldViewModel
     var tools: Tools
@@ -256,21 +210,13 @@ struct opponentInfo: View {
                     } else {
                         Image("pickaxe_off")
                     }
-<<<<<<< HEAD
-                    
-=======
 
->>>>>>> main
                     if tools.mineCart == .intact {
                         Image("mineCart_on")
                     } else {
                         Image("mineCart_off")
                     }
-<<<<<<< HEAD
-                    
-=======
 
->>>>>>> main
                     if tools.lamp == .intact {
                         Image("lamp_on")
                     } else {
