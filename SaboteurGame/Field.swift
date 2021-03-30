@@ -50,7 +50,7 @@ class Field {
                                                 top: pathType.connection,
                                                 right: pathType.connection,
                                                 bottom: pathType.connection,
-                                                left: pathType.connection), id: 0)
+                                                left: pathType.connection), id: 0, coopValue: 1.0)
     
         
         // Set goal cells
@@ -329,8 +329,8 @@ class Field {
     }
     
     func getCoopValue(card: Card, cell: Cell) -> Float{
-        return 1.0
-//        neighbours = getNeightbours(cell)
+        return card.coopValue
+        //        neighbours = getNeightbours(cell)
         
     }
 }
@@ -346,7 +346,7 @@ func createGoalCards() -> Array<Card>{
                             right: .none,
                             bottom: .none,
                             left: .connection),
-                          id: 0))
+                          id: 0,coopValue: 1.0))
     goalCards.append(Card(isFaceUp: false,
                           cardType: cardType.gold,
                           cardContent: "PC42",
@@ -355,7 +355,7 @@ func createGoalCards() -> Array<Card>{
                               right: pathType.connection,
                               bottom: pathType.connection,
                               left: pathType.connection),
-                          id: 0))
+                          id: 0,coopValue: 1.0))
     goalCards.append(Card(
                         isFaceUp: false,
                         cardType: cardType.coal,
@@ -365,7 +365,7 @@ func createGoalCards() -> Array<Card>{
                             right: .none,
                             bottom: .connection,
                             left: .connection)
-                        ,id: 0))
+                        ,id: 0,coopValue: 1.0))
     
     goalCards.shuffle()
     return goalCards
@@ -397,4 +397,16 @@ struct cardPlay {
     var cell: Cell!
     var player: Player!
     var coopValue: Float
+    
+//    init(playType: playType, card: Card, player: Player!, cell: Cell!) {
+//        self.playType = playType
+//        self.card = card
+//        if playType == .placeCard {
+//            self.cell = cell
+//        } else {
+//            self.player = player
+//        }
+//        
+//        
+//    }
 }

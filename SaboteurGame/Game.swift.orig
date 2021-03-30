@@ -138,7 +138,18 @@ struct Game {
             print("unsortedKeyValues?: \(playerRoles)")
             var sortedKeyValues = Array(playerRoles).sorted(by: {$0.value.1 > $1.value.1})
             var toRemove: Array<Int> = []
+<<<<<<< HEAD
+            sorted
+            
+            for index in 0..<playerRoles.count {
+                if playerRole[index].key.description == "unknown" {
+                    
+                }
+            }
+            
+=======
             var i = 0
+>>>>>>> main
             for (index, (key, value)) in sortedKeyValues {
                 if key == "unknown" {
                     toRemove.append(i)
@@ -150,6 +161,22 @@ struct Game {
             for element in toRemove {
               print(element, terminator: " ")
             }
+<<<<<<< HEAD
+            
+            
+            for i in toRemove {
+                sortedKeyValues.remove(at: i)
+            }
+            
+            for (key, (role, activation)) in sortedKeyValues {
+                print("found something")
+                //TODO: find a possible action card to play:
+                //Go over each possibleActions
+                    //check if the role matches the player role
+                        //possible action has to be helpful to that player
+                    //else
+                        //possible action has to be unhelpful to that player
+=======
             print("of total \(sortedKeyValues.count)")
             for i in toRemove {
                 sortedKeyValues.remove(at: i)
@@ -168,6 +195,7 @@ struct Game {
             }
             if !played {
                 print("Model \(computer.name) is looking for a path card to play.")
+>>>>>>> main
             }
             //TODO: if action has been found, play it. else, if not blocked:
             //Sort possible players by coop value (desc for miner, asc for saboteur)
@@ -253,7 +281,6 @@ struct Game {
 
     }
 
-    
     func getComputerPlayerById(id: Int) -> Player!{
         for computer in players.computers {
             if computer.id == id {
@@ -285,21 +312,22 @@ struct Game {
                 case (.pickaxe , .repairTool): if player.tools.mineCart == .intact {possiblePlays.append(cardPlay(playType: .toolModifier,
                                                                                                    card: card,
                                                                                                    player: player,
-                                                                                                   coopValue: 5.0))}
+                                                                                                   coopValue: 1.0))}
                 case (.minecart , .repairTool): if player.tools.mineCart == .intact {possiblePlays.append(cardPlay(playType: .toolModifier,
                                                                                                   card: card,
                                                                                                   player: player,
-                                                                                                  coopValue: 5.0))}
+                                                                                                  coopValue: 1.0))}
                 case (.lamp , .repairTool): if player.tools.lamp == .intact {possiblePlays.append(cardPlay(playType: .toolModifier,
                                                                                                    card: card,
-                                                                                                   player: player, coopValue: 5.0))}
+                                                                                                   player: player,
+                                                                                                   coopValue: 1.0))}
                 }
             }
         }
         return possiblePlays
     }
 
-    
+
     func checkTools(tools: Tools) -> toolStatus {
         if (tools.lamp == .broken || tools.mineCart == .broken || tools.pickaxe == .broken){
             return .broken

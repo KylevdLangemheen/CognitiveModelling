@@ -30,6 +30,8 @@ struct Players {
         }
     }
     
+
+    
     func giveOutGold(winPlayer: Role) {
         if human.role == winPlayer {
             if winPlayer == .miner {
