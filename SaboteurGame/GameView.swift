@@ -9,6 +9,7 @@ import SwiftUI
 
 struct GameView: View {
     @ObservedObject var viewModel: PlayingFieldViewModel
+    
     var body: some View {
         VStack {
             HStack{
@@ -18,10 +19,7 @@ struct GameView: View {
                 }
             }
             field(viewModel: viewModel, humanPlayer: viewModel.humanPlayer, grid: viewModel.grid)
-                .padding(.trailing, 50)
-                .padding(.leading, 50)
-                
-            HStack {
+            HStack{
                 if viewModel.humanPlayer.playCard != nil {
                     playerHand(viewModel: viewModel, player: viewModel.humanPlayer, playCard: viewModel.humanPlayer.playCard, hand: viewModel.humanHand)
                 }else {
@@ -59,11 +57,16 @@ struct field: View {
                         }
                     }.padding(0)
                 }
+            }.alert(isPresented: $invalidMove) {
+                Alert(title: Text("Invalid Action"), message: Text("You cannot place this card here"), dismissButton: .default(Text("Got it!")))
+            }.alert(isPresented: $computersTurn) {
+                Alert(title: Text("It is not your turn"), message: Text("Please wait for the other players to finish their turn"), dismissButton: .default(Text("Got it!")))
             }
         }
+        .padding(.trailing, 20)
+        .padding(.leading, 20)
     }
 }
-
 struct playerHand: View {
     var viewModel: PlayingFieldViewModel
     var player: Player
@@ -113,18 +116,25 @@ struct playerInfo: View {
                         if player.playCard != nil {
                             viewModel.swapCard(card: player.playCard)
                         }
+                            
                     }
                     ZStack {
-                        RoundedRectangle(cornerRadius: 10.0).fill(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1))).frame(height: infoHeight)
+                        RoundedRectangle(cornerRadius: 10.0).fill(Color(#colorLiteral(red: 0, green: 0.3285208941, blue: 0.5748849511, alpha: 1))).frame(height: infoHeight)
                         RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: infoHeight)
                         Text("\(deckCount)").font(.title).foregroundColor(Color(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)))
                     }
                 }
+
                 VStack {
+                    
                     ZStack {
                         RoundedRectangle(cornerRadius: 10.0).fill(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1))).frame(height: infoHeight)
-                        RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: infoHeight)
-                        Text("\(role)" as String).foregroundColor(Color(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0))).font(.title)
+                        RoundedRectangle(cornerRadius: 	10.0).stroke(lineWidth: 3).frame(height: infoHeight)
+                        if role == .miner {
+                            Text("Miner").foregroundColor(Color(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0))).font(.title)
+                        } else {
+                            Text("Saboteur").foregroundColor(Color(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0))).font(.title)
+                        }
                         
                     }.onTapGesture {
                         viewModel.playActionCard(player: player)
@@ -143,38 +153,34 @@ struct playerInfo: View {
                     }.onTapGesture {
                         viewModel.skipTurn()
                     }
-                    toolView(tools: player.tools)
+
+
+                    
+                }
+            }
+            HStack {
+                if player.tools.pickaxe == .intact {
+                    Image("pickaxe_on")
+                } else {
+                    Image("pickaxe_off")
+                }
+                
+                if player.tools.mineCart == .intact {
+                    Image("mineCart_on")
+                } else {
+                    Image("mineCart_off")
+                }
+                
+                if player.tools.lamp == .intact {
+                    Image("lamp_on")
+                } else {
+                    Image("lamp_off")
                 }
             }
         }
     }
 }
 
-
-struct toolView: View {
-    var tools: Tools
-    var body: some View {
-        HStack {
-            if tools.pickaxe == .intact {
-                Image("pickaxe_on")
-            } else {
-                Image("pickaxe_off")
-            }
-            
-            if tools.mineCart == .intact {
-                Image("mineCart_on")
-            } else {
-                Image("mineCart_off")
-            }
-            
-            if tools.lamp == .intact {
-                Image("lamp_on")
-            } else {
-                Image("lamp_off")
-            }
-        }
-    }
-}
 struct opponentInfo: View {
     var viewModel: PlayingFieldViewModel
     var tools: Tools
@@ -183,13 +189,32 @@ struct opponentInfo: View {
     var body: some View {
         ZStack{
             RoundedRectangle(cornerRadius: 10.0).fill(Color.white)
-            RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: 100)
+            RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: 110)
             VStack {
                 Text(name).font(.largeTitle)
-                toolView(tools: tools)
+                HStack {
+                    if tools.pickaxe == .intact {
+                        Image("pickaxe_on")
+                    } else {
+                        Image("pickaxe_off")
+                    }
+                    
+                    if tools.mineCart == .intact {
+                        Image("mineCart_on")
+                    } else {
+                        Image("mineCart_off")
+                    }
+                    
+                    if tools.lamp == .intact {
+                        Image("lamp_on")
+                    } else {
+                        Image("lamp_off")
+                    }
+                }.padding(.leading, 50)
+                .padding(.trailing, 50)
+            }.onTapGesture {
+                viewModel.playActionCard(player: player)
             }
-        }.onTapGesture {
-            viewModel.playActionCard(player: player)
         }
     }
 }
@@ -223,7 +248,7 @@ struct CellView: View {
 
 
 struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {        
+    static var previews: some View {
         GameView(viewModel: PlayingFieldViewModel())
     }
 }
