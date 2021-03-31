@@ -10,27 +10,31 @@ import SwiftUI
 struct GameView: View {
     @ObservedObject var viewModel: PlayingFieldViewModel
     var body: some View {
-        VStack {
-            HStack{
-                ForEach(viewModel.computerPlayers) { player in
-                    opponentInfo(viewModel: viewModel, tools: player.tools, player: player, name: player.name).padding(.trailing, 50)
-                        .padding(.leading, 50)
+        ZStack {
+            VStack {
+                HStack{
+                    ForEach(viewModel.computerPlayers) { player in
+                        opponentInfo(viewModel: viewModel, tools: player.tools, player: player, name: player.name).padding(.trailing, 50)
+                            .padding(.leading, 50)
+                    }
                 }
+                field(viewModel: viewModel, humanPlayer: viewModel.humanPlayer, grid: viewModel.grid)
+                HStack{
+                    if viewModel.humanPlayer.playCard != nil {
+                        playerHand(viewModel: viewModel, player: viewModel.humanPlayer, playCard: viewModel.humanPlayer.playCard, hand: viewModel.humanHand)
+                    }else {
+                        playerHand(viewModel: viewModel, player: viewModel.humanPlayer, hand: viewModel.humanHand)
+                    }
+
+                    playerInfo(player: viewModel.humanPlayer, viewModel: viewModel, deckCount: viewModel.deck.cards.count, role: viewModel.humanPlayer.role)
+                }.padding(.trailing, 50)
+                .padding(.leading, 50)
+                .padding(.bottom, 20)
+
             }
-            field(viewModel: viewModel, humanPlayer: viewModel.humanPlayer, grid: viewModel.grid)
-            HStack{
-                if viewModel.humanPlayer.playCard != nil {
-                    playerHand(viewModel: viewModel, player: viewModel.humanPlayer, playCard: viewModel.humanPlayer.playCard, hand: viewModel.humanHand)
-                }else {
-                    playerHand(viewModel: viewModel, player: viewModel.humanPlayer, hand: viewModel.humanHand)
-                }
-
-                playerInfo(player: viewModel.humanPlayer, viewModel: viewModel, deckCount: viewModel.deck.cards.count, role: viewModel.humanPlayer.role)
-            }.padding(.trailing, 50)
-            .padding(.leading, 50)
-            .padding(.bottom, 20)
-
-
+            if viewModel.gameStatus != .playing {
+                endGameView(viewModel: viewModel, gameStatus: viewModel.gameStatus, player: viewModel.currrentPlayer)
+            }
         }.navigationBarHidden(true)
 
     }
@@ -38,6 +42,49 @@ struct GameView: View {
 }
 
 
+struct endGameView: View {
+    var viewModel: PlayingFieldViewModel
+    var gameStatus: gameStatus
+    var player: Player
+    
+    var body: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 10.0).stroke(Color.black, lineWidth: 3).frame(width: 500, height: 250)
+            RoundedRectangle(cornerRadius: 10.0).fill(
+                LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0.004859850742, green: 0.09608627111, blue: 0.5749928951, alpha: 1)),Color(#colorLiteral(red: 0.5807225108, green: 0.066734083, blue: 0, alpha: 1))]), startPoint: .leading, endPoint: .trailing)
+            ).frame(width: 500, height: 250)
+            VStack{
+                
+                switch gameStatus {
+                case .minersWin : Text("Miners win!").font(.largeTitle).fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/).foregroundColor(Color(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0))).multilineTextAlignment(.center)
+                case .saboteursWin: Text("Saboteur Wins!").font(.largeTitle).font(.largeTitle).fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/).foregroundColor(Color(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0))).multilineTextAlignment(.center)
+                case .playing:
+                    Text("The game finished but nobody won!?")
+                }
+                
+                
+                Button(action: {
+
+                    viewModel.resetGame()
+                }) {
+                    HStack {
+                        Text("Play again!").font(.title).fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/).foregroundColor(Color(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0))).multilineTextAlignment(.center)
+                    }
+                    .frame(minWidth: 0, maxWidth: 240.0)
+                    .padding()
+                    .foregroundColor(.white)
+                    .background(LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0.4494178891, green: 0.3634631038, blue: 0.003429454286, alpha: 1)), Color(#colorLiteral(red: 0.979470551, green: 0.9008276463, blue: 0.006413663272, alpha: 1))]), startPoint: .leading, endPoint: .trailing)
+                                    )
+                    .cornerRadius(40)
+                }.padding(.top, 50)
+                    
+                    
+                
+            }
+        }
+        
+    }
+}
 struct field: View {
     var viewModel: PlayingFieldViewModel
     var humanPlayer: Player
@@ -250,10 +297,12 @@ struct CellView: View {
                         .blendMode(.multiply)
                         .aspectRatio(contentMode: .fit)
                 }
+                Text("\(cell.card.coopValue)" as String).font(.largeTitle)
             } else {
                 RoundedRectangle(cornerRadius: 2).fill(Color.white)
                 RoundedRectangle(cornerRadius: 2.0).strokeBorder(style: StrokeStyle(lineWidth: 1, dash: [4])).frame(width: cardWidth, height: cardHeight)
             }
+            
         }.padding(0)
     }
 }

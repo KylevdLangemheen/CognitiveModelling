@@ -64,8 +64,7 @@ class Deck {
                             right: pathType.blocked,
                             bottom: pathType.blocked,
                             left: pathType.none),
-                         id: id,
-                         coopValue: 1.0))
+                         id: id))
             id+=1
             cards.append(Card( cardType: cardType.path, cardContent: "PC2",
                          sides: Sides(
@@ -73,8 +72,7 @@ class Deck {
                             right: pathType.none,
                             bottom: pathType.blocked,
                             left: pathType.blocked),
-                         id: id,
-                         coopValue: 1.0))
+                         id: id))
             id+=1
             cards.append(Card( cardType: cardType.path, cardContent: "PC3",
                          sides: Sides(
@@ -82,8 +80,7 @@ class Deck {
                             right: pathType.none,
                             bottom: pathType.blocked,
                             left: pathType.none),
-                         id: id,
-                         coopValue: 1.0))
+                         id: id))
             id+=1
             cards.append(Card( cardType: cardType.path, cardContent: "PC4",
                          sides: Sides(
@@ -91,8 +88,7 @@ class Deck {
                             right: pathType.blocked,
                             bottom: pathType.none,
                             left: pathType.none),
-                         id: id,
-                         coopValue: 1.0))
+                         id: id))
             id+=1
             cards.append(Card( cardType: cardType.path, cardContent: "PC5",
                          sides: Sides(
@@ -100,8 +96,7 @@ class Deck {
                             right: pathType.none,
                             bottom: pathType.none,
                             left: pathType.none),
-                         id: id,
-                         coopValue: 1.0))
+                         id: id))
             id+=1
             cards.append(Card( cardType: cardType.path, cardContent: "PC6",
                          sides: Sides(
@@ -109,8 +104,7 @@ class Deck {
                             right: pathType.blocked,
                             bottom: pathType.blocked,
                             left: pathType.none),
-                         id: id,
-                         coopValue: 1.0))
+                         id: id))
             id+=1
             cards.append(Card( cardType: cardType.path, cardContent: "PC7",
                          sides: Sides(
@@ -118,8 +112,7 @@ class Deck {
                             right: pathType.blocked,
                             bottom: pathType.blocked,
                             left: pathType.blocked),
-                         id: id,
-                         coopValue: 1.0))
+                         id: id))
             id+=1
             cards.append(Card( cardType: cardType.path, cardContent: "PC8",
                          sides: Sides(
@@ -127,8 +120,7 @@ class Deck {
                             right: pathType.blocked,
                             bottom: pathType.none,
                             left: pathType.blocked),
-                         id: id,
-                         coopValue: 1.0))
+                         id: id))
             id+=1
             cards.append(Card( cardType: cardType.path, cardContent: "PC9",
                          sides: Sides(
@@ -136,8 +128,7 @@ class Deck {
                             right: pathType.blocked,
                             bottom: pathType.none,
                             left: pathType.blocked),
-                         id: id,
-                         coopValue: 1.0))
+                         id: id))
             id += 1
         }
 
@@ -151,8 +142,7 @@ class Deck {
                                 right: pathType.connection,
                                 bottom: pathType.none,
                                 left: pathType.connection),
-                              id: id,
-                              coopValue: 3.0))
+                              id: id))
             id += 1
         }
 
@@ -165,8 +155,7 @@ class Deck {
                                 right: pathType.connection,
                                 bottom: pathType.connection,
                                 left: pathType.connection),
-                              id: id,
-                              coopValue: 4.0))
+                              id: id))
             id += 1
         }
 
@@ -179,8 +168,7 @@ class Deck {
                                 right: pathType.none,
                                 bottom: pathType.connection,
                                 left: pathType.connection),
-                              id: id,
-                              coopValue: 2.0))
+                              id: id))
             id += 1
         }
 
@@ -193,8 +181,7 @@ class Deck {
                                 right: pathType.connection,
                                 bottom: pathType.connection,
                                 left: pathType.none),
-                              id: id,
-                              coopValue: 2.0))
+                              id: id))
             id += 1
         }
 
@@ -207,8 +194,7 @@ class Deck {
                                 right: pathType.none,
                                 bottom: pathType.connection,
                                 left: pathType.none),
-                              id: id,
-                              coopValue: 3.0))
+                              id: id))
             id += 1
         }
 
@@ -221,8 +207,7 @@ class Deck {
                                 right: pathType.none,
                                 bottom: pathType.connection,
                                 left: pathType.connection),
-                              id: id,
-                              coopValue: 4.0))
+                              id: id))
             id += 1
         }
 
@@ -235,14 +220,15 @@ class Deck {
                                 right: pathType.connection,
                                 bottom: pathType.connection,
                                 left: pathType.connection),
-                              id: id,
-                              coopValue: 5.0))
+                              id: id))
             id += 1
         }
         cards.shuffle()
     }
 
 
+
+    
     func drawCard() -> Card {
         if self.cards.count != 0 {
             return self.cards.popLast()!
@@ -260,7 +246,7 @@ struct Card: Hashable {
     var cardContent: String = " "
     var sides: Sides! = Sides()
     var id: Int = 0
-    var coopValue: Float
+    var coopValue: Float = 0.0
 }
 
 struct Sides: Hashable {

@@ -15,6 +15,7 @@ class Field {
     var startCell: Cell
     var goalCells: Array<Cell> = []
     var validCardPlacementCells: Array<Cell> = []
+    var depth: Int = 0
     
     init(columns: Int, rows: Int) {
         
@@ -71,8 +72,12 @@ class Field {
     func placeCard(cell: Cell, card: Card) -> Bool {
         if validCardPlacement(cell: cell, sides: card.sides) {
             grid[cell.x][cell.y].card = card
+            grid[cell.x][cell.y].card.coopValue = getCoopValue(card: card, cell: cell)
             grid[cell.x][cell.y].hasCard = true
             updateValidCardPlacements(cell: cell,card: card)
+            if cell.x > depth {
+                depth = cell.x
+            }
 //            print("Placed Card at cell \(cell.id)")
             return true
         } else {
@@ -329,9 +334,89 @@ class Field {
     }
     
     func getCoopValue(card: Card, cell: Cell) -> Float{
-        return card.coopValue
-        //        neighbours = getNeightbours(cell)
+        var coopValue: Float = 0.0
+        let y = Float(cell.y)
+        let neighBours: neighBours = getNeightbours(cell: cell)
+        // The further the card in the field, the more impact it will have
+        let depthMultiplier = 1 + y/7
         
+        // How far is you card compared to the furthest card, thus are you making progress
+        // if 1: you stay on the same depth -> progressMuliplier = 1
+        // if < 1: you regress -> progresMultiplier = x/depth decrease
+        // if > 1: you progress -> ProgressMultiplier = 1.5 increase
+        var progressMultiplier = y/Float(depth)
+        if  progressMultiplier > 0 {progressMultiplier = 1.5}
+        
+        let top = card.sides.top
+        let right = card.sides.right
+        let bottom = card.sides.bottom
+        let left = card.sides.left
+        
+        // **** Dead end connections with neighbours cards ****
+        if top == .blocked && (neighBours.top.hasCard && neighBours.top.card.sides.bottom == .connection){coopValue -= 1/2 * depthMultiplier * progressMultiplier} // Blocking a downward path
+        if right == .blocked && (neighBours.right.hasCard && neighBours.right.card.sides.left == .connection){coopValue -= 1/4 * depthMultiplier * progressMultiplier} // Blocking a leftward path
+        if bottom == .blocked && (neighBours.bottom.hasCard && neighBours.bottom.card.sides.top == .connection){coopValue -= 1/2 * depthMultiplier * progressMultiplier} // Blocking a upward path
+        if left == .blocked && (neighBours.left.hasCard && neighBours.left.card.sides.right == .connection){coopValue -= 1.0 * depthMultiplier * progressMultiplier} // Blocking a rightward path
+
+        
+
+        // **** Connections with neighbouring cards ****
+        // Connection with card at top cell
+        if  (neighBours.top.hasCard && top == .connection && neighBours.top.card.sides.bottom == .connection) {
+            if (neighBours.right.hasCard) {
+                if neighBours.right.card.sides.left == .connection {coopValue += 3/4} // Connection from top to right path
+                else {coopValue -= 1/4}// Connection from top to right dead end
+            }else {coopValue += 1 * depthMultiplier * progressMultiplier} // Connection from top to right open field
+
+            if neighBours.bottom.hasCard {
+                if neighBours.bottom.card.sides.top == .connection {coopValue += 3/4} // Connection from top to bottom path
+                else {coopValue -= 1/2} // Connection from top tor bottom dead end
+            } else {coopValue += 3/4} // Connection from top to bottom open field
+
+            if neighBours.left.hasCard {
+                if neighBours.left.card.sides.right == .connection {coopValue += 1/4} // Connection from top to left path
+                else {coopValue -= 1/4 } // Connection from top to left dead end
+            } else {coopValue += 1/4 * depthMultiplier * progressMultiplier} // Connection from top to left open field
+        }
+
+        // Path connection with card at right cell
+        if (neighBours.right.hasCard && right == .connection && neighBours.right.card.sides.left == .connection) {
+            if !neighBours.top.hasCard {coopValue += 1/2 * depthMultiplier * progressMultiplier} // Connection from right to top open field
+            if neighBours.bottom.hasCard {
+                if neighBours.bottom.card.sides.top == .connection {coopValue += 1/2} // Connection from right to bottom path
+                else {coopValue -= 1/2} // Connection from right to bottom dead end
+            } else {coopValue += 1/2} // Connection from right to bottom open field
+
+            if neighBours.left.hasCard {
+                if neighBours.left.card.sides.right == .connection {coopValue += 3/4} // Connection from left to right path
+                else {coopValue -= 1/2} // Connection from left to right dead end
+            } else {coopValue += 1 * depthMultiplier * progressMultiplier} // Connection from left to right open field
+        }
+
+        // Path connection with card at bottom cell
+        if (neighBours.bottom.hasCard && bottom == .connection && neighBours.bottom.card.sides.top  == .connection) {
+            if !neighBours.top.hasCard {coopValue += 1/2 * depthMultiplier * progressMultiplier} // Connection from bottom to top open field
+            if !neighBours.right.hasCard {coopValue += 3/4 * depthMultiplier * progressMultiplier} // Connectino from bottom to right open field
+            if neighBours.left.hasCard {
+                if neighBours.left.card.sides.right == .connection {coopValue += 1/4} // Connection from bottom to left path
+                else {coopValue -= 1/4} // Connection from bottom to left dead end
+            } else {coopValue += 1/4 * depthMultiplier * progressMultiplier} // Connection from bottom to left open field
+            
+        }
+        
+        // Path connection with card a the left cell
+        if (neighBours.left.hasCard && left == .connection && neighBours.left.card.sides.right == .connection) {
+            if !neighBours.top.hasCard {coopValue += 1/2 * depthMultiplier * progressMultiplier} // Connection from left to top open field
+            if !neighBours.right.hasCard {coopValue += 1 * depthMultiplier * progressMultiplier} // Connection from left to right open field
+            if !neighBours.bottom.hasCard {coopValue += 1/2 * depthMultiplier * progressMultiplier} // Connection from left to bottom open field
+        }
+        
+        
+//        coopValue *= progressMultiplier
+//        coopValue *= depthMultiplier
+//        print("depthMultiplier: \(depthMultiplier)" as String)
+//        print("progressMultiplier: \(progressMultiplier)" as String)
+        return coopValue
     }
 }
 

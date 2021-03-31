@@ -34,6 +34,9 @@ class PlayingFieldViewModel: ObservableObject {
         GameModel.players.computers
     }
 
+    var gameStatus: gameStatus {
+        return GameModel.gameStatus
+    }
     // MARK: Intent(s)
 
     func getComputerPlayerById(id: Int) -> Player {
@@ -65,5 +68,8 @@ class PlayingFieldViewModel: ObservableObject {
         GameModel.skipTurn()
     }
     
+    func resetGame() {
+        GameModel.resetGame()
+    }
 
 }
