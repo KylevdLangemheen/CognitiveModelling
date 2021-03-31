@@ -139,7 +139,9 @@ struct Game {
             for i in toRemove {
                 sortedKeyValues.remove(at: i)
             }
-            var cardToPlay: cardPlay?
+            var cardToPlay: cardPlay
+            if possiblePathPlays.count != 0 {cardToPlay = possiblePlays[0]}
+            else {cardToPlay = posibeToolPlays[0]}
             //First, the model tries to repair itself
             for card in posibeToolPlays {
                 let at = card.card.action.actionType
@@ -191,7 +193,7 @@ struct Game {
                 }
             }
             if played {
-                playTheCard(card2Play: cardToPlay!, by: currentPlayer)
+                playTheCard(card2Play: cardToPlay, by: currentPlayer)
             } else {
                 //No card has been played. A card will need to be swapped.
                 print("No card has been played. Time to swap cards.")
@@ -317,12 +319,13 @@ struct Game {
         by.setCard(card: card)
         let type = card2Play.playType
         if type == .toolModifier {
-            print("Model \(by.name) is going to play a \(card.action.actionType) card against \(card2Play.player.name).")
+            print("Player \(by.name) is going to play a \(card.action.actionType) card against \(card2Play.player.name).")
             playActionCard(player: card2Play.player, card: card)
         }
         if type == .placeCard {
-            print("Model \(by.name) is going to play a path card.")
+            print("Player \(by.name) is going to play a path card.")
             placeCard(card: card, cell: card2Play.cell)
+            updateFromPath(by: by, coopVal: card.coopValue)
         }
     }
 
@@ -358,7 +361,15 @@ struct Game {
         for player in players.computers {
             let fromplayer = mapPlayerID(currentModel: player, ID: from.id)
             let toplayer = mapPlayerID(currentModel: player, ID: to.id)
-
+            player.model.modifyLastAction(slot: "from", value: fromplayer)
+            player.model.modifyLastAction(slot: "to", value: toplayer)
+            if type == .breakTool {
+                player.model.modifyLastAction(slot: "type", value: "break")
+            }
+            if type == .repairTool {
+                player.model.modifyLastAction(slot: "type", value: "repair")
+            }
+            player.model.run()
         }
     }
 
