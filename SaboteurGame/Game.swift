@@ -90,17 +90,20 @@ struct Game {
         var possiblePlays: Array<cardPlay> = []
 
         for card in computer.hand {
-            if card.cardType == .path {
-                possiblePlays.append(contentsOf: field.getPosiblePathPlays(card: card))
+            if checkTools(tools: computer.tools) == .intact{
+                if card.cardType == .path {
+                    possiblePlays.append(contentsOf: field.getPosiblePathPlays(card: card))
+                }
             }
             switch card.cardType{
                 case .path: if checkTools(tools: computer.tools) == .intact {
                     possiblePathPlays.append(contentsOf: field.getPosiblePathPlays(card: card))}
                 case .tool: posibeToolPlays.append(contentsOf: getPossibleToolPlays(card: card))
                 default:
-                    break
+                    continue
             }
         }
+        
         possiblePlays.shuffle()
         var played: Bool = false
         if possiblePathPlays.count != 0 || posibeToolPlays.count != 0 {
@@ -191,7 +194,7 @@ struct Game {
                 }
             }
             if played {
-                playTheCard(card2Play: cardToPlay!, by: currentPlayer)
+                playTheCard(card2Play: cardToPlay!)
             } else {
                 //No card has been played. A card will need to be swapped.
                 print("No card has been played. Time to swap cards.")
@@ -200,8 +203,9 @@ struct Game {
         if !played {
             if deck.cards.count > 0{
                 //TODO: set least desireable card as playCard
-                print(computer.tools)
-                computer.playCard = computer.hand[0]
+//                print(computer.tools)
+//                computer.playCard = computer.hand[0]
+                computer.setCard(card: computer.hand[0])
                 swapCard()
             } else {
                 print("No cards can be swapped as the deck is empty, and no cards could be played. Time to skip a turn.")
@@ -236,19 +240,19 @@ struct Game {
                                                                                                    card: card,
                                                                                                    player: player,
                                                                                                    coopValue: -5/2))}
-                case (.lamp , .breakTool): if player.tools.pickaxe == .intact {possiblePlays.append(cardPlay(playType: .toolModifier,
+                case (.lamp , .breakTool): if player.tools.lamp == .intact {possiblePlays.append(cardPlay(playType: .toolModifier,
                                                                                                   card: card,
                                                                                                   player: player,
                                                                                                   coopValue: -5/2))}
-                case (.pickaxe , .repairTool): if player.tools.mineCart == .intact {possiblePlays.append(cardPlay(playType: .toolModifier,
+                case (.pickaxe , .repairTool): if player.tools.pickaxe == .broken {possiblePlays.append(cardPlay(playType: .toolModifier,
                                                                                                    card: card,
                                                                                                    player: player,
                                                                                                    coopValue: 2.5))}
-                case (.minecart , .repairTool): if player.tools.mineCart == .intact {possiblePlays.append(cardPlay(playType: .toolModifier,
+                case (.minecart , .repairTool): if player.tools.mineCart == .broken {possiblePlays.append(cardPlay(playType: .toolModifier,
                                                                                                   card: card,
                                                                                                   player: player,
                                                                                                   coopValue: 2.5))}
-                case (.lamp , .repairTool): if player.tools.lamp == .intact {possiblePlays.append(cardPlay(playType: .toolModifier,
+                case (.lamp , .repairTool): if player.tools.lamp == .broken {possiblePlays.append(cardPlay(playType: .toolModifier,
                                                                                                    card: card,
                                                                                                    player: player, coopValue: 2.5))}
                 }
@@ -301,6 +305,7 @@ struct Game {
     mutating func playActionCard(player: Player, card: Card){
         if currentPlayer.playerStatus == .usingToolCard{
             if player.changeToolStatus(tool: card.action.tool, actionType: card.action.actionType) {
+                print(player.tools)
                 removePlayedCard()
             } else {
 
@@ -312,17 +317,18 @@ struct Game {
 
     }
 
-    mutating func playTheCard(card2Play: cardPlay, by: Player) {
+    mutating func playTheCard(card2Play: cardPlay) {
         let card = card2Play.card
-        by.setCard(card: card)
+        currentPlayer.setCard(card: card)
         let type = card2Play.playType
         if type == .toolModifier {
-            print("Model \(by.name) is going to play a \(card.action.actionType) card against \(card2Play.player.name).")
-            playActionCard(player: card2Play.player, card: card)
+            
+            print("Model \(currentPlayer.name) is going to play a \(card.action.actionType) card against \(card2Play.player.name).")
+            playActionCard(player: card2Play.player, card: currentPlayer.playCard)
         }
         if type == .placeCard {
-            print("Model \(by.name) is going to play a path card.")
-            placeCard(card: card, cell: card2Play.cell)
+            print("Model \(currentPlayer.name) is going to play a path card.")
+            placeCard(card: currentPlayer.playCard, cell: card2Play.cell)
         }
     }
 
@@ -372,8 +378,10 @@ struct Game {
             } else {
                 currentPlayer.changePlayerStatus(status: .playing)
             }
+        } else if currentPlayer.playerStatus != .usingPathCard{
+            print("\(currentPlayer.type)'s status is not correct")
         } else {
-            print("\(currentPlayer.type) did something wrong when placing a card")
+            print("\(currentPlayer.type)'s tools are broken")
         }
 
     }
