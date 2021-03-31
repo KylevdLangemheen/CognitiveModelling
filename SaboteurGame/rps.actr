@@ -93,4 +93,32 @@
     -action>
 )
 
+(p update-player-belief
+    =goal>
+        isa goal
+        state waiting
+    =action>
+        isa process
+        player =p
+        role =r
+==>
+    =goal>
+        state updatebelief
+    +imaginal>
+        isa restimate
+        player =p
+        role =r
+    -action>
+)
+
+(p restart-after-update
+    =goal>
+        isa goal
+        state updatebelief
+==>
+    +goal>
+        isa goal
+        state start
+)
+
 (goal-focus goal)

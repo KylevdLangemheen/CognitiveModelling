@@ -87,12 +87,11 @@ struct Game {
     mutating func computerPlay(computer: Player){
         var possiblePathPlays: Array<cardPlay> = []
         var posibeToolPlays: Array<cardPlay> = []
-        var possiblePlays: Array<cardPlay> = []
 
         for card in computer.hand {
             if checkTools(tools: computer.tools) == .intact{
                 if card.cardType == .path {
-                    possiblePlays.append(contentsOf: field.getPosiblePathPlays(card: card))
+                    possiblePathPlays.append(contentsOf: field.getPosiblePathPlays(card: card))
                 }
             }
             switch card.cardType{
@@ -103,8 +102,6 @@ struct Game {
                     continue
             }
         }
-        
-        possiblePlays.shuffle()
         var played: Bool = false
         if possiblePathPlays.count != 0 || posibeToolPlays.count != 0 {
 
@@ -142,7 +139,9 @@ struct Game {
             for i in toRemove {
                 sortedKeyValues.remove(at: i)
             }
-            var cardToPlay: cardPlay?
+            var cardToPlay: cardPlay
+            if possiblePathPlays.count != 0 {cardToPlay = possiblePathPlays[0]}
+            else {cardToPlay = posibeToolPlays[0]}
             //First, the model tries to repair itself
             for card in posibeToolPlays {
                 let at = card.card.action.actionType
@@ -179,7 +178,7 @@ struct Game {
                 } else {
                     possiblePathPlays = possiblePathPlays.sorted(by: {$0.card.coopValue < $1.card.coopValue})
                 }
-                for card in possiblePlays {
+                for card in possiblePathPlays {
                     if computer.role == .miner {
                         if card.card.coopValue > minerThreshold {
                             played = true
@@ -194,7 +193,7 @@ struct Game {
                 }
             }
             if played {
-                playTheCard(card2Play: cardToPlay!)
+                playTheCard(card2Play: cardToPlay, by: currentPlayer)
             } else {
                 //No card has been played. A card will need to be swapped.
                 print("No card has been played. Time to swap cards.")
@@ -305,7 +304,6 @@ struct Game {
     mutating func playActionCard(player: Player, card: Card){
         if currentPlayer.playerStatus == .usingToolCard{
             if player.changeToolStatus(tool: card.action.tool, actionType: card.action.actionType) {
-                print(player.tools)
                 removePlayedCard()
             } else {
 
@@ -317,18 +315,18 @@ struct Game {
 
     }
 
-    mutating func playTheCard(card2Play: cardPlay) {
+    mutating func playTheCard(card2Play: cardPlay, by: Player) {
         let card = card2Play.card
-        currentPlayer.setCard(card: card)
+        by.setCard(card: card)
         let type = card2Play.playType
         if type == .toolModifier {
-            
-            print("Model \(currentPlayer.name) is going to play a \(card.action.actionType) card against \(card2Play.player.name).")
-            playActionCard(player: card2Play.player, card: currentPlayer.playCard)
+            print("Player \(by.name) is going to play a \(card.action.actionType) card against \(card2Play.player.name).")
+            playActionCard(player: card2Play.player, card: card)
         }
         if type == .placeCard {
-            print("Model \(currentPlayer.name) is going to play a path card.")
-            placeCard(card: currentPlayer.playCard, cell: card2Play.cell)
+            print("Player \(by.name) is going to play a path card.")
+            placeCard(card: card, cell: card2Play.cell)
+            updateFromPath(by: by, coopVal: card.coopValue)
         }
     }
 
@@ -364,7 +362,15 @@ struct Game {
         for player in players.computers {
             let fromplayer = mapPlayerID(currentModel: player, ID: from.id)
             let toplayer = mapPlayerID(currentModel: player, ID: to.id)
-
+            player.model.modifyLastAction(slot: "from", value: fromplayer)
+            player.model.modifyLastAction(slot: "to", value: toplayer)
+            if type == .breakTool {
+                player.model.modifyLastAction(slot: "type", value: "break")
+            }
+            if type == .repairTool {
+                player.model.modifyLastAction(slot: "type", value: "repair")
+            }
+            player.model.run()
         }
     }
 
