@@ -17,7 +17,7 @@ struct Game {
     let minerThreshold: Float = 3
     let saboteurThreshold: Float = 3
     let numOfComputer: Int = 2
-    let model = Model()
+
     var gameStatus: gameStatus = .playing
 
 
@@ -36,9 +36,6 @@ struct Game {
         self.players = Players(numOfComputers: numOfComputer, handSize: 6, deck: deck)
         self.currentPlayer = players.human
         self.currentPlayer.playerStatus = .playing
-
-        model.loadModel(fileName: "rps")
-        model.run()
     }
 
 
@@ -105,103 +102,12 @@ struct Game {
             }
         }
         possiblePlays.shuffle()
-<<<<<<< HEAD
-        if possiblePathPlays.count != 0 {
-            
-//            //computer.playerStatus = .placingCard
-//            var playerRoles: [Int: (String, Double)] = [:]
-//            var playerMap: [Int: String] = [
-//                0: "one"
-//            ]
-//            var toAssign: Array<String> = ["four", "three", "two"]
-//            for i in 1..<players.numberOfPlayers {
-//                if i == computer.id {
-//                    playerMap[i] = "zero"
-//                } else {
-//                    playerMap[i] = toAssign.popLast()
-//                }
-//            }
-//            for i in 0..<players.numberOfPlayers {
-//                if i == computer.id {
-//                    continue
-//                }
-//                var player = players.human
-//                if i != 0 {
-//                    player = players.computers[i-1]
-//                }
-//
-//                if let playerno = playerMap[player.id] {
-//                    model.modifyLastAction(slot: "playerno", value: playerno)
-//                    model.run()
-//                    let (role, activation) = model.lastAction(slot: "role")!
-//                    print("Model \(computer.name) believes \(playerno) is a \(role)")
-//                    playerRoles[player.id] = (role, activation)
-//                    model.run()
-//                }
-//            }
-//            print("unsortedKeyValues?: \(playerRoles)")
-//            var sortedKeyValues = Array(playerRoles).sorted(by: {$0.value.1 > $1.value.1})
-//            var toRemove: Array<Int> = []
-//            var i = 0
-//            for (index, (key, value)) in sortedKeyValues {
-//                if key == "unknown" {
-//                    toRemove.append(i)
-//                }
-//                i += 1
-//            }
-//
-//            toRemove = toRemove.sorted().reversed()
-//            for element in toRemove {
-//              print(element, terminator: " ")
-//            }
-//            print("of total \(sortedKeyValues.count)")
-//            for i in toRemove {
-//                sortedKeyValues.remove(at: i)
-//            }
-//            let played: Bool = false
-//            if sortedKeyValues.count != 0 {
-//                print("Model \(computer.name) is looking for an action card to play.")
-//                for (key, (role, activation)) in sortedKeyValues {
-//                    //TODO: find a possible action card to play:
-//                    //Go over each possibleActions
-//                        //check if the role matches the player role
-//                            //possible action has to be helpful to that player
-//                        //else
-//                            //possible action has to be unhelpful to that player
-//                }
-//            }
-//            if !played {
-//                print("Model \(computer.name) is looking for a path card to play.")
-//            }
-            //TODO: if action has been found, play it. else, if not blocked:
-            //Sort possible players by coop value (desc for miner, asc for saboteur)
-            //play most coop and value > 3 if miner
-            //play most uncoop and value < 3 if saboteur
-            //if nothing found or if blocked:
-            //find cards to swap
-            //swap worst cards, up to 3.
-
-            placeCard(card: possiblePlays[0].card, cell: possiblePlays[0].cell)
-        } else {
-            for card in computer.hand {
-                print(card.id)
-=======
         var played: Bool = false
         if possiblePathPlays.count != 0 || posibeToolPlays.count != 0 {
-            
+
             //computer.playerStatus = .placingCard
             var playerRoles: [Int: (String, Double)] = [:]
-            var playerMap: [Int: String] = [
-                0: "one"
-            ]
-            var toAssign: Array<String> = ["four", "three", "two"]
-            for i in 1..<players.numberOfPlayers {
-                if i == computer.id {
-                    playerMap[i] = "zero"
-                } else {
-                    playerMap[i] = toAssign.popLast()
-                }
-            }
+
             for i in 0..<players.numberOfPlayers {
                 if i == computer.id {
                     continue
@@ -210,15 +116,14 @@ struct Game {
                 if i != 0 {
                     player = players.computers[i-1]
                 }
-                    
-                if let playerno = playerMap[player.id] {
-                    model.modifyLastAction(slot: "playerno", value: playerno)
-                    model.run()
-                    let (role, activation) = model.lastAction(slot: "role")!
-                    print("Model \(computer.name) believes \(playerno) is a \(role)")
-                    playerRoles[player.id] = (role, activation)
-                    model.run()
-                }
+
+                let playerno = mapPlayerID(currentModel: computer, ID: player.id)
+                computer.model.modifyLastAction(slot: "playerno", value: playerno)
+                computer.model.run()
+                let (role, activation) = computer.model.lastAction(slot: "role")!
+                print("Model \(computer.name) believes \(playerno) is a \(role)")
+                playerRoles[player.id] = (role, activation)
+                computer.model.run()
             }
             var sortedKeyValues = Array(playerRoles).sorted(by: {$0.value.1 > $1.value.1})
             var toRemove: Array<Int> = []
@@ -229,7 +134,7 @@ struct Game {
                 }
                 i += 1
             }
-            
+
             toRemove = toRemove.sorted().reversed()
             for i in toRemove {
                 sortedKeyValues.remove(at: i)
@@ -286,18 +191,10 @@ struct Game {
                 }
             }
             if played {
-                currentPlayer.setCard(card: cardToPlay!.card)
-                if cardToPlay!.playType == .toolModifier {
-                    print("Model \(computer.name) is going to play a \(cardToPlay!.card.action.actionType) card against \(cardToPlay!.player.name), as they thought they were a \(sortedKeyValues[cardToPlay!.player.id].value.0)")
-                    playActionCard(player: cardToPlay!.player, card: cardToPlay!.card)
-                }
-                if cardToPlay!.playType == .placeCard {
-                    print("Model \(computer.name) is going to play a path card.")
-                    placeCard(card: cardToPlay!.card, cell: cardToPlay!.cell)
-                }
+                playTheCard(card2Play: cardToPlay!, by: currentPlayer)
             } else {
-                print("Now it's time to panic!")
->>>>>>> ab8ea715482984a30e7d5bc81b85064531e4ca6b
+                //No card has been played. A card will need to be swapped.
+                print("No card has been played. Time to swap cards.")
             }
         }
         if !played {
@@ -307,13 +204,14 @@ struct Game {
                 computer.playCard = computer.hand[0]
                 swapCard()
             } else {
+                print("No cards can be swapped as the deck is empty, and no cards could be played. Time to skip a turn.")
                 skipTurn()
             }
         }
 
     }
 
-    
+
     func getComputerPlayerById(id: Int) -> Player!{
         for computer in players.computers {
             if computer.id == id {
@@ -359,7 +257,7 @@ struct Game {
         return possiblePlays
     }
 
-    
+
     func checkTools(tools: Tools) -> toolStatus {
         if (tools.lamp == .broken || tools.mineCart == .broken || tools.pickaxe == .broken){
             return .broken
@@ -414,6 +312,56 @@ struct Game {
 
     }
 
+    mutating func playTheCard(card2Play: cardPlay, by: Player) {
+        let card = card2Play.card
+        by.setCard(card: card)
+        let type = card2Play.playType
+        if type == .toolModifier {
+            print("Model \(by.name) is going to play a \(card.action.actionType) card against \(card2Play.player.name).")
+            playActionCard(player: card2Play.player, card: card)
+        }
+        if type == .placeCard {
+            print("Model \(by.name) is going to play a path card.")
+            placeCard(card: card, cell: card2Play.cell)
+        }
+    }
+
+    func mapPlayerID(currentModel: Player, ID: Int) -> String {
+        if ID == 0 {return "one"}
+        if ID == currentModel.id {return "zero"}
+        var toAssign: Array<String> = ["four", "three", "two"]
+        for i in 1..<players.numberOfPlayers {
+            if i != currentModel.id {
+                let cur = toAssign.popLast()!
+                if i == ID {return cur}
+            }
+        }
+        return "error"
+    }
+
+    func updateFromPath(by: Player, coopVal: Float) {
+        for player in players.computers {
+            let playerno = mapPlayerID(currentModel: player, ID: by.id)
+            player.model.modifyLastAction(slot: "player", value: playerno)
+            if coopVal > 3.6 {
+                player.model.modifyLastAction(slot: "role", value: "miner")
+            } else if coopVal < 2.4 {
+                player.model.modifyLastAction(slot: "role", value: "saboteur")
+            } else {
+                player.model.modifyLastAction(slot: "role", value: "unknown")
+            }
+            player.model.run()
+        }
+    }
+
+    func updateFromAction(from: Player, to: Player, type: actionType) {
+        for player in players.computers {
+            let fromplayer = mapPlayerID(currentModel: player, ID: from.id)
+            let toplayer = mapPlayerID(currentModel: player, ID: to.id)
+
+        }
+    }
+
     mutating func placeCard(card: Card, cell: Cell){
         if currentPlayer.playerStatus == .usingPathCard && checkTools(tools: currentPlayer.tools) == .intact{
             if field.placeCard(cell: cell, card: card) {
@@ -444,7 +392,7 @@ struct Game {
                          crossShapedPathCardsCount: 20)
         players = Players(numOfComputers: numOfComputer, handSize: 6, deck: deck )
     }
-    
+
     mutating func endGame(winPlayer: Role) {
         switch winPlayer {
         case .miner: gameStatus = .minersWin

@@ -76,6 +76,7 @@ class Player: Identifiable {
     var id: Int
     var skipped: Bool = false
     var gold: Int = 0
+    let model = Model()
     
     
     init(role: Role, id: Int, deck: Deck, handSize: Int, type: playerType, name: String) {
@@ -88,6 +89,8 @@ class Player: Identifiable {
         for _ in 0..<handSize {
             self.hand.append(deck.drawCard())
         }
+        model.loadModel(fileName: "rps")
+        model.run()
     }
     
     func newCard(card: Card){

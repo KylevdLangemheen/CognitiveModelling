@@ -15,7 +15,7 @@
     (NEUTRAL2 isa genericmove player two role unknown action play)
     (NEUTRAL3 isa genericmove player three role unknown action play)
 
-    (r1 isa rimplication role unknown implication unknown)
+    (r1 isa rimplication role unknown implication saboteur)
     (r2 isa rimplication role miner implication saboteur)
     (r3 isa rimplication role saboteur implication miner)
 
