@@ -14,6 +14,8 @@ struct Game {
     var players: Players
     var currentPlayer: Player
     var turnsNotPlayed: Int = 0
+    let minerThreshold: Float = 3
+    let saboteurThreshold: Float = 3
     let numOfComputer: Int = 2
     let model = Model()
     var gameStatus: gameStatus = .playing
@@ -103,6 +105,7 @@ struct Game {
             }
         }
         possiblePlays.shuffle()
+<<<<<<< HEAD
         if possiblePathPlays.count != 0 {
             
 //            //computer.playerStatus = .placingCard
@@ -182,74 +185,130 @@ struct Game {
         } else {
             for card in computer.hand {
                 print(card.id)
+=======
+        var played: Bool = false
+        if possiblePathPlays.count != 0 || posibeToolPlays.count != 0 {
+            
+            //computer.playerStatus = .placingCard
+            var playerRoles: [Int: (String, Double)] = [:]
+            var playerMap: [Int: String] = [
+                0: "one"
+            ]
+            var toAssign: Array<String> = ["four", "three", "two"]
+            for i in 1..<players.numberOfPlayers {
+                if i == computer.id {
+                    playerMap[i] = "zero"
+                } else {
+                    playerMap[i] = toAssign.popLast()
+                }
+            }
+            for i in 0..<players.numberOfPlayers {
+                if i == computer.id {
+                    continue
+                }
+                var player = players.human
+                if i != 0 {
+                    player = players.computers[i-1]
+                }
+                    
+                if let playerno = playerMap[player.id] {
+                    model.modifyLastAction(slot: "playerno", value: playerno)
+                    model.run()
+                    let (role, activation) = model.lastAction(slot: "role")!
+                    print("Model \(computer.name) believes \(playerno) is a \(role)")
+                    playerRoles[player.id] = (role, activation)
+                    model.run()
+                }
+            }
+            var sortedKeyValues = Array(playerRoles).sorted(by: {$0.value.1 > $1.value.1})
+            var toRemove: Array<Int> = []
+            var i = 0
+            for (_, (key, _)) in sortedKeyValues {
+                if key == "unknown" {
+                    toRemove.append(i)
+                }
+                i += 1
+            }
+            
+            toRemove = toRemove.sorted().reversed()
+            for i in toRemove {
+                sortedKeyValues.remove(at: i)
+            }
+            var cardToPlay: cardPlay?
+            //First, the model tries to repair itself
+            for card in posibeToolPlays {
+                let at = card.card.action.actionType
+                let pid = card.player.id
+                if at == .repairTool && pid == computer.id{
+                    cardToPlay = card
+                    played = true
+                }
+            }
+            //If it doesn't have to or can't repair itself
+            //The model tries to attack/repair players based on belief
+            if sortedKeyValues.count != 0 && !played {
+                //print("Model \(computer.name) is looking for an action card to play.")
+                for (key, (role, _)) in sortedKeyValues {
+                    for card in posibeToolPlays {
+                        let at = card.card.action.actionType
+                        let pid = card.player.id
+                        if pid != key {continue}
+                        if at == .repairTool && role == computer.role.rawValue {
+                            cardToPlay = card
+                            played = true
+                        }
+                        if at == .breakTool && role != computer.role.rawValue {
+                            cardToPlay = card
+                            played = true
+                        }
+                    }
+                }
+            }
+            if !played {
+                //print("Model \(computer.name) is looking for a path card to play.")
+                if computer.role == .miner {
+                    possiblePathPlays = possiblePathPlays.sorted(by: {$0.card.coopValue > $1.card.coopValue})
+                } else {
+                    possiblePathPlays = possiblePathPlays.sorted(by: {$0.card.coopValue < $1.card.coopValue})
+                }
+                for card in possiblePlays {
+                    if computer.role == .miner {
+                        if card.card.coopValue > minerThreshold {
+                            played = true
+                            cardToPlay = card
+                        }
+                    } else {
+                        if card.card.coopValue < saboteurThreshold {
+                            played = true
+                            cardToPlay = card
+                        }
+                    }
+                }
+            }
+            if played {
+                currentPlayer.setCard(card: cardToPlay!.card)
+                if cardToPlay!.playType == .toolModifier {
+                    print("Model \(computer.name) is going to play a \(cardToPlay!.card.action.actionType) card against \(cardToPlay!.player.name), as they thought they were a \(sortedKeyValues[cardToPlay!.player.id].value.0)")
+                    playActionCard(player: cardToPlay!.player, card: cardToPlay!.card)
+                }
+                if cardToPlay!.playType == .placeCard {
+                    print("Model \(computer.name) is going to play a path card.")
+                    placeCard(card: cardToPlay!.card, cell: cardToPlay!.cell)
+                }
+            } else {
+                print("Now it's time to panic!")
+>>>>>>> ab8ea715482984a30e7d5bc81b85064531e4ca6b
             }
         }
-
-        possiblePathPlays.shuffle()
-        posibeToolPlays.shuffle()
-
-
-
-        if possiblePathPlays.count != 0 && checkTools(tools: computer.tools) == .intact{
-//            var playerRoles: [Int: (String, Double)] = [:]
-//            let playerMap: [Int: String] = [
-//                0: "one",
-//                1: "zero"
-//            ]
-//            var activation = 0.4
-            model.modifyLastAction(slot: "playerno", value: "one")
-            let roleActivation: (String, Double) = model.lastAction(slot: "role")!
-
-            print("Role activation \(roleActivation)" as String)
-//            playerRoles[player.id] = (role, activation)
-//            for player in players.players {
-//                if let playerno = playerMap[player.id] {
-//                    //TODO: skip if playerno is "zero"
-//                    //model.modifyLastAction(slot: "playerno", value: playerno)
-//                    //(let role, let activation) = model.lastAction(slot: "role")
-//                    //playerRoles[player.id] = (role, activation)
-//                    playerRoles[player.id] = (playerno, activation)
-//                    activation += 0.2
-//                }
-//            }
-//            var sortedKeyValues = Array(playerRoles).sorted(by: {$0.value.1 > $1.value.1})
-//            var toRemove: Array<Int> = []
-//            for (index, (key, value)) in sortedKeyValues {
-//                if key == "unknown" {
-//                    toRemove.append(index)
-//                }
-//            }
-//            for i in toRemove {
-//                sortedKeyValues.remove(at: i)
-//            }
-//            for (key, (role, activation)) in sortedKeyValues {
-                //TODO: find a possible action card to play:
-                //Go over each possibleActions
-                    //check if the role matches the player role
-                        //possible action has to be helpful to that player
-                    //else
-                        //possible action has to be unhelpful to that player
-//            }
-            //TODO: if action has been found, play it. else, if not blocked:
-            //Sort possible players by coop value (desc for miner, asc for saboteur)
-            //play most coop and value > 3 if miner
-            //play most uncoop and value < 3 if saboteur
-            //if nothing found or if blocked:
-            //find cards to swap
-            //swap worst cards, up to 3.
-
-            currentPlayer.setCard(card: possiblePathPlays[0].card)
-            placeCard(card: possiblePathPlays[0].card, cell: possiblePathPlays[0].cell)
-//        } else if posibeToolPlays.count != 0{
-//            currentPlayer.setCard(card: posibeToolPlays[0].card)
-//            playActionCard(player: posibeToolPlays[0].player, card: posibeToolPlays[0].card)
-        } else if deck.cards.count > 0{
-            //TODO: set least desireable card as playCard
-            print(computer.tools)
-            computer.playCard = computer.hand[0]
-            swapCard()
-        } else {
-            skipTurn()
+        if !played {
+            if deck.cards.count > 0{
+                //TODO: set least desireable card as playCard
+                print(computer.tools)
+                computer.playCard = computer.hand[0]
+                swapCard()
+            } else {
+                skipTurn()
+            }
         }
 
     }

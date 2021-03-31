@@ -175,7 +175,7 @@ enum toolStatus {
     case intact, broken
 }
 
-enum Role {
+enum Role: String {
     case miner, saboteur
 }
 
