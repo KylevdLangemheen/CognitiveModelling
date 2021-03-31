@@ -93,10 +93,10 @@ struct field: View {
     @State private var computersTurn = false
 
     var body: some View {
-
         ForEach(grid, id: \.self) { row in
             HStack{
                 ForEach(row) { cell in
+                    
                     CellView(cell: cell).onTapGesture {
                         if humanPlayer.playerStatus == .usingPathCard{
                             viewModel.placeCard(card: humanPlayer.playCard ,cell: cell)
