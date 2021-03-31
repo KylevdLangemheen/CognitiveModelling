@@ -251,6 +251,7 @@ struct opponentInfo: View {
             RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: 110)
             VStack {
                 Text(name).font(.largeTitle)
+                Text(player.role.rawValue)
                 HStack {
                     if tools.pickaxe == .intact {
                         Image("pickaxe_on")
