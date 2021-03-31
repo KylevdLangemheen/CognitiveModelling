@@ -45,12 +45,15 @@ class PlayingFieldViewModel: ObservableObject {
     }
     func placeCard(card: Card,cell: Cell) {
         objectWillChange.send()
-        return GameModel.placeCard(card: card,cell: cell)
+        let coopValue = GameModel.field.getCoopValue(card: card, cell: cell)
+        let card2Play = cardPlay(playType: .placeCard, card: card, cell: cell, coopValue: coopValue)
+        return GameModel.playTheCard(card2Play: card2Play)
     }
     
     func playActionCard(player: Player){
         objectWillChange.send()
-        return GameModel.playActionCard(player: player, card: humanPlayer.playCard)
+        let card2Play = cardPlay(playType: .toolModifier, card: humanPlayer.playCard, player: player, coopValue: 0)
+        return GameModel.playTheCard(card2Play: card2Play)
     }
     
     func setCard(card: Card, player: Player) {

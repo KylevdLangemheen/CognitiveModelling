@@ -193,7 +193,7 @@ struct Game {
                 }
             }
             if played {
-                playTheCard(card2Play: cardToPlay, by: currentPlayer)
+                playTheCard(card2Play: cardToPlay)
             } else {
                 //No card has been played. A card will need to be swapped.
                 print("No card has been played. Time to swap cards.")
@@ -315,19 +315,20 @@ struct Game {
 
     }
 
-    mutating func playTheCard(card2Play: cardPlay, by: Player) {
+    mutating func playTheCard(card2Play: cardPlay) {
+        let by = currentPlayer
         let card = card2Play.card
         by.setCard(card: card)
         let type = card2Play.playType
         if type == .toolModifier {
             print("Player \(by.name) is going to play a \(card.action.actionType) card against \(card2Play.player.name).")
-            playActionCard(player: card2Play.player, card: card)
             updateFromAction(from: by, to: card2Play.player, type: card.action.actionType)
+            playActionCard(player: card2Play.player, card: card)
         }
         if type == .placeCard {
             print("Player \(by.name) is going to play a path card.")
-            placeCard(card: card, cell: card2Play.cell)
             updateFromPath(by: by, coopVal: card.coopValue)
+            placeCard(card: card, cell: card2Play.cell)
         }
     }
 
@@ -346,7 +347,7 @@ struct Game {
 
     func updateFromPath(by: Player, coopVal: Float) {
         for player in players.computers {
-            print("Updating the beliefs of \(player.name)!")
+            print("Updating the beliefs of \(player.name) after \(by.name) played a path card!")
             let playerno = mapPlayerID(currentModel: player, ID: by.id)
             player.model.modifyLastAction(slot: "player", value: playerno)
             if coopVal > 3.6 {
@@ -362,6 +363,7 @@ struct Game {
 
     func updateFromAction(from: Player, to: Player, type: actionType) {
         for player in players.computers {
+            print("Updating the beliefs of \(player.name) after \(from.name) played an action card!")
             let fromplayer = mapPlayerID(currentModel: player, ID: from.id)
             let toplayer = mapPlayerID(currentModel: player, ID: to.id)
             player.model.modifyLastAction(slot: "from", value: fromplayer)
