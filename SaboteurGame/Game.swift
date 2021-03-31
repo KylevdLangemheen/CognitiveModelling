@@ -87,12 +87,8 @@ struct Game {
     mutating func computerPlay(computer: Player){
         var possiblePathPlays: Array<cardPlay> = []
         var posibeToolPlays: Array<cardPlay> = []
-        var possiblePlays: Array<cardPlay> = []
 
         for card in computer.hand {
-            if card.cardType == .path {
-                possiblePlays.append(contentsOf: field.getPosiblePathPlays(card: card))
-            }
             switch card.cardType{
                 case .path: if checkTools(tools: computer.tools) == .intact {
                     possiblePathPlays.append(contentsOf: field.getPosiblePathPlays(card: card))}
@@ -101,7 +97,6 @@ struct Game {
                     break
             }
         }
-        possiblePlays.shuffle()
         var played: Bool = false
         if possiblePathPlays.count != 0 || posibeToolPlays.count != 0 {
 
@@ -140,7 +135,7 @@ struct Game {
                 sortedKeyValues.remove(at: i)
             }
             var cardToPlay: cardPlay
-            if possiblePathPlays.count != 0 {cardToPlay = possiblePlays[0]}
+            if possiblePathPlays.count != 0 {cardToPlay = possiblePathPlays[0]}
             else {cardToPlay = posibeToolPlays[0]}
             //First, the model tries to repair itself
             for card in posibeToolPlays {
@@ -178,7 +173,7 @@ struct Game {
                 } else {
                     possiblePathPlays = possiblePathPlays.sorted(by: {$0.card.coopValue < $1.card.coopValue})
                 }
-                for card in possiblePlays {
+                for card in possiblePathPlays {
                     if computer.role == .miner {
                         if card.card.coopValue > minerThreshold {
                             played = true
