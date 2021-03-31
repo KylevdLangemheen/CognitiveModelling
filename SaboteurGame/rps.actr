@@ -2,22 +2,12 @@
 ;;;
 
 (add-dm
-    (ATTACK1 isa move player one role saboteur action attack)
-;;    (ATTACK2 isa move player two role saboteur action attack)
-;;    (ATTACK3 isa move player three role saboteur action attack)
-
-    (HELP1 isa move player one role miner action help)
-    (HELP2 isa move player two role miner action help)
-    (HELP3 isa move player three role miner action help)
-
-    (NEUTRAL isa genericmove player any role unknown action play)
-    (NEUTRAL1 isa move player one role unknown action play)
-    (NEUTRAL2 isa genericmove player two role unknown action play)
-    (NEUTRAL3 isa genericmove player three role unknown action play)
-
-    (r1 isa rimplication role unknown implication saboteur)
-    (r2 isa rimplication role miner implication saboteur)
-    (r3 isa rimplication role saboteur implication miner)
+    (r1 isa rimplication role unknown type break implication saboteur)
+    (r2 isa rimplication role miner type break implication saboteur)
+    (r3 isa rimplication role saboteur type break implication miner)
+    (r4 isa rimplication role unknown type repair implication unknown)
+    (r5 isa rimplication role miner type repair implication miner)
+    (r6 isa rimplication role saboteur type repair implication saboteur)
 
     (s0 isa restimate player zero role saboteur)
     (m0 isa restimate player zero role miner)
@@ -115,6 +105,72 @@
     =goal>
         isa goal
         state updatebelief
+==>
+    +goal>
+        isa goal
+        state start
+)
+
+(p imply-player-belief
+    =goal>
+        isa goal
+        state waiting
+    =action>
+        isa process
+        from =from
+        to =to
+        type =type
+==>
+    =goal>
+        state retrieverestimate
+        from =from
+        type =type
+    +retrieval>
+        isa restimate
+        player =to
+    -imaginal>
+    -action>
+)
+
+(p retrieve-role-estimate
+    =goal>
+        isa goal
+        state retrieverestimate
+        from =from
+        type =type
+    =retrieval>
+        isa restimate
+        role =r
+==>
+    =goal>
+        state retrieveimplication
+    +retrieval>
+        isa rimplication
+        role =r
+        type =type
+)
+
+(p update-implication
+    =goal>
+        isa goal
+        state retrieveimplication
+        from =from
+    =retrieval>
+        isa rimplication
+        implication =imp
+==>
+    =goal>
+        state updateimplication
+    +imaginal>
+        isa restimate
+        player =from
+        role =imp
+)
+
+(p restart-after-implication
+    =goal>
+        isa goal
+        state updateimplication
 ==>
     +goal>
         isa goal

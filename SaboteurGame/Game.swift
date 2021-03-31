@@ -322,6 +322,7 @@ struct Game {
         if type == .toolModifier {
             print("Player \(by.name) is going to play a \(card.action.actionType) card against \(card2Play.player.name).")
             playActionCard(player: card2Play.player, card: card)
+            updateFromAction(from: by, to: card2Play.player, type: card.action.actionType)
         }
         if type == .placeCard {
             print("Player \(by.name) is going to play a path card.")
@@ -345,6 +346,7 @@ struct Game {
 
     func updateFromPath(by: Player, coopVal: Float) {
         for player in players.computers {
+            print("Updating the beliefs of \(player.name)!")
             let playerno = mapPlayerID(currentModel: player, ID: by.id)
             player.model.modifyLastAction(slot: "player", value: playerno)
             if coopVal > 3.6 {
