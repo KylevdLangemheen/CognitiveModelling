@@ -14,8 +14,8 @@ struct Game {
     var players: Players
     var currentPlayer: Player
     var turnsNotPlayed: Int = 0
-    let minerThreshold: Float = 3
-    let saboteurThreshold: Float = 3
+    let minerThreshold: Float = 2
+    let saboteurThreshold: Float = 0
     let numOfComputer: Int = 2
 
     var gameStatus: gameStatus = .playing
@@ -174,20 +174,28 @@ struct Game {
             if !played {
                 //print("Model \(computer.name) is looking for a path card to play.")
                 if computer.role == .miner {
-                    possiblePathPlays = possiblePathPlays.sorted(by: {$0.card.coopValue > $1.card.coopValue})
+                    possiblePathPlays.sort {$0.coopValue > $1.coopValue}
                 } else {
-                    possiblePathPlays = possiblePathPlays.sorted(by: {$0.card.coopValue < $1.card.coopValue})
+                    possiblePathPlays.sort {$0.coopValue < $1.coopValue}
                 }
+                print("Possible path plays for \(computer.name) coop values:")
                 for card in possiblePathPlays {
+                    print(card.coopValue, terminator: " ")
+                }
+                print("")
+                for card in possiblePathPlays {
+                    print(card.coopValue)
                     if computer.role == .miner {
-                        if card.card.coopValue > minerThreshold {
+                        if card.coopValue > minerThreshold {
                             played = true
                             cardToPlay = card
+                            break
                         }
                     } else {
-                        if card.card.coopValue < saboteurThreshold {
+                        if card.coopValue < saboteurThreshold {
                             played = true
                             cardToPlay = card
+                            break
                         }
                     }
                 }
@@ -327,7 +335,7 @@ struct Game {
         }
         if type == .placeCard {
             print("Player \(by.name) is going to play a path card.")
-            updateFromPath(by: by, coopVal: card.coopValue)
+            updateFromPath(by: by, coopVal: card2Play.coopValue)
             placeCard(card: card, cell: card2Play.cell)
         }
     }
@@ -350,11 +358,14 @@ struct Game {
             print("Updating the beliefs of \(player.name) after \(by.name) played a path card!")
             let playerno = mapPlayerID(currentModel: player, ID: by.id)
             player.model.modifyLastAction(slot: "player", value: playerno)
-            if coopVal > 3.6 {
+            if coopVal > minerThreshold {
+                print("Role miner will be activated. \(coopVal)")
                 player.model.modifyLastAction(slot: "role", value: "miner")
-            } else if coopVal < 2.4 {
+            } else if coopVal < saboteurThreshold {
+                print("Role saboteur will be activated. \(coopVal)")
                 player.model.modifyLastAction(slot: "role", value: "saboteur")
             } else {
+                print("Role unknown will be activated. \(coopVal)")
                 player.model.modifyLastAction(slot: "role", value: "unknown")
             }
             player.model.run()
