@@ -178,11 +178,6 @@ struct Game {
                 } else {
                     possiblePathPlays.sort {$0.coopValue < $1.coopValue}
                 }
-                print("Possible path plays for \(computer.name) coop values:")
-                for card in possiblePathPlays {
-                    print(card.coopValue, terminator: " ")
-                }
-                print("")
                 for card in possiblePathPlays {
                     print(card.coopValue)
                     if computer.role == .miner {

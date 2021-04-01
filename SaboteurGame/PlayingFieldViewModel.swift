@@ -15,6 +15,7 @@ class PlayingFieldViewModel: ObservableObject {
         GameModel.field.grid
     }
     
+
     var deck: Deck {
         GameModel.deck
     }
@@ -49,6 +50,7 @@ class PlayingFieldViewModel: ObservableObject {
         let card2Play = cardPlay(playType: .placeCard, card: card, cell: cell, coopValue: coopValue)
         return GameModel.playTheCard(card2Play: card2Play)
     }
+    
     
     func playActionCard(player: Player){
         objectWillChange.send()

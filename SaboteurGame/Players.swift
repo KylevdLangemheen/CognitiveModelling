@@ -91,6 +91,13 @@ class Player: Identifiable {
         }
         model.loadModel(fileName: "rps")
         model.run()
+        for _ in 0..<3 {
+            model.dm.chunks["n0"]!.addReference()
+            model.dm.chunks["n1"]!.addReference()
+            model.dm.chunks["n2"]!.addReference()
+            model.dm.chunks["n3"]!.addReference()
+        }
+
     }
     
     func newCard(card: Card){
