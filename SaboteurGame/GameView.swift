@@ -35,10 +35,46 @@ struct GameView: View {
             if viewModel.gameStatus != .playing {
                 endGameView(viewModel: viewModel, gameStatus: viewModel.gameStatus, player: viewModel.currrentPlayer)
             }
+            if viewModel.currrentPlayer.type != .computer {
+                alertView(viewModel: viewModel, isPresented: true)
+            }
         }.navigationBarHidden(true)
-
+       
     }
 
+}
+
+
+
+struct alertView: View {
+    var viewModel: PlayingFieldViewModel
+    @State var isPresented: Bool
+    @Environment(\.presentationMode) var presentationMode
+    
+    var body: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 10.0).stroke(Color.black, lineWidth: 3).frame(width: 500, height: 250)
+            RoundedRectangle(cornerRadius: 10.0).fill(
+                LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0.004859850742, green: 0.09608627111, blue: 0.5749928951, alpha: 1)),Color(#colorLiteral(red: 0.5807225108, green: 0.066734083, blue: 0, alpha: 1))]), startPoint: .leading, endPoint: .trailing)
+            ).frame(width: 500, height: 250)
+            VStack {
+                Text("Game Info").font(.largeTitle).fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/).foregroundColor(Color(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0))).multilineTextAlignment(.center)
+                Button(action: {                    
+                    presentationMode.wrappedValue.dismiss()
+                }) {
+                    HStack {
+                        Text("Your turn!").font(.title).fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/).foregroundColor(Color(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0))).multilineTextAlignment(.center)
+                    }
+                    .frame(minWidth: 0, maxWidth: 240.0)
+                    .padding()
+                    .foregroundColor(.white)
+                    .background(LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0.4494178891, green: 0.3634631038, blue: 0.003429454286, alpha: 1)), Color(#colorLiteral(red: 0.979470551, green: 0.9008276463, blue: 0.006413663272, alpha: 1))]), startPoint: .leading, endPoint: .trailing)
+                                    )
+                    .cornerRadius(40)
+                }.padding(.top, 50)
+            }
+        }
+ }
 }
 
 
