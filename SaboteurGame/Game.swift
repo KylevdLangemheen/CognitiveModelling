@@ -8,15 +8,14 @@
 import Foundation
 
 struct Game {
-    var handSize: Int = 6
+    private var handSize: Int = 6
     var field: Field
     var deck: Deck
     var players: Players
     var currentPlayer: Player
-    var turnsNotPlayed: Int = 0
-    let minerThreshold: Float = 2
-    let saboteurThreshold: Float = 0
-    let numOfComputer: Int = 2
+    private let minerThreshold: Float = 2
+    private let saboteurThreshold: Float = 0
+    private let numOfComputer: Int = 2
 
     var gameStatus: gameStatus = .playing
 
@@ -52,23 +51,6 @@ struct Game {
         if currentPlayer.type == .computer {
             computerPlay(computer: currentPlayer)
         }
-    }
-
-    func playableActions(players: Array<Player>) -> Int {
-        var possiblePathPlays: Array<cardPlay> = []
-        var posibeToolPlays: Array<cardPlay> = []
-
-        for player in players {
-            for card in player.hand {
-                switch card.cardType{
-                case .path: if checkTools(tools: player.tools) == .intact {possiblePathPlays.append(contentsOf: field.getPosiblePathPlays(card: card))}
-                case .tool: posibeToolPlays.append(contentsOf: getPossibleToolPlays(card: card))
-                default:
-                    break
-                }
-            }
-        }
-        return posibeToolPlays.count + possiblePathPlays.count
     }
 
     mutating func endTurn() {
@@ -140,8 +122,8 @@ struct Game {
                 sortedKeyValues.remove(at: i)
             }
             var cardToPlay: cardPlay
-            if possiblePathPlays.count != 0 {cardToPlay = possiblePathPlays[0]}
-            else {cardToPlay = posibeToolPlays[0]}
+//            if possiblePathPlays.count != 0 {cardToPlay = possiblePathPlays[0]}
+//            else {cardToPlay = posibeToolPlays[0]}
             //First, the model tries to repair itself
             for card in posibeToolPlays {
                 let at = card.card.action.actionType
@@ -396,8 +378,10 @@ struct Game {
             }
         } else if currentPlayer.playerStatus != .usingPathCard{
             print("\(currentPlayer.type)'s status is not correct")
+
         } else {
             print("\(currentPlayer.type)'s tools are broken")
+            
         }
 
     }
@@ -429,6 +413,3 @@ struct Game {
 
 }
 
-enum gameStatus: String{
-    case playing, minersWin, saboteursWin
-}

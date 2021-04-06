@@ -120,7 +120,7 @@ struct playerHand: View {
             ForEach(hand, id: \.self) { card in
                 ZStack {
                     RoundedRectangle(cornerRadius: 10.0).fill(Color.white).frame(width: cardWidth, height: cardHeight)
-                    Image(card.cardContent)
+                    Image(card.cardImage)
                         .resizable()
                         .blendMode(.multiply)
                         .aspectRatio(contentMode: .fit)
@@ -251,7 +251,7 @@ struct opponentInfo: View {
             RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: 110)
             VStack {
                 Text(name).font(.largeTitle)
-                Text(player.role.rawValue)
+//                Text(player.role.rawValue)
                 HStack {
                     if tools.pickaxe == .intact {
                         Image("pickaxe_on")
@@ -283,12 +283,12 @@ struct opponentInfo: View {
 struct CellView: View {
     var cell: Cell
     var body: some View{
-        let cardWidth: CGFloat = 60.0
-        let cardHeight: CGFloat = 93.0
+        let cardWidth: CGFloat = 82.0
+        let cardHeight: CGFloat = 126.0
         ZStack {
             if cell.hasCard {
                 if cell.card.isFaceUp {
-                        Image(cell.card.cardContent)
+                        Image(cell.card.cardImage)
                             .resizable()
                             .blendMode(.multiply)
                             .aspectRatio(contentMode: .fit)
@@ -298,7 +298,7 @@ struct CellView: View {
                         .blendMode(.multiply)
                         .aspectRatio(contentMode: .fit)
                 }
-                Text("\(cell.card.coopValue)" as String).font(.largeTitle)
+//                Text("\(cell.card.coopValue)" as String).font(.title)
             } else {
                 RoundedRectangle(cornerRadius: 2).fill(Color.white)
                 RoundedRectangle(cornerRadius: 2.0).strokeBorder(style: StrokeStyle(lineWidth: 1, dash: [4])).frame(width: cardWidth, height: cardHeight)

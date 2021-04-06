@@ -11,12 +11,13 @@ struct Players {
     let handSize: Int
     var human: Player
     var computers: Array<Player> = []
-    var numberOfPlayers = 0
+    var numberOfPlayers = 2
     init(numOfComputers: Int, handSize: Int, deck: Deck) {
         self.handSize = handSize
         self.numberOfPlayers = numOfComputers + 1
         var roles: Array<Role> = Array(repeating: .miner, count: numberOfPlayers) + Array(repeating: .saboteur, count: 1)
         roles.shuffle()
+        
         
         var id = 0
         self.human = (Player(role: roles[id], id: id, deck: deck, handSize: handSize, type: .human, name: "Human"))
@@ -168,9 +169,6 @@ class Player: Identifiable {
     }
 }
 
-enum playerStatus {
-    case playing, waiting, usingActionCard, usingPathCard, usingToolCard
-}
 
 struct Tools {
     var pickaxe: toolStatus = .intact
@@ -178,21 +176,7 @@ struct Tools {
     var lamp: toolStatus = .intact
 }
 
-enum toolType {
-    case pickaxe, minecart, lamp
-}
-enum toolStatus {
-    case intact, broken
-}
 
-enum Role: String {
-    case miner, saboteur
-}
 
-enum playType {
-    case destroyCard, placeCard, toolModifier
-}
 
-enum playerType {
-    case computer, human
-}
+

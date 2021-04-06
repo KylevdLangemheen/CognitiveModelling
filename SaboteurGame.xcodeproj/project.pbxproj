@@ -12,6 +12,10 @@
 		0325B38825DD8FD6006BBBDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0325B38725DD8FD6006BBBDE /* Assets.xcassets */; };
 		0325B38B25DD8FD6006BBBDE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0325B38A25DD8FD6006BBBDE /* Preview Assets.xcassets */; };
 		0325B39525DD90F4006BBBDE /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0325B39425DD90F4006BBBDE /* Game.swift */; };
+		0347DA9A261748520013ED8A /* playerEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0347DA99261748520013ED8A /* playerEnums.swift */; };
+		0347DA9F261748C40013ED8A /* toolEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0347DA9E261748C40013ED8A /* toolEnums.swift */; };
+		0347DAA2261748E70013ED8A /* cardEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0347DAA1261748E70013ED8A /* cardEnums.swift */; };
+		0347DAA526175FBD0013ED8A /* gameEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0347DAA426175FBD0013ED8A /* gameEnums.swift */; };
 		03A0E73A260F6090005C7083 /* SlotAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A0E72B260F6090005C7083 /* SlotAction.swift */; };
 		03A0E73B260F6090005C7083 /* BufferCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A0E72C260F6090005C7083 /* BufferCondition.swift */; };
 		03A0E73C260F6090005C7083 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A0E72D260F6090005C7083 /* Model.swift */; };
@@ -45,6 +49,10 @@
 		0325B38A25DD8FD6006BBBDE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		0325B38C25DD8FD6006BBBDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0325B39425DD90F4006BBBDE /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		0347DA99261748520013ED8A /* playerEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = playerEnums.swift; sourceTree = "<group>"; };
+		0347DA9E261748C40013ED8A /* toolEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = toolEnums.swift; sourceTree = "<group>"; };
+		0347DAA1261748E70013ED8A /* cardEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cardEnums.swift; sourceTree = "<group>"; };
+		0347DAA426175FBD0013ED8A /* gameEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = gameEnums.swift; sourceTree = "<group>"; };
 		03A0E72B260F6090005C7083 /* SlotAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlotAction.swift; sourceTree = "<group>"; };
 		03A0E72C260F6090005C7083 /* BufferCondition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BufferCondition.swift; sourceTree = "<group>"; };
 		03A0E72D260F6090005C7083 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
@@ -108,6 +116,7 @@
 				FA74F555260795AA00A15BE3 /* StartPageView.swift */,
 				0325B39425DD90F4006BBBDE /* Game.swift */,
 				03A5929F25EE746B009B2A0F /* Players.swift */,
+				0347DA9C261748590013ED8A /* Enumerations */,
 				03C3ECB925ED374500A71642 /* Deck.swift */,
 				03C3ECBC25EE471B00A71642 /* Field.swift */,
 				03B1468025E64E1600371620 /* PlayingFieldViewModel.swift */,
@@ -124,6 +133,17 @@
 				0325B38A25DD8FD6006BBBDE /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		0347DA9C261748590013ED8A /* Enumerations */ = {
+			isa = PBXGroup;
+			children = (
+				0347DA99261748520013ED8A /* playerEnums.swift */,
+				0347DAA426175FBD0013ED8A /* gameEnums.swift */,
+				0347DA9E261748C40013ED8A /* toolEnums.swift */,
+				0347DAA1261748E70013ED8A /* cardEnums.swift */,
+			);
+			path = Enumerations;
 			sourceTree = "<group>";
 		};
 		03A0E72A260F6090005C7083 /* ACT-R */ = {
@@ -236,17 +256,21 @@
 				0325B39525DD90F4006BBBDE /* Game.swift in Sources */,
 				03A0E73B260F6090005C7083 /* BufferCondition.swift in Sources */,
 				FA74F556260795AA00A15BE3 /* StartPageView.swift in Sources */,
+				0347DA9F261748C40013ED8A /* toolEnums.swift in Sources */,
 				0325B38425DD8FD3006BBBDE /* SaboteurGameApp.swift in Sources */,
 				03A0E73E260F6090005C7083 /* Instantiation.swift in Sources */,
 				03A0E745260F6090005C7083 /* Parser.swift in Sources */,
 				03A0E73C260F6090005C7083 /* Model.swift in Sources */,
 				03A0E746260F6090005C7083 /* Declarative.swift in Sources */,
 				03A0E73F260F6090005C7083 /* Temporal.swift in Sources */,
+				0347DAA2261748E70013ED8A /* cardEnums.swift in Sources */,
+				0347DA9A261748520013ED8A /* playerEnums.swift in Sources */,
 				03A0E748260F6090005C7083 /* Production.swift in Sources */,
 				03A0E740260F6090005C7083 /* Vision.swift in Sources */,
 				03C3ECBD25EE471B00A71642 /* Field.swift in Sources */,
 				03B1468125E64E1600371620 /* PlayingFieldViewModel.swift in Sources */,
 				03A0E742260F6090005C7083 /* SlotCondition.swift in Sources */,
+				0347DAA526175FBD0013ED8A /* gameEnums.swift in Sources */,
 				03A0E743260F6090005C7083 /* BufferAction.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

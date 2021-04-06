@@ -15,7 +15,6 @@ class PlayingFieldViewModel: ObservableObject {
         GameModel.field.grid
     }
     
-
     var deck: Deck {
         GameModel.deck
     }

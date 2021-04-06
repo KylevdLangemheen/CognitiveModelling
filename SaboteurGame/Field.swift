@@ -8,14 +8,12 @@
 import Foundation
 
 class Field {
-    var columns: Int
-    var rows: Int
+    private var columns: Int
+    private var rows: Int
     var grid: Array<Array<Cell>> = [[]]
-    var paths: Array<Array<Int>> = [[]]
-    var startCell: Cell
-    var goalCells: Array<Cell> = []
-    var validCardPlacementCells: Array<Cell> = []
-    var depth: Int = 0
+    private var goalCells: Array<Cell> = []
+    private var validCardPlacementCells: Array<Cell> = []
+    private var depth: Int = 0
     
     init(columns: Int, rows: Int) {
         
@@ -47,7 +45,7 @@ class Field {
 
         // Place start card on the field
         grid[rows/2][columns-10].hasCard = true
-        grid[rows/2][columns-10].card = Card(isFaceUp: true, cardType: .start, cardContent: "PC41", sides: Sides(
+        grid[rows/2][columns-10].card = Card(isFaceUp: true, cardType: .start, cardImage: "PC41", sides: Sides(
                                                 top: pathType.connection,
                                                 right: pathType.connection,
                                                 bottom: pathType.connection,
@@ -55,7 +53,7 @@ class Field {
     
         
         // Set goal cells
-        self.startCell = grid[rows/2][columns-10]
+
         self.goalCells.append(grid[rows/2+2][columns-2])
         self.goalCells.append(grid[rows/2-2][columns-2])
         self.goalCells.append(grid[rows/2][columns-2])
@@ -425,7 +423,7 @@ func createGoalCards() -> Array<Card>{
     var goalCards: Array<Card> = []
     goalCards.append(Card(isFaceUp: false,
                           cardType: cardType.coal,
-                          cardContent: "PC43",
+                          cardImage: "PC43",
                           sides: Sides(
                             top: .connection,
                             right: .none,
@@ -434,7 +432,7 @@ func createGoalCards() -> Array<Card>{
                           id: 0,coopValue: 1.0))
     goalCards.append(Card(isFaceUp: false,
                           cardType: cardType.gold,
-                          cardContent: "PC42",
+                          cardImage: "PC42",
                           sides: Sides(
                               top: pathType.connection,
                               right: pathType.connection,
@@ -444,7 +442,7 @@ func createGoalCards() -> Array<Card>{
     goalCards.append(Card(
                         isFaceUp: false,
                         cardType: cardType.coal,
-                        cardContent: "PC44",
+                        cardImage: "PC44",
                         sides: Sides(
                             top: .none,
                             right: .none,
@@ -472,9 +470,7 @@ struct neighBours {
     var left: Cell
 }
 
-enum side {
-    case top, right, bottom, left
-}
+
 
 struct cardPlay {
     var playType: playType
@@ -482,16 +478,4 @@ struct cardPlay {
     var cell: Cell!
     var player: Player!
     var coopValue: Float
-    
-//    init(playType: playType, card: Card, player: Player!, cell: Cell!) {
-//        self.playType = playType
-//        self.card = card
-//        if playType == .placeCard {
-//            self.cell = cell
-//        } else {
-//            self.player = player
-//        }
-//        
-//        
-//    }
 }
