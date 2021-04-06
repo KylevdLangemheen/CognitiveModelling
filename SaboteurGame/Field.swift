@@ -67,7 +67,8 @@ class Field {
     
     
 
-    func placeCard(cell: Cell, card: Card) -> Bool {
+    func placeCard(cell: Cell, card: Card) -> Bool{
+        var result: Bool
         if validCardPlacement(cell: cell, sides: card.sides) {
             grid[cell.x][cell.y].card = card
             grid[cell.x][cell.y].card.coopValue = getCoopValue(card: card, cell: cell)
@@ -77,11 +78,14 @@ class Field {
                 depth = cell.x
             }
 //            print("Placed Card at cell \(cell.id)")
-            return true
+            result = true
+            return result
         } else {
             print("Did not place card, invalid move")
-            return false
+            result = false
+            return result
         }
+        
     }
     
     func removeCellFromValidCardPlacements(cell: Cell) {
