@@ -15,6 +15,10 @@ class PlayingFieldViewModel: ObservableObject {
         GameModel.field.grid
     }
     
+    var field: Field {
+        GameModel.field
+    }
+    
     var deck: Deck {
         GameModel.deck
     }
@@ -37,6 +41,7 @@ class PlayingFieldViewModel: ObservableObject {
     var gameStatus: gameStatus {
         return GameModel.gameStatus
     }
+   
     // MARK: Intent(s)
 
     func getComputerPlayerById(id: Int) -> Player {
@@ -44,10 +49,15 @@ class PlayingFieldViewModel: ObservableObject {
         return GameModel.getComputerPlayerById(id:id)
     }
     func placeCard(card: Card,cell: Cell) {
-        objectWillChange.send()
+        objectWillChange.send()        
         let coopValue = GameModel.field.getCoopValue(card: card, cell: cell)
         let card2Play = cardPlay(playType: .placeCard, card: card, cell: cell, coopValue: coopValue)
         return GameModel.playTheCard(card2Play: card2Play)
+     }
+    
+    func validCardPlacement(cell: Cell, sides: Sides) -> Bool {
+        objectWillChange.send()
+        return GameModel.field.validCardPlacement(cell: cell, sides: sides)
     }
     
     func playActionCard(player: Player){

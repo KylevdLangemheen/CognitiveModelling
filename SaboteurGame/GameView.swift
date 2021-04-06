@@ -6,9 +6,12 @@
 //
 
 import SwiftUI
+import PopupView
 
 struct GameView: View {
     @ObservedObject var viewModel: PlayingFieldViewModel
+    @State private var isInvalidPlay: Bool = true //
+    @State var invalidMoveText = "This is an invalid move"
     var body: some View {
         ZStack {
             VStack {
@@ -34,8 +37,11 @@ struct GameView: View {
             }
             if viewModel.gameStatus != .playing {
                 endGameView(viewModel: viewModel, gameStatus: viewModel.gameStatus, player: viewModel.currrentPlayer)
-            }
+            }            
         }.navigationBarHidden(true)
+        .popup(isPresented: $isInvalidPlay, type: .default , animation: .easeInOut, autohideIn: nil, closeOnTap: true, closeOnTapOutside: true, view: {
+            Toast(commonTextElement: $invalidMoveText)
+        })
 
     }
 
@@ -85,6 +91,47 @@ struct endGameView: View {
         
     }
 }
+
+struct Toast: View {
+    @Binding var commonTextElement: String
+    var body: some View {
+        ZStack {
+                RoundedRectangle(cornerRadius: 10.0).stroke(Color.black, lineWidth: 3).frame(width: 500, height: 250)
+                RoundedRectangle(cornerRadius: 10.0).fill(
+                    LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0.004859850742, green: 0.09608627111, blue: 0.5749928951, alpha: 1)),Color(#colorLiteral(red: 0.5807225108, green: 0.066734083, blue: 0, alpha: 1))]), startPoint: .leading, endPoint: .trailing)
+                ).frame(width:500, height: 250)
+                HStack {
+                    VStack {
+                        Image(systemName: "bell")
+                            .resizable()
+                            .frame(width: 35, height: 35, alignment: .center)
+                            .foregroundColor(Color.white)
+                            .padding()
+                        Text(commonTextElement)
+                            .foregroundColor(.white).font(.largeTitle)
+                        Button(action: {
+                                
+                        }) {
+                                HStack {
+                                    Text("Got it!").font(.title).fontWeight(.bold).foregroundColor(Color(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0))).multilineTextAlignment(.center)
+                                }
+                                .frame(minWidth: 0, maxWidth: 240.0)
+                                .padding()
+                                .foregroundColor(.white)
+                                .background(LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0.4494178891, green: 0.3634631038, blue: 0.003429454286, alpha: 1)), Color(#colorLiteral(red: 0.979470551, green: 0.9008276463, blue: 0.006413663272, alpha: 1))]), startPoint: .leading, endPoint: .trailing)
+                                                )
+                                .cornerRadius(40)
+                        }.padding(.top)
+                    }
+                }
+                .padding()
+        }
+        .cornerRadius(12)
+        .padding()
+        
+    }
+}
+
 struct field: View {
     var viewModel: PlayingFieldViewModel
     var humanPlayer: Player
@@ -125,7 +172,7 @@ struct playerHand: View {
                         .blendMode(.multiply)
                         .aspectRatio(contentMode: .fit)
                     if player.playCard != nil && player.playCard.id == card.id{
-                        RoundedRectangle(cornerRadius: 10.0).stroke(Color.green,lineWidth: 3).frame(width: cardWidth, height: cardHeight-10)
+                        RoundedRectangle(cornerRadius: 10.0).stroke(Color(#colorLiteral(red: 0.004859850742, green: 0.09608627111, blue: 0.5749928951, alpha: 1)),lineWidth: 3).frame(width: cardWidth, height: cardHeight-10)
 
                     }
                 }
@@ -248,7 +295,7 @@ struct opponentInfo: View {
     var body: some View {
         ZStack{
             RoundedRectangle(cornerRadius: 10.0).fill(Color.white)
-            RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: 110)
+            RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: 120)
             VStack {
                 Text(name).font(.largeTitle)
                 Text(player.role.rawValue)
