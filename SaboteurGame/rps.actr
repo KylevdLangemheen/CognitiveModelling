@@ -125,6 +125,7 @@
         state retrieverestimate
         from =from
         type =type
+        to =to
     +retrieval>
         isa restimate
         player =to
@@ -138,6 +139,7 @@
         state retrieverestimate
         from =from
         type =type
+        to =to
     =retrieval>
         isa restimate
         role =r
@@ -155,6 +157,8 @@
         isa goal
         state retrieveimplication
         from =from
+        type =type
+        to =to
     =retrieval>
         isa rimplication
         implication =imp
@@ -167,10 +171,64 @@
         role =imp
 )
 
-(p restart-after-implication
+(p imply-player-belief-to
     =goal>
         isa goal
         state updateimplication
+        from =from
+        type =type
+        to =to
+==>
+    =goal>
+        state retrieverestimateto
+    +retrieval>
+        isa restimate
+        player =from
+    -imaginal>
+    -action>
+)
+
+(p retrieve-role-estimate-to
+    =goal>
+        isa goal
+        state retrieverestimateto
+        from =from
+        type =type
+        to =to
+    =retrieval>
+        isa restimate
+        role =r
+==>
+    =goal>
+        state retrieveimplicationto
+    +retrieval>
+        isa rimplication
+        role =r
+        type =type
+)
+
+(p update-implication-to
+    =goal>
+        isa goal
+        state retrieveimplicationto
+        from =from
+        to =to
+    =retrieval>
+        isa rimplication
+        implication =imp
+==>
+    =goal>
+        state updateimplicationto
+    +imaginal>
+        isa restimate
+        player =to
+        role =imp
+)
+
+(p restart-after-implication
+    =goal>
+        isa goal
+        state updateimplicationto
 ==>
     +goal>
         isa goal
