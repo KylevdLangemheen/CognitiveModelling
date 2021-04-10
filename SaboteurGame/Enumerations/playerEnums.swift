@@ -18,3 +18,8 @@ enum playerStatus {
 enum Role: String {
     case miner, saboteur
 }
+
+struct Belief {
+    var role: String
+    var activation: Double
+}

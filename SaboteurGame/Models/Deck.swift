@@ -41,20 +41,20 @@ class Deck {
         self.crossShapedPathCardsCount = crossShapedPathCardsCount
 
 
-        var id: Int = 0
+        var id: Int = 1
 
         for _ in 0..<actionCardsCount {
-            cards.append(Card( cardType: .tool, action: Action(actionType: .breakTool, tool: .pickaxe), cardImage: "AC6" ,id: id,coopValue: 1.0) )
+            cards.append(Card( cardType: .tool, action: Action(actionType: .breakTool, tool: .pickaxe), cardImage: "AC6" ,id: id) )
             id += 1
-            cards.append(Card( cardType: .tool, action: Action(actionType: .breakTool, tool: .minecart), cardImage: "AC11",id: id,coopValue: 1.0) )
+            cards.append(Card( cardType: .tool, action: Action(actionType: .breakTool, tool: .minecart), cardImage: "AC11",id: id) )
             id += 1
-            cards.append(Card( cardType: .tool, action: Action(actionType: .breakTool, tool: .lamp), cardImage: "AC16",id: id,coopValue: 1.0) )
+            cards.append(Card( cardType: .tool, action: Action(actionType: .breakTool, tool: .lamp), cardImage: "AC16",id: id) )
             id += 1
-            cards.append(Card( cardType: .tool, action: Action(actionType: .repairTool, tool: .pickaxe), cardImage: "AC9",id: id,coopValue: 5.0) )
+            cards.append(Card( cardType: .tool, action: Action(actionType: .repairTool, tool: .pickaxe), cardImage: "AC9",id: id) )
             id += 1
-            cards.append(Card( cardType: .tool, action: Action(actionType: .repairTool, tool: .minecart), cardImage: "AC14",id: id,coopValue: 5.0) )
+            cards.append(Card( cardType: .tool, action: Action(actionType: .repairTool, tool: .minecart), cardImage: "AC14",id: id) )
             id += 1
-            cards.append(Card( cardType: .tool, action: Action(actionType: .repairTool, tool: .lamp), cardImage: "AC19",id: id,coopValue: 5.0) )
+            cards.append(Card( cardType: .tool, action: Action(actionType: .repairTool, tool: .lamp), cardImage: "AC19",id: id) )
             id += 1
         }
 
@@ -228,27 +228,20 @@ class Deck {
         cards.shuffle()
     }
 
-
-
     
     func drawCard() -> Card {
-        if self.cards.count != 0 {
-            return self.cards.popLast()!
-        } else {
-            return Card(cardType: cardType.path,id:0, coopValue: 0)
-        }
-
+        return self.cards.popLast()!
     }
 }
 
 struct Card: Hashable {
     var isFaceUp: Bool = true
-    var cardType: cardType
+    var cardType: cardType = .empty
     var action: Action!
     var cardImage: String = " "
     var sides: Sides! = Sides()
     var id: Int = 0
-    var coopValue: Float = 0.0
+    
 }
 
 struct Sides: Hashable {
@@ -257,6 +250,7 @@ struct Sides: Hashable {
     var bottom: pathType = .none
     var left: pathType = .none
 }
+
 
 
 struct Action: Hashable {

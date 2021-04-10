@@ -12,7 +12,7 @@ enum pathType {
 }
 
 enum cardType {
-    case gold, coal, tool, path, start
+    case gold, coal, tool, path, start, empty
 }
 
 enum actionType {
@@ -20,7 +20,7 @@ enum actionType {
 }
 
 enum playType {
-    case placeCard, toolModifier
+    case placeCard, toolModifier, swap, skip
 }
 
 enum side {

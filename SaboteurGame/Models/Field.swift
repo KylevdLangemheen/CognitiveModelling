@@ -49,7 +49,7 @@ class Field {
                                                 top: pathType.connection,
                                                 right: pathType.connection,
                                                 bottom: pathType.connection,
-                                                left: pathType.connection), id: 0, coopValue: 1.0)
+                                                left: pathType.connection), id: 0)
     
         
         // Set goal cells
@@ -68,22 +68,17 @@ class Field {
     
 
     func placeCard(cell: Cell, card: Card) -> Bool{
-        var result: Bool
         if validCardPlacement(cell: cell, sides: card.sides) {
             grid[cell.x][cell.y].card = card
-            grid[cell.x][cell.y].card.coopValue = getCoopValue(card: card, cell: cell)
             grid[cell.x][cell.y].hasCard = true
             updateValidCardPlacements(cell: cell,card: card)
             if cell.x > depth {
                 depth = cell.x
             }
-//            print("Placed Card at cell \(cell.id)")
-            result = true
-            return result
+            return true
         } else {
             print("Did not place card, invalid move")
-            result = false
-            return result
+            return false
         }
         
     }
@@ -221,7 +216,6 @@ class Field {
                 if (neighbours.top.card.sides.bottom == .connection){
                     openCard(cell: goalcell)
                     if goalcell.card.cardType == .gold {
-                        print ("Miners won!")
                         return true
                     }
                 }
@@ -230,7 +224,6 @@ class Field {
                 if (neighbours.right.card.sides.left == .connection) {
                     openCard(cell: goalcell)
                     if goalcell.card.cardType == .gold {
-                        print ("Miners won!")
                         return true
                     }
                 }
@@ -239,7 +232,6 @@ class Field {
                 if (neighbours.bottom.card.sides.top == .connection) {
                     openCard(cell: goalcell)
                     if goalcell.card.cardType == .gold {
-                        print ("Miners won!")
                         return true
                     }
                 }
@@ -248,7 +240,6 @@ class Field {
                 if (neighbours.left.card.sides.right == .connection) {
                     openCard(cell: goalcell)
                     if goalcell.card.cardType == .gold {
-                        print ("Miners won!")
                         return true
                     }
                 }
@@ -433,7 +424,7 @@ func createGoalCards() -> Array<Card>{
                             right: .none,
                             bottom: .none,
                             left: .connection),
-                          id: 0,coopValue: 1.0))
+                          id: 0))
     goalCards.append(Card(isFaceUp: false,
                           cardType: cardType.gold,
                           cardImage: "PC42",
@@ -442,7 +433,7 @@ func createGoalCards() -> Array<Card>{
                               right: pathType.connection,
                               bottom: pathType.connection,
                               left: pathType.connection),
-                          id: 0,coopValue: 1.0))
+                          id: 0))
     goalCards.append(Card(
                         isFaceUp: false,
                         cardType: cardType.coal,
@@ -452,7 +443,7 @@ func createGoalCards() -> Array<Card>{
                             right: .none,
                             bottom: .connection,
                             left: .connection)
-                        ,id: 0,coopValue: 1.0))
+                        ,id: 0))
     
     goalCards.shuffle()
     return goalCards
@@ -478,8 +469,9 @@ struct neighBours {
 
 struct cardPlay {
     var playType: playType
-    var card: Card
+    var card: Card!
     var cell: Cell!
-    var player: Player!
-    var coopValue: Float
+    var toPlayer: Player!
+    var fromPlayer: Player!
+    var coopValue: Float!
 }
