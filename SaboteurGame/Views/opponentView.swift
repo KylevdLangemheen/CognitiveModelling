@@ -23,9 +23,9 @@ struct opponentInfo: View {
         ZStack{
             
             RoundedRectangle(cornerRadius: 10.0).fill(Color.white)
-            RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: 120)
+            RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: 132)
             if currentPlayer.id == player.id {
-                RoundedRectangle(cornerRadius: 10.0).stroke(Color.green,lineWidth: 3).frame(height: 120)
+                RoundedRectangle(cornerRadius: 10.0).stroke(Color.green,lineWidth: 3).frame(height: 128)
                     .onAppear {
                         cardPlay = viewModel.play(player:player)
                         
@@ -77,11 +77,11 @@ struct opponentInfo: View {
             
 
             VStack {
-                HStack {
-                    ForEach(player.hand, id: \.self) { card in
-                        Text("\(card.id)" as String)
-                    }
-                }
+//                HStack {
+//                    ForEach(player.hand, id: \.self) { card in
+//                        Text("\(card.id)" as String)
+//                    }
+//                }
                 Text("\(player.name)" as String).font(.largeTitle)
                 Text("\(player.role)" as String)
                 

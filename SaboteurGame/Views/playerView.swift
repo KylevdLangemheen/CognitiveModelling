@@ -20,7 +20,7 @@ struct playerHand: View {
             ForEach(player.hand, id: \.self) { card in
                 ZStack {
                     if selectedCard.id == card.id {
-                        RoundedRectangle(cornerRadius: 10.0).stroke(Color.green, lineWidth: 3).frame(width: cardWidth, height: cardHeight)
+                        RoundedRectangle(cornerRadius: 10.0).stroke(Color(#colorLiteral(red: 0, green: 0.3285208941, blue: 0.5748849511, alpha: 1)), lineWidth: 3).frame(width: cardWidth, height: cardHeight)
                     }
                     RoundedRectangle(cornerRadius: 10.0).fill(Color.white).frame(width: cardWidth, height: cardHeight)
                     Image(card.cardImage)
@@ -60,7 +60,7 @@ struct playerInfo: View {
                     ZStack{
                         RoundedRectangle(cornerRadius: 10.0).fill(Color(#colorLiteral(red: 0, green: 0.3285208941, blue: 0.5748849511, alpha: 1))).frame(height: infoHeight)
                         RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: infoHeight)
-                        Text("Switch").font(.title).foregroundColor(Color(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)))
+                        Text("Swap").font(.title).foregroundColor(Color(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)))
                     }.onTapGesture {
 
                         let error = viewModel.swapCard(player: player)
