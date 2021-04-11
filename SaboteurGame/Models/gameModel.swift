@@ -1,8 +1,8 @@
 //
-//  playingField.swift
+//  gameModel.swift
 //  SaboteurGame
 //
-//  Created by Nico Buiten on 17/02/2021.
+//
 //
 
 import Foundation
@@ -12,16 +12,15 @@ struct gameModel {
     var field: Field
     var deck: Deck
     var human: Player
+    
+    var players: Array<Player> = []
     var computers: Array<Player> = []
     var currentPlayer: Player
-    private let minerThreshold: Float = 2
-    private let saboteurThreshold: Float = 0
-    var players: Array<Player> = []
+    
     var gameStatus: gameStatus = .playing
 
 
     init() {
-        //print("Initializing the game")
         self.field = Field(columns: 11, rows: 7)
         self.deck = Deck(actionCardsCount: 4,
                          deadEndCardsCount: 1,
@@ -35,7 +34,6 @@ struct gameModel {
         
         self.human = Player(role: .miner, id: 0, deck: deck, handSize: 6, type: .human, name: "Koen", field: field)
         self.currentPlayer = self.human
-//        self.currentPlayer.playerStatus = .playing
         
         createPlayers()
     }
@@ -49,7 +47,8 @@ struct gameModel {
         // Initialize role of human player
         human.role = roles.popLast() ?? .miner
         players.append(human)
-        // Initialze computers
+        
+        // Initialze simulated players
         var id = 1
         let computerNames = ["Bob", "Jenny"]
         for name in computerNames {
@@ -66,33 +65,33 @@ struct gameModel {
     }
     
     
-    mutating func play() {
+    mutating func allPlayersSkipped() -> Bool {
+        
+        // Check if the game is finished because noboby can or does not want to make a play
         if deck.cards.count == 0 {
-            //print("No more cards in deck")
             for player in players {
                 if !player.skipped {
-                    return
+                    return true
                 }
             }
-            //print("Saboteur won the game")
             endGame(winPlayer: .saboteur)
         
         }
+        return false
     }
 
     
     
     mutating func endTurn() {
-        if field.checkGoalPath() {
+        // If either the gold card is reached or all the players skipped, the game is finished
+        if field.checkGoalPath() || allPlayersSkipped(){
             endGame(winPlayer: currentPlayer.role)
         } else {
-
             nextPlayer()
-            play()
         }
     }
-
-
+    
+    // Gives the turn to the next player
     mutating func nextPlayer() {
         if currentPlayer.id != players.count - 1 {
             currentPlayer = getPlayerFromId(id: currentPlayer.id + 1 )
@@ -110,6 +109,7 @@ struct gameModel {
         return players[0]
     }
 
+    // Update the ACT-R models for the simulated from a play
     func updateModels(play: cardPlay){
         for player in players {
             if player.type != .human {
@@ -124,8 +124,11 @@ struct gameModel {
     
     }
     
+    // Update of an ACT-T model when a path card is played
     func updateFromPath(playerToUpdate: Player, play: cardPlay) {
-        //print("Updating the beliefs of \(playerToUpdate.name) after \(play.fromPlayer.name) played a path card!")
+        let minerThreshold: Float = 2
+        let saboteurThreshold: Float = 0
+        print("Updating the beliefs of \(playerToUpdate.name) after \(play.fromPlayer.name) played a path card!")
         let playerno = playerToUpdate.mapPlayerID(player: play.fromPlayer)
         playerToUpdate.model.modifyLastAction(slot: "player", value: playerno)
         if play.coopValue > minerThreshold {
@@ -142,8 +145,9 @@ struct gameModel {
         
     }
 
+    // Update of an ACT-T model when an action card is played
     func updateFromAction(playerToUpdate: Player, play: cardPlay) {
-        //print("Updating the beliefs of \(playerToUpdate.name) after \(play.fromPlayer.name) played an action card!")
+        print("Updating the beliefs of \(playerToUpdate.name) after \(play.fromPlayer.name) played an action card!")
         let fromPlayerModelId = playerToUpdate.mapPlayerID(player: play.fromPlayer)
         let toPlayerModelId = playerToUpdate.mapPlayerID(player: play.toPlayer)
         playerToUpdate.model.modifyLastAction(slot: "from", value: fromPlayerModelId)
@@ -158,26 +162,7 @@ struct gameModel {
         playerToUpdate.model.run()
     }
 
-
-
-    mutating func resetGame() {
-        //print("Initializing the game")
-        gameStatus = .playing
-        self.field = Field(columns: 11, rows: 7)
-        self.deck = Deck(actionCardsCount: 4,
-                         deadEndCardsCount: 1,
-                         horizontalLinePathCardsCount: 1,
-                         tShapedPathCardsCount: 1,
-                         rightCornerPathCardsCount: 1,
-                         leftCornerPathCardsCount: 1,
-                         verticalLinePathCardsCount: 1,
-                         rotatedTShapedPathCardsCount: 1,
-                         crossShapedPathCardsCount: 20)
-        createPlayers()
-        self.currentPlayer = human
-//        self.currentPlayer.playerStatus = .playing
-    }
-
+    // End the game by setting the gameStatus to a win for a certain role
     mutating func endGame(winPlayer: Role) {
         switch winPlayer {
         case .miner: gameStatus = .minersWin

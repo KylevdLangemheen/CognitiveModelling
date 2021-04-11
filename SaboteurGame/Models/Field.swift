@@ -337,8 +337,9 @@ class Field {
         // if 1: you stay on the same depth -> progressMuliplier = 1
         // if < 1: you regress -> progresMultiplier = x/depth decrease
         // if > 1: you progress -> ProgressMultiplier = 1.5 increase
-        var progressMultiplier = y/Float(depth)
-        if  progressMultiplier > 0 {progressMultiplier = 1.5}
+        var progressMultiplier: Float = 0
+        if  y/Float(depth) > 1 {progressMultiplier = y/Float(depth) * 1.5}
+        else {progressMultiplier = y/Float(depth)}
         
         let top = card.sides.top
         let right = card.sides.right
@@ -357,7 +358,7 @@ class Field {
         // Connection with card at top cell
         if  (neighBours.top.hasCard && top == .connection && neighBours.top.card.sides.bottom == .connection) {
             if (neighBours.right.hasCard) {
-                if neighBours.right.card.sides.left == .connection {coopValue += 3/4} // Connection from top to right path
+                if neighBours.right.card.sides.left == .connection {coopValue += 1/8} // Connection from top to right path
                 else {coopValue -= 1/4}// Connection from top to right dead end
             }else {coopValue += 1 * depthMultiplier * progressMultiplier} // Connection from top to right open field
 
@@ -367,16 +368,16 @@ class Field {
             } else {coopValue += 3/4} // Connection from top to bottom open field
 
             if neighBours.left.hasCard {
-                if neighBours.left.card.sides.right == .connection {coopValue += 1/4} // Connection from top to left path
+                if neighBours.left.card.sides.right == .connection {coopValue += 1/8} // Connection from top to left path
                 else {coopValue -= 1/4 } // Connection from top to left dead end
-            } else {coopValue += 1/4 * depthMultiplier * progressMultiplier} // Connection from top to left open field
+            } else {coopValue += 1/8     * depthMultiplier * progressMultiplier} // Connection from top to left open field
         }
 
         // Path connection with card at right cell
         if (neighBours.right.hasCard && right == .connection && neighBours.right.card.sides.left == .connection) {
             if !neighBours.top.hasCard {coopValue += 1/2 * depthMultiplier * progressMultiplier} // Connection from right to top open field
             if neighBours.bottom.hasCard {
-                if neighBours.bottom.card.sides.top == .connection {coopValue += 1/2} // Connection from right to bottom path
+                if neighBours.bottom.card.sides.top == .connection {coopValue += 1/8} // Connection from right to bottom path
                 else {coopValue -= 1/2} // Connection from right to bottom dead end
             } else {coopValue += 1/2} // Connection from right to bottom open field
 
@@ -391,9 +392,9 @@ class Field {
             if !neighBours.top.hasCard {coopValue += 1/2 * depthMultiplier * progressMultiplier} // Connection from bottom to top open field
             if !neighBours.right.hasCard {coopValue += 3/4 * depthMultiplier * progressMultiplier} // Connectino from bottom to right open field
             if neighBours.left.hasCard {
-                if neighBours.left.card.sides.right == .connection {coopValue += 1/4} // Connection from bottom to left path
+                if neighBours.left.card.sides.right == .connection {coopValue += 1/8} // Connection from bottom to left path
                 else {coopValue -= 1/4} // Connection from bottom to left dead end
-            } else {coopValue += 1/4 * depthMultiplier * progressMultiplier} // Connection from bottom to left open field
+            } else {coopValue += 1/8 * depthMultiplier * progressMultiplier} // Connection from bottom to left open field
             
         }
         

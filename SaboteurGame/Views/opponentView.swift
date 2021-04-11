@@ -83,7 +83,7 @@ struct opponentInfo: View {
                     }
                 }
                 Text("\(player.name)" as String).font(.largeTitle)
-                
+                Text("\(player.role)" as String)
                 
                 
                 

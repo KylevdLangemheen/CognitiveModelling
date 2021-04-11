@@ -27,7 +27,7 @@ class Model: Codable {
     var waitingForAction: Bool = false {
         didSet {
             if waitingForAction == true {
-            print("Posted Action notification")
+            //print("Posted Action notification")
             NotificationCenter.default.post(name: Notification.Name(rawValue: "Action"), object: nil)
             }
         }
@@ -104,7 +104,7 @@ class Model: Codable {
     func addToTrace(string s: String) {
         let timeString = String(format:"%.2f", time)
         trace += "\(timeString)  " + s + "\n"
-        print("\(timeString)  " + s)
+        //print("\(timeString)  " + s)
     }
     
     func clearTrace() {
@@ -116,17 +116,17 @@ class Model: Codable {
         let path = bundle.path(forResource: fname, ofType: "actr")!
         
         modelText = try! String(contentsOfFile: path, encoding: String.Encoding.utf8)
-        print("Got model text")
-        //        println("\(modelText)")
+        //print("Got model text")
+        //        //println("\(modelText)")
         self.reset()
 
         
         for (_,chunk) in dm.chunks {
-            print("\(chunk)")
+            //print("\(chunk)")
         }
-        print("")
+        //print("")
         for (_,prod) in procedural.productions {
-            print("\(prod)")
+            //print("\(prod)")
         }
     }
     
@@ -158,9 +158,9 @@ class Model: Codable {
             temporal.updateTimer()
             var inst: Instantiation?
             for (_,p) in procedural.productions {
-//                print("Trying \(p.name)")
+//                //print("Trying \(p.name)")
                 if let result = p.instantiate() {
-//                    print("Matching \(result.p.name) with utility \(result.u)")
+//                    //print("Matching \(result.p.name) with utility \(result.u)")
                     if inst == nil {
                         inst = result
                     } else if result.u > inst!.u {
@@ -172,15 +172,15 @@ class Model: Codable {
             time += 0.05
             if time > startTime + maxTime { return }
             if inst == nil {
-                print("waiting for temporal to do something")
+                //print("waiting for temporal to do something")
                 continue }
             addToTrace(string: "production \(inst!.p.name) fires")
-//            print("production \(inst!.p.name) fires")
+//            //print("production \(inst!.p.name) fires")
             inst!.p.fire(instantiation: inst!)
             //model.addToTrace("Goal after production\n\(goalchunk)")
             
             //        for (buffer,chunk) in buffers {
-            //            println("Buffer \(buffer) has chunk\n\(chunk)")
+            //            //println("Buffer \(buffer) has chunk\n\(chunk)")
             //        }
             var moduleLatency = 0.0
             if let retrievalQuery = buffers["retrieval"] {
@@ -192,10 +192,10 @@ class Model: Codable {
                     if retrieveResult != nil {
                         addToTrace(string: "Retrieving \(retrieveResult!.name)")
                         buffers["retrieval"] = retrieveResult!
-                        print("Retrieving \(retrieveResult!.name)")
+                        //print("Retrieving \(retrieveResult!.name)")
                     } else {
                         addToTrace(string: "Retrieval failure")
-                        print("Retrieval failure")
+                        //print("Retrieval failure")
                         buffers["retrieval"] = nil
                     }
                 }
@@ -239,7 +239,7 @@ class Model: Codable {
     }
     
     func run(step: Bool = false) {
-        print("Running model")
+        //print("Running model")
         if isValid {
             run(maxTime: 10000, step: step)
         }
@@ -257,31 +257,31 @@ class Model: Codable {
         do {
             try parser.parseModel()
         } catch Parser.ParserError.expected(what: let expected) {
-            print("\nExpected \(expected)")
+            //print("\nExpected \(expected)")
         } catch Parser.ParserError.unexpectedEOF {
-            print("\nUnexpected end-of-file")
+            //print("\nUnexpected end-of-file")
         } catch Parser.ParserError.notAChunk(name: let s) {
-            print("\n\(s) is not a chunk (yet).")
+            //print("\n\(s) is not a chunk (yet).")
         } catch Parser.ParserError.notANumber(s: let s) {
-            print("\n\(s) is not a number.")
+            //print("\n\(s) is not a number.")
         } catch Parser.ParserError.productionDoesNotExist(production: let s) {
-            print("\n\(s) is not a production.")
+            //print("\n\(s) is not a production.")
         } catch Parser.ParserError.unExpected(what: let w, but: let s) {
-            print("\nFound \(w) while expecting \(s)")
+            //print("\nFound \(w) while expecting \(s)")
         } catch Parser.ParserError.unknownActionBufferPrefix(character: let s) {
-            print("\n\(s) is not a known possible prefix for a buffer action (has to be +, = or -)")
+            //print("\n\(s) is not a known possible prefix for a buffer action (has to be +, = or -)")
         } catch Parser.ParserError.unknownBufferName(name: let s) {
-            print("\n\(s) is not a valid buffer name")
+            //print("\n\(s) is not a valid buffer name")
         } catch Parser.ParserError.unknownConditionBufferPrefix(character: let s) {
-            print("\n\(s) is not a known possible prefix for a buffer condition (has to be = or ?)")
+            //print("\n\(s) is not a known possible prefix for a buffer condition (has to be = or ?)")
         } catch {
-            print("\nUnknown error")
+            //print("\nUnknown error")
         }
         visual.reset()
         clearTrace()
         running = false
         waitingForAction = false
-        print("resetting model")
+        //print("resetting model")
     }
     
     /**

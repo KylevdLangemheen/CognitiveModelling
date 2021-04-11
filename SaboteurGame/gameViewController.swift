@@ -62,6 +62,7 @@ class gameViewController: ObservableObject {
         GameModel = gameModel()
     }
     func placeCard(cell: Cell) -> placeError{
+        print("\(currentPlayer.name) is placing a card")
         if (selectedCard.cardType == .empty){return .invalidStatus}
         let coopValue = GameModel.field.getCoopValue(card: selectedCard, cell: cell)
         let error = GameModel.currentPlayer.placeCard(card: selectedCard, cell: cell)
@@ -82,7 +83,8 @@ class gameViewController: ObservableObject {
     
     func play(player: Player) -> cardPlay{
         let cardPlay = player.play()
-        print("\(player.name) is playing a \(cardPlay.playType)")
+        
+        
         if cardPlay.playType == .skip {
             skipTurn(player: player)
         } else{
@@ -92,6 +94,7 @@ class gameViewController: ObservableObject {
     }
     
     func playActionCard(toPlayer: Player, fromPlayer: Player) -> toolPlayError{
+        print("\(fromPlayer.name) is playing a tool modifier againts \(toPlayer.name)")
         if currentPlayer.id != fromPlayer.id {return .notTurn}
         if selectedCard.cardType == .empty {return .invalidStatus}
         if selectedCard.cardType != .tool {return .invalidStatus}
@@ -108,6 +111,7 @@ class gameViewController: ObservableObject {
     }
     
     func swapCard(player: Player) -> swapPlayError {
+        print("\(player.name) is swapping a card")
         if currentPlayer.id != player.id {
             return .notTurn
         }
@@ -118,6 +122,7 @@ class gameViewController: ObservableObject {
     }
     
     func skipTurn(player: Player) -> skipPlayError{
+        print("\(player.name) is skipping a turn")
         if player.id != currentPlayer.id {
             return .notTurn
         } else {

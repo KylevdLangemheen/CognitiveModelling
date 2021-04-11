@@ -210,7 +210,7 @@ class Player: Identifiable {
                 model.modifyLastAction(slot: "playerno", value: playerno)
                 model.run()
                 let (role, activation) = model.lastAction(slot: "role")!
-//                print("Model \(name) believes \(player.name) is a \(role)")
+                print("Model \(name) believes \(player.name) is a \(role)")
                 playerBeliefs.append(Belief(role: role, activation: activation))
                 model.run()
             }
@@ -229,6 +229,7 @@ class Player: Identifiable {
             if checkTools(tools: tools) == .broken{
                 for play in possibleToolPlays {
                     if play.toPlayer.id == id {
+                        print("Repairing own tools")
                         return play
                     }
                 }
@@ -240,8 +241,10 @@ class Player: Identifiable {
                 for belief in playerBeliefs {
                     if  play.toPlayer.id != id {
                         if play.card.action.actionType == .repairTool && belief.role == role.rawValue{
+                            print("repairing of a fellow miner of saboteur")
                             return play
-                        } else if play.card.action.actionType == .breakTool && belief.role != role.rawValue {
+                        } else if play.card.action.actionType == .breakTool && (belief.role != role.rawValue && belief.role != "unknown") {
+                            print("breaking of a different role players tools")
                             return play
                         }
                     }
@@ -275,8 +278,8 @@ class Player: Identifiable {
 
     
     func mapPlayerID(player: Player) -> String {
-        if player.id == id {return "one"} // Itself
-        else if player.id == 0 {return "zero"} // Human
+        if player.id == id {return "zero"} // Itself
+        else if player.id == 0 {return "one"} // Human
         else {return "two"} // Other computer
     }
 
