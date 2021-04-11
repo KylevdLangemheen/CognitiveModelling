@@ -40,7 +40,7 @@ class Player: Identifiable {
         }
         
         if type == .computer {
-            model.loadModel(fileName: "rps")
+            model.loadModel(fileName: "player")
             model.run()
 
         }
@@ -110,8 +110,6 @@ class Player: Identifiable {
         }
     }
     
-
-
     func skipTurn() {
         if deck.cards.count == 0 {
             skipped = true
@@ -127,7 +125,6 @@ class Player: Identifiable {
                 return .invalidPlacement
             }
         } else {
-            print("\(name)'s tools are broken")
             return .toolsBroken
             
         }
@@ -157,27 +154,22 @@ class Player: Identifiable {
                         switch(card.action.tool, card.action.actionType){
                         case (.pickaxe , .breakTool): if player.tools.pickaxe == .intact && id != player.id {possiblePlays.append(cardPlay(playType: .toolModifier,
                                                                                                           card: card,
-                                                                                                          toPlayer: player,
-                                                                                                          coopValue: -5/2))}
+                                                                                                          toPlayer: player))}
                         case (.minecart , .breakTool): if player.tools.mineCart == .intact && id != player.id {possiblePlays.append(cardPlay(playType: .toolModifier,
                                                                                                            card: card,
-                                                                                                           toPlayer: player,
-                                                                                                           coopValue: -5/2))}
+                                                                                                           toPlayer: player))}
                         case (.lamp , .breakTool): if player.tools.lamp == .intact && id != player.id{possiblePlays.append(cardPlay(playType: .toolModifier,
                                                                                                           card: card,
-                                                                                                          toPlayer: player,
-                                                                                                          coopValue: -5/2))}
+                                                                                                          toPlayer: player))}
                         case (.pickaxe , .repairTool): if player.tools.pickaxe == .broken {possiblePlays.append(cardPlay(playType: .toolModifier,
                                                                                                            card: card,
-                                                                                                           toPlayer: player,
-                                                                                                           coopValue: 2.5))}
+                                                                                                           toPlayer: player))}
                         case (.minecart , .repairTool): if player.tools.mineCart == .broken {possiblePlays.append(cardPlay(playType: .toolModifier,
                                                                                                           card: card,
-                                                                                                          toPlayer: player,
-                                                                                                          coopValue: 2.5))}
+                                                                                                          toPlayer: player))}
                         case (.lamp , .repairTool): if player.tools.lamp == .broken {possiblePlays.append(cardPlay(playType: .toolModifier,
                                                                                                            card: card,
-                                                                                                           toPlayer: player, coopValue: 2.5))}
+                                                                                                           toPlayer: player))}
                         }
                         
                     }
@@ -190,6 +182,8 @@ class Player: Identifiable {
 
         var possiblePathPlays: Array<cardPlay> = []
         var possibleToolPlays: Array<cardPlay> = []
+        
+        // Retrieve all the possible plays
         possibleToolPlays = getPossibleToolPlays()
         if checkTools(tools: tools) == .intact {
             for card in hand {
@@ -197,10 +191,12 @@ class Player: Identifiable {
             }
         }
         
+        // Retrieve beliefs if there are cards which can be played and find the play which best matches the players role.
         if possiblePathPlays.count != 0 || possibleToolPlays.count != 0 {
             
             var playerBeliefs: Array<Belief> = []
             
+            // Retrieve beliefs about every opponent
             for player in players {
                 if player.id == id {
                     continue
@@ -254,6 +250,8 @@ class Player: Identifiable {
             if role == .miner {possiblePathPlays.sort {$0.coopValue > $1.coopValue}}
             else {possiblePathPlays.sort {$0.coopValue < $1.coopValue}}
 
+            // Check if there possible path cards which can be played
+            // are below or above the threhsold of the role of the player.
             for play in possiblePathPlays {
                 if role == .miner {
                     if play.coopValue > minerThreshold {
@@ -267,6 +265,9 @@ class Player: Identifiable {
             }
         }
         
+        // If there werer no valid path or tool plays,
+        // or the coopvalue did not correspond to the role,
+        // Swap a card if there are still cards in the deck, otherwise skip a turn.
         if deck.cards.count > 0 {
             return cardPlay(playType: .swap, card: hand[0])
         } else {
@@ -276,7 +277,7 @@ class Player: Identifiable {
 
     }
 
-    
+    // Maps the id of the player to the id of the player in the act-r model.
     func mapPlayerID(player: Player) -> String {
         if player.id == id {return "zero"} // Itself
         else if player.id == 0 {return "one"} // Human

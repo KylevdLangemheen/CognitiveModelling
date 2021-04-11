@@ -2,7 +2,7 @@
 //  Deck.swift
 //  SaboteurGame
 //
-//  Created by Nico Buiten on 01/03/2021.
+//  Created by Koen Buiten on 01/03/2021.
 //
 
 import Foundation

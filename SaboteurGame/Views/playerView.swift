@@ -2,7 +2,7 @@
 //  playerView.swift
 //  SaboteurGame
 //
-//  Created by Nico Buiten on 09/04/2021.
+//  Created by Koen Buiten on 09/04/2021.
 //
 
 import SwiftUI

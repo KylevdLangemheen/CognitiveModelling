@@ -34,8 +34,7 @@
 		03A0E746260F6090005C7083 /* Declarative.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A0E737260F6090005C7083 /* Declarative.swift */; };
 		03A0E747260F6090005C7083 /* Chunk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A0E738260F6090005C7083 /* Chunk.swift */; };
 		03A0E748260F6090005C7083 /* Production.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A0E739260F6090005C7083 /* Production.swift */; };
-		03A0E74C260F60AC005C7083 /* rps.actr in Resources */ = {isa = PBXBuildFile; fileRef = 03A0E74A260F60AB005C7083 /* rps.actr */; };
-		03A0E74D260F60AC005C7083 /* act-r_miner.actr in Resources */ = {isa = PBXBuildFile; fileRef = 03A0E74B260F60AB005C7083 /* act-r_miner.actr */; };
+		03A0E74D260F60AC005C7083 /* player.actr in Resources */ = {isa = PBXBuildFile; fileRef = 03A0E74B260F60AB005C7083 /* player.actr */; };
 		03A592A025EE746B009B2A0F /* Players.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A5929F25EE746B009B2A0F /* Players.swift */; };
 		03B1468125E64E1600371620 /* gameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B1468025E64E1600371620 /* gameViewController.swift */; };
 		03C3ECBA25ED374500A71642 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C3ECB925ED374500A71642 /* Deck.swift */; };
@@ -74,8 +73,7 @@
 		03A0E737260F6090005C7083 /* Declarative.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Declarative.swift; sourceTree = "<group>"; };
 		03A0E738260F6090005C7083 /* Chunk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chunk.swift; sourceTree = "<group>"; };
 		03A0E739260F6090005C7083 /* Production.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Production.swift; sourceTree = "<group>"; };
-		03A0E74A260F60AB005C7083 /* rps.actr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rps.actr; sourceTree = "<group>"; };
-		03A0E74B260F60AB005C7083 /* act-r_miner.actr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "act-r_miner.actr"; sourceTree = "<group>"; };
+		03A0E74B260F60AB005C7083 /* player.actr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = player.actr; sourceTree = "<group>"; };
 		03A5929F25EE746B009B2A0F /* Players.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Players.swift; sourceTree = "<group>"; };
 		03B1468025E64E1600371620 /* gameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = gameViewController.swift; sourceTree = "<group>"; };
 		03C3ECB925ED374500A71642 /* Deck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
@@ -116,8 +114,7 @@
 			children = (
 				03A0E72A260F6090005C7083 /* ACT-R */,
 				0325B38325DD8FD3006BBBDE /* SaboteurGameApp.swift */,
-				03A0E74B260F60AB005C7083 /* act-r_miner.actr */,
-				03A0E74A260F60AB005C7083 /* rps.actr */,
+				03A0E74B260F60AB005C7083 /* player.actr */,
 				03793D402621A2780051B1EA /* Views */,
 				03793D3F2621A25E0051B1EA /* Models */,
 				0347DA9C261748590013ED8A /* Enumerations */,
@@ -257,8 +254,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0325B38B25DD8FD6006BBBDE /* Preview Assets.xcassets in Resources */,
-				03A0E74D260F60AC005C7083 /* act-r_miner.actr in Resources */,
-				03A0E74C260F60AC005C7083 /* rps.actr in Resources */,
+				03A0E74D260F60AC005C7083 /* player.actr in Resources */,
 				0325B38825DD8FD6006BBBDE /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

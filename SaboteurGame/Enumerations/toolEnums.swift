@@ -2,7 +2,7 @@
 //  toolEnums.swift
 //  SaboteurGame
 //
-//  Created by Nico Buiten on 02/04/2021.
+//  Created by Koen Buiten on 02/04/2021.
 //
 
 import Foundation

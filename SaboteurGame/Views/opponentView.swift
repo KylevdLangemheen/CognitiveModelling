@@ -2,7 +2,7 @@
 //  opponentView.swift
 //  SaboteurGame
 //
-//  Created by Nico Buiten on 09/04/2021.
+//  Created by Koen Buiten on 09/04/2021.
 //
 
 import SwiftUI
@@ -22,7 +22,11 @@ struct opponentInfo: View {
         
         ZStack{
             
-            RoundedRectangle(cornerRadius: 10.0).fill(Color.white)
+            RoundedRectangle(cornerRadius: 10.0).fill(Color.white).onTapGesture {
+                if viewModel.playActionCard(toPlayer: player, fromPlayer: currentPlayer) == .succes {
+                    viewModel.endTurn()
+                }
+            }
             RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3).frame(height: 132)
             if currentPlayer.id == player.id {
                 RoundedRectangle(cornerRadius: 10.0).stroke(Color.green,lineWidth: 3).frame(height: 128)
@@ -77,40 +81,11 @@ struct opponentInfo: View {
             
 
             VStack {
-//                HStack {
-//                    ForEach(player.hand, id: \.self) { card in
-//                        Text("\(card.id)" as String)
-//                    }
-//                }
+
                 Text("\(player.name)" as String).font(.largeTitle)
-                Text("\(player.role)" as String)
                 
-                
-                
-                HStack {
-                    if tools.pickaxe == .intact {
-                        Image("pickaxe_on")
-                    } else {
-                        Image("pickaxe_off")
-                    }
-
-                    if tools.mineCart == .intact {
-                        Image("mineCart_on")
-                    } else {
-                        Image("mineCart_off")
-                    }
-
-                    if tools.lamp == .intact {
-                        Image("lamp_on")
-                    } else {
-                        Image("lamp_off")
-                    }
-                }.padding(.leading, 50)
+                toolView(tools: tools).padding(.leading, 50)
                 .padding(.trailing, 50)
-            }.onTapGesture {
-                if viewModel.playActionCard(toPlayer: player, fromPlayer: currentPlayer) == .succes {
-                    viewModel.endTurn()
-                }
             }
         }
     }

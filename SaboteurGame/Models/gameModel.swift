@@ -128,17 +128,13 @@ struct gameModel {
     func updateFromPath(playerToUpdate: Player, play: cardPlay) {
         let minerThreshold: Float = 2
         let saboteurThreshold: Float = 0
-        print("Updating the beliefs of \(playerToUpdate.name) after \(play.fromPlayer.name) played a path card!")
         let playerno = playerToUpdate.mapPlayerID(player: play.fromPlayer)
         playerToUpdate.model.modifyLastAction(slot: "player", value: playerno)
         if play.coopValue > minerThreshold {
-            //print("Role miner will be activated. \(String(describing: play.coopValue))")
             playerToUpdate.model.modifyLastAction(slot: "role", value: "miner")
         } else if play.coopValue < saboteurThreshold {
-            //print("Role saboteur will be activated. \(String(describing: play.coopValue))")
             playerToUpdate.model.modifyLastAction(slot: "role", value: "saboteur")
         } else {
-            //print("Role unknown will be activated. \(String(describing: play.coopValue))")
             playerToUpdate.model.modifyLastAction(slot: "role", value: "unknown")
         }
         playerToUpdate.model.run()

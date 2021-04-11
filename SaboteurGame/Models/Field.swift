@@ -2,7 +2,7 @@
 //  Grid.swift
 //  SaboteurGame
 //
-//  Created by Nico Buiten on 02/03/2021.
+//  Created by Koen Buiten on 02/03/2021.
 //
 
 import Foundation
@@ -335,8 +335,8 @@ class Field {
         
         // How far is you card compared to the furthest card, thus are you making progress
         // if 1: you stay on the same depth -> progressMuliplier = 1
-        // if < 1: you regress -> progresMultiplier = x/depth decrease
-        // if > 1: you progress -> ProgressMultiplier = 1.5 increase
+        // if < 1: you regress -> progresMultiplier = x/depth -> decrease of the coopvalue
+        // if > 1: you progress -> ProgressMultiplier = x/depth * 1.5 -> increase of the coopvalue
         var progressMultiplier: Float = 0
         if  y/Float(depth) > 1 {progressMultiplier = y/Float(depth) * 1.5}
         else {progressMultiplier = y/Float(depth)}
@@ -404,12 +404,7 @@ class Field {
             if !neighBours.right.hasCard {coopValue += 1 * depthMultiplier * progressMultiplier} // Connection from left to right open field
             if !neighBours.bottom.hasCard {coopValue += 1/2 * depthMultiplier * progressMultiplier} // Connection from left to bottom open field
         }
-        
-        
-//        coopValue *= progressMultiplier
-//        coopValue *= depthMultiplier
-//        print("depthMultiplier: \(depthMultiplier)" as String)
-//        print("progressMultiplier: \(progressMultiplier)" as String)
+    
         return coopValue
     }
 }

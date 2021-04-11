@@ -2,7 +2,7 @@
 //  fieldView.swift
 //  SaboteurGame
 //
-//  Created by Nico Buiten on 09/04/2021.
+//  Created by Koen Buiten on 09/04/2021.
 //
 
 import SwiftUI
@@ -11,7 +11,6 @@ struct field: View {
     var viewModel: gameViewController
     var grid: Array<Array<Cell>>
     var selectedCard: Card!
-//    @State private var placeCard = false
     var body: some View {
         ForEach(grid, id: \.self) { row in
             HStack{
@@ -29,8 +28,6 @@ struct placeCardView: View {
     var card: Card
     var cell: Cell
     var viewModel: gameViewController
-    
-
     @State var showCard = false
     
     var body: some View {

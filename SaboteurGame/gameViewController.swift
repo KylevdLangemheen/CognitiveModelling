@@ -2,7 +2,7 @@
 //  PlayingFieldModel.swift
 //  SaboteurGame
 //
-//  Created by Nico Buiten on 24/02/2021.
+//  Created by Koen Buiten on 24/02/2021.
 //
 
 import SwiftUI
@@ -10,14 +10,12 @@ import SwiftUI
 class gameViewController: ObservableObject {
     
     @Published private var GameModel: gameModel = gameModel()
-
     @Published var selectedCard = Card(cardType: .empty)
     
     func setSelectedCard(card: Card){
         selectedCard = card
-//        print("Set selected Card \(card.cardType)")
     }
-    // MARK: Acces to the model
+
     var grid: Array<Array<Cell>>{
         GameModel.field.grid
     }
@@ -46,21 +44,11 @@ class gameViewController: ObservableObject {
     var gameStatus: gameStatus {
         return GameModel.gameStatus
     }
-   
-//    var playCard: Card {
-//        GameModel.human.playCard
-//    }
-    // MARK: Intent(s)
-
-//    func getComputerPlayerById(id: Int) -> Player {
-//
-//        return GameModel.getComputerPlayerById(id:id)
-//    }
-//
     
     func resetGame() {
         GameModel = gameModel()
     }
+    
     func placeCard(cell: Cell) -> placeError{
         print("\(currentPlayer.name) is placing a card")
         if (selectedCard.cardType == .empty){return .invalidStatus}
@@ -94,7 +82,6 @@ class gameViewController: ObservableObject {
     }
     
     func playActionCard(toPlayer: Player, fromPlayer: Player) -> toolPlayError{
-        print("\(fromPlayer.name) is playing a tool modifier againts \(toPlayer.name)")
         if currentPlayer.id != fromPlayer.id {return .notTurn}
         if selectedCard.cardType == .empty {return .invalidStatus}
         if selectedCard.cardType != .tool {return .invalidStatus}
@@ -105,13 +92,11 @@ class gameViewController: ObservableObject {
             GameModel.updateModels(play: play)
             return error
         } else {
-            print("action card is not played, something went wrong")
             return error
         }
     }
     
     func swapCard(player: Player) -> swapPlayError {
-        print("\(player.name) is swapping a card")
         if currentPlayer.id != player.id {
             return .notTurn
         }
@@ -122,15 +107,11 @@ class gameViewController: ObservableObject {
     }
     
     func skipTurn(player: Player) -> skipPlayError{
-        print("\(player.name) is skipping a turn")
         if player.id != currentPlayer.id {
             return .notTurn
         } else {
             player.skipTurn()
             return .succes
         }
-        
     }
-
-
 }
